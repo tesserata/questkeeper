@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "questkeeper-render-sdk"
+version = "0.1.0"
+description = "Shared API contracts, DTO, protobuf"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Daria Silman daria.silman@gmail.com" }]
+dependencies = [
+  "pydantic>=2.7",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/qk_contracts"]
