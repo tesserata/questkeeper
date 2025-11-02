@@ -3,3 +3,7 @@ dist
 .whl
 .tar.gz
 *.excalidraw
+.venv
+/libs/*/uv.lock
+*.postman_collection.json
+.idea

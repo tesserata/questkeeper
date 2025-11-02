@@ -1,0 +1,161 @@
+syntax = "proto3";
+
+package questkeeper.events;
+
+import "google/protobuf/timestamp.proto";
+import "common.proto";
+import "enums.proto";
+import "sessions.proto";
+
+// ---------- Service ----------
+service EventService {
+  // GET /events/
+  rpc ListEvents(ListEventsRequest) returns (ListEventsResponse);
+
+  // POST /events/
+  rpc CreateEvent(CreateEventRequest) returns (EventResponse);
+  // GET /events/{event_id}
+  rpc GetEvent(GetEventRequest) returns (EventResponse);
+  // PATCH /events/{event_id}
+  rpc UpdateEvent(UpdateEventRequest) returns (EventResponse);
+  // DELETE /events/{event_id}
+  rpc DeleteEvent(DeleteEventRequest) returns (EventResponse);
+
+  // POST /events/{event_id}:publish
+  rpc PublishEvent(PublishEventRequest) returns (PublishEventResponse);
+  // POST /events/{event_id}:cancel
+  rpc CancelEvent(CancelEventRequest) returns (EventResponse);
+
+  // POST /events/{event_id}/sessions
+  rpc CreateSession(sessions.CreateSessionRequest) returns (sessions.SessionResponse);
+
+  // worker
+  rpc SetMessageId(SetMessageIdRequest) returns (EventResponse);
+}
+
+
+// create
+message CreateEventRequest {
+  common.RequestMeta meta = 1;
+  Event event = 2;
+}
+
+// read
+message GetEventRequest {
+  common.RequestMeta meta = 1;
+  string event_id = 2;
+}
+
+// delete
+message DeleteEventRequest {
+  common.RequestMeta meta = 1;
+  string event_id = 2;
+}
+
+// update
+message UpdateEventRequest {
+  common.RequestMeta meta = 1;
+  string event_id = 2;
+  uint64 expected_version = 3;
+
+  oneof patch {
+    UpdateBasics basics = 4;
+    UpdateSchedule schedule = 7;
+    UpdateSessions capacity = 8;
+  }
+}
+
+message UpdateBasics {
+  string title = 1;
+  string summary = 2;
+  enums.GameSystem system = 3;
+}
+
+message UpdateSchedule {
+  google.protobuf.Timestamp starts_at = 1;
+  google.protobuf.Timestamp ends_at = 2;
+}
+
+message UpdateSessions{
+  int32 capacity_main = 1;      // must be >= main_active_count
+}
+
+
+// publish
+message PublishEventRequest {
+  common.RequestMeta meta = 1;
+  string event_id = 2;
+}
+
+message PublishEventResponse {
+  Event event = 1;
+  string outbox_id = 2;
+}
+
+// cancel
+message CancelEventRequest {
+  common.RequestMeta meta = 1;
+  string event_id = 2;
+}
+
+// set message, worker-only
+message SetMessageIdRequest {
+  common.RequestMeta meta = 1;
+  string event_id = 2;
+  string message_id = 3;
+  uint64 expected_version = 4;   // optional safety
+}
+
+
+// get list
+message ListEventsRequest {
+  common.RequestMeta meta = 1;
+  string guild_id = 2;
+  int64 gm_user_id = 3;
+  int64 user_id = 4;
+  string system_id = 5;
+  string event_id = 6;
+
+  enums.EventStatus status = 7;
+  google.protobuf.Timestamp start = 8;
+  google.protobuf.Timestamp end = 9;
+
+  common.PageRequest page = 10;
+}
+
+message ListEventsResponse {
+  repeated Event items = 1;
+  common.Page page = 2;
+}
+
+
+// models
+message Event {
+  string event_id = 1;
+  string server_id = 2;
+  repeated string role_mentions = 5;
+
+  string title = 6;
+  string summary = 7;
+  enums.GameSystem system = 8;
+
+  google.protobuf.Timestamp starts_at = 9;
+  google.protobuf.Timestamp ends_at = 10;
+
+  string channel_id = 11;
+  string message_id = 12; // filled by worker post-publish
+
+  enums.EventStatus status = 13;
+
+  repeated sessions.Session sessions = 14;
+
+  common.VersionHeader version = 15;
+
+  google.protobuf.Timestamp created_at = 16;
+  google.protobuf.Timestamp updated_at = 17;
+}
+
+message EventResponse {
+  Event event = 1;
+  common.VersionHeader version = 2;
+}

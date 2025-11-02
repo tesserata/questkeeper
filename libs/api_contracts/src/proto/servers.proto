@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package questkeeper.servers;
+
+import "common.proto";
+import "enums.proto";
+
+// ---------- Service ----------
+service ServersService {
+  // GET /servers/{server_id}/settings
+  rpc GetServerSettings(GetServerSettingsRequest) returns (ServerSettingsResponse);
+  // PATCH /servers/{server_id}/settings
+  rpc UpdateServerSettings(UpdateServerSettingsRequest) returns (ServerSettingsResponse);
+
+  // GET /servers/{server_id}/roles
+  rpc GetRoleMapping(GetRoleMappingRequest) returns (RoleMappingResponse);
+  // PATCH /servers/{server_id}/roles
+  rpc UpdateRoleMapping(UpdateRoleMappingRequest) returns (RoleMappingResponse);
+}
+
+// ---------- server settings ----------
+
+// read
+
+message GetServerSettingsRequest {
+  common.RequestMeta meta = 1;
+  string server_id = 2;
+}
+
+// update
+
+message UpdateServerSettingsRequest {
+  common.RequestMeta meta = 1;
+  string server_id = 2;
+  ServerSettings update = 3;
+}
+
+
+// models
+
+message ServerSettings {
+  string server_id = 1;
+  string default_announcement_channel_id = 2;
+  enums.GameSystem default_system = 3;
+  bool dm_notifications_enabled = 4;
+  RoleMapping role_mapping = 5;
+  repeated string mentionable_roles = 6;
+}
+
+message ServerSettingsResponse {
+  ServerSettings settings = 1;
+  common.VersionHeader version = 2;
+}
+
+// ---------- roles mapping ----------
+
+// get
+
+message GetRoleMappingRequest {
+  common.RequestMeta meta = 1;
+  string server_id = 2;
+}
+
+// update
+
+message UpdateRoleMappingRequest {
+  common.RequestMeta meta = 1;
+  string server_id = 2;
+  RoleMapping mapping = 3;
+}
+
+// models
+
+message RoleMappingResponse {
+  string server_id = 1;
+  RoleMapping mapping = 2;
+  common.VersionHeader version = 3;
+}
+
+message RoleMapping {
+  map<string, enums.AppRole> map = 1;
+}

@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package questkeeper.signups;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+import "enums.proto";
+
+
+// ---------- Service ----------
+service SignupService {
+  // GET /sessions/{signup_id}/signups
+  rpc ListSignups(ListSignupsRequest) returns (ListSignupsResponse);
+
+  // POST /sessions/{signup_id}/signups
+  rpc CreateSignup(CreateSignupRequest) returns (SignupResponse);
+  // GET /sessions/{signup_id}/signups/{user_id}
+  rpc GetSignup(GetSignupRequest) returns (SignupResponse);
+  // PATCH /sessions/{signup_id}/signups/{user_id}
+  rpc UpdateSignup(UpdateSignupRequest) returns (SignupResponse);
+  // DELETE /sessions/{signup_id}/signups/{user_id}
+  rpc DeleteSignup(DeleteSignupRequest) returns (google.protobuf.Empty);
+}
+
+// create
+
+message CreateSignupRequest {
+  common.RequestMeta meta = 1;
+  Signup signup = 2;
+}
+
+// read
+
+message GetSignupRequest {
+  common.RequestMeta meta = 1;
+  string session_id = 2;
+  string signup_id = 3;
+}
+
+// delete
+
+message DeleteSignupRequest {
+  common.RequestMeta meta = 1;
+  string session_id = 2;
+  string signup_id = 3;
+}
+
+// update
+
+message UpdateSignupRequest {
+  common.RequestMeta meta = 1;
+  string session_id = 2;
+  string signup_id = 3;
+  uint64 expected_version = 4;
+
+  oneof patch {
+    UpdateCharacter character = 5;
+    UpdateSeat seat = 6;
+  }
+}
+
+message UpdateCharacter {
+  string character_id = 1;
+}
+
+message UpdateSeat {
+  enums.Seat seat = 1;
+}
+
+// get list
+
+message ListSignupsRequest {
+  common.RequestMeta meta = 1;
+  string session_id = 2;
+  enums.Seat seat = 3;
+
+  common.PageRequest page = 4;
+}
+
+message ListSignupsResponse {
+  repeated Signup items = 1;
+  common.Page page = 2;
+}
+
+// models
+
+message Signup {
+  string session_id = 1;
+  int64 user_id = 2;
+  string character_id = 3;
+  enums.Seat seat = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message SignupResponse {
+  Signup signup = 1;
+  common.VersionHeader version = 2;
+}

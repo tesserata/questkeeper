@@ -1,0 +1,34 @@
+// python -m grpc_tools.protoc -I src/proto --python_out=src/grpc --pyi_out=src/grpc --grpc_python_out=src/grpc --protobuf-to-pydantic_out=src/pydantic src/proto/*.proto
+syntax = "proto3";
+
+package questkeeper.common;
+
+import "google/protobuf/timestamp.proto";
+import "enums.proto";
+
+// Request wrappers
+message RequestMeta {
+  string request_id = 1;
+  string idempotency_key = 2;
+  string tenant_server_id = 3;
+  string user_id = 4;
+  repeated enums.AppRole app_roles = 5;
+  string if_none_match = 6;
+}
+
+message PageRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message Page {
+  string next_page_token = 1;
+  uint32 total_size = 2;
+}
+
+// Versioned view header for cache keys & weak ETags like W/"session:{id}:v{n}"
+message VersionHeader {
+  uint64 version = 1;
+  string weak_etag = 2;
+  google.protobuf.Timestamp updated_at = 3;
+}

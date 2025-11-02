@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package questkeeper.meta;
+
+service MetaService {
+  rpc Health(HealthRequest) returns (HealthResponse);
+  rpc Versions(VersionsRequest) returns (VersionsResponse);
+}
+
+message HealthRequest {}
+
+message HealthResponse { string status = 1; }
+
+message VersionsRequest {}
+
+message VersionsResponse {
+  map<string, string> components = 1;
+}

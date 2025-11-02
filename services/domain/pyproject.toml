@@ -6,5 +6,5 @@ build-backend = "hatchling.build"
 name = "questkeeper-domain"
 version = "0.1.0"
 description = "Domain service"
-requires-python = ">=3.12"
-dependencies = ["TBD"]
+requires-python = ">=3.13"
+dependencies = ["grpcio==1.76.0", "grpcio-tools==1.76.0", "protobuf==6.33.0"]
