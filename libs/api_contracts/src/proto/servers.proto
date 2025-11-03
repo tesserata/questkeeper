@@ -3,47 +3,38 @@ syntax = "proto3";
 package questkeeper.servers;
 
 import "common.proto";
-import "enums.proto";
 
-// ---------- Service ----------
+// --- service ---
 service ServersService {
-  // GET /servers/{server_id}/settings
   rpc GetServerSettings(GetServerSettingsRequest) returns (ServerSettingsResponse);
-  // PATCH /servers/{server_id}/settings
-  rpc UpdateServerSettings(UpdateServerSettingsRequest) returns (ServerSettingsResponse);
+  rpc EditServerSettings(EditServerSettingsRequest) returns (ServerSettingsResponse);
 
-  // GET /servers/{server_id}/roles
   rpc GetRoleMapping(GetRoleMappingRequest) returns (RoleMappingResponse);
-  // PATCH /servers/{server_id}/roles
   rpc UpdateRoleMapping(UpdateRoleMappingRequest) returns (RoleMappingResponse);
 }
 
-// ---------- server settings ----------
-
-// read
+// --- server settings ---
+// requests
 
 message GetServerSettingsRequest {
   common.RequestMeta meta = 1;
   string server_id = 2;
 }
 
-// update
-
-message UpdateServerSettingsRequest {
+message EditServerSettingsRequest {
   common.RequestMeta meta = 1;
   string server_id = 2;
   ServerSettings update = 3;
 }
-
 
 // models
 
 message ServerSettings {
   string server_id = 1;
   string default_announcement_channel_id = 2;
-  enums.GameSystem default_system = 3;
+  string default_system = 3;
   bool dm_notifications_enabled = 4;
-  RoleMapping role_mapping = 5;
+  map<string, string> role_mapping = 5;
   repeated string mentionable_roles = 6;
 }
 
@@ -52,31 +43,22 @@ message ServerSettingsResponse {
   common.VersionHeader version = 2;
 }
 
-// ---------- roles mapping ----------
-
-// get
+// --- roles mapping ---
+// requests
 
 message GetRoleMappingRequest {
-  common.RequestMeta meta = 1;
-  string server_id = 2;
+  string server_id = 1;
 }
-
-// update
 
 message UpdateRoleMappingRequest {
-  common.RequestMeta meta = 1;
-  string server_id = 2;
-  RoleMapping mapping = 3;
+  string server_id = 1;
+  map<string, string> mapping = 2;
 }
 
-// models
+// model
 
 message RoleMappingResponse {
   string server_id = 1;
-  RoleMapping mapping = 2;
+  map<string, string> mapping = 2;
   common.VersionHeader version = 3;
-}
-
-message RoleMapping {
-  map<string, enums.AppRole> map = 1;
 }

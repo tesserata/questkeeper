@@ -6,10 +6,9 @@ import typing
 
 from google.protobuf.message import Message  # type: ignore
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field
 
 from .common_p2p import RequestMeta, VersionHeader
-from .enums_p2p import AppRole, GameSystem
 
 
 class GetServerSettingsRequest(BaseModel):
@@ -17,17 +16,12 @@ class GetServerSettingsRequest(BaseModel):
     server_id: str = Field(default="")
 
 
-class RoleMapping(BaseModel):
-    map: "typing.Dict[str, AppRole]" = Field(default_factory=dict)
-
-
 class ServerSettings(BaseModel):
-    model_config = ConfigDict(validate_default=True)
     server_id: str = Field(default="")
     default_announcement_channel_id: str = Field(default="")
-    default_system: GameSystem = Field(default=0)
+    default_system: str = Field(default="")
     dm_notifications_enabled: bool = Field(default=False)
-    role_mapping: RoleMapping = Field(default_factory=RoleMapping)
+    role_mapping: "typing.Dict[str, str]" = Field(default_factory=dict)
     mentionable_roles: typing.List[str] = Field(default_factory=list)
 
 
@@ -43,17 +37,15 @@ class ServerSettingsResponse(BaseModel):
 
 
 class GetRoleMappingRequest(BaseModel):
-    meta: RequestMeta = Field(default_factory=RequestMeta)
     server_id: str = Field(default="")
 
 
 class UpdateRoleMappingRequest(BaseModel):
-    meta: RequestMeta = Field(default_factory=RequestMeta)
     server_id: str = Field(default="")
-    mapping: RoleMapping = Field(default_factory=RoleMapping)
+    mapping: "typing.Dict[str, str]" = Field(default_factory=dict)
 
 
 class RoleMappingResponse(BaseModel):
     server_id: str = Field(default="")
-    mapping: RoleMapping = Field(default_factory=RoleMapping)
+    mapping: "typing.Dict[str, str]" = Field(default_factory=dict)
     version: VersionHeader = Field(default_factory=VersionHeader)

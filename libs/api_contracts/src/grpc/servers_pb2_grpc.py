@@ -26,7 +26,7 @@ if _version_not_supported:
 
 
 class ServersServiceStub(object):
-    """---------- Service ----------
+    """--- service ---
     """
 
     def __init__(self, channel):
@@ -58,7 +58,7 @@ class ServersServiceStub(object):
 
 
 class ServersServiceServicer(object):
-    """---------- Service ----------
+    """--- service ---
     """
 
     def GetServerSettings(self, request, context):
@@ -121,7 +121,7 @@ def add_ServersServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class ServersService(object):
-    """---------- Service ----------
+    """--- service ---
     """
 
     @staticmethod

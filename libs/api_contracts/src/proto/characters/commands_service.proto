@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package questkeeper.characters.commands_service;
+
+import "google/protobuf/empty.proto";
+import "characters/models.proto";
+
+// --- domain commands service (write) ---
+service CharacterCommandService {
+  rpc CreateCharacter(models.CharacterInfo) returns (models.Character);
+  rpc EditName(EditNameRequest) returns (models.Character);
+  rpc EditSystem(EditSystemRequest) returns (models.Character);
+  rpc EditClass(EditClassRequest) returns (models.Character);
+  rpc EditRace(EditRaceRequest) returns (models.Character);
+  rpc EditLevel(EditLevelRequest) returns (models.Character);
+  rpc EditNotes(EditNotesRequest) returns (models.Character);
+  rpc DeleteCharacter(DeleteCharacterRequest) returns (google.protobuf.Empty);
+}
+
+// --- event commands ---
+
+// edit
+
+message EditNameRequest {
+  string character_id = 1;
+  string name = 2;
+
+  uint64 expected_version = 3;
+}
+
+message EditSystemRequest {
+  string character_id = 1;
+  string game_system = 2;
+
+  uint64 expected_version = 3;
+}
+
+message EditClassRequest {
+  string character_id = 1;
+  string class = 2;
+  string subclass = 3;
+
+  uint64 expected_version = 4;
+}
+
+message EditRaceRequest {
+  string character_id = 1;
+  string race = 2;
+
+  uint64 expected_version = 3;
+}
+
+message EditLevelRequest {
+  string character_id = 1;
+  int32 level = 2;
+
+  uint64 expected_version = 3;
+}
+
+message EditNotesRequest {
+  string character_id = 1;
+  string notes = 2;
+
+  uint64 expected_version = 3;
+}
+
+message DeleteCharacterRequest {
+  string character_id = 1;
+
+  uint64 expected_version = 2;
+}

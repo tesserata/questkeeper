@@ -1,7 +1,6 @@
 import datetime
 
 from google.protobuf import timestamp_pb2 as _timestamp_pb2
-import enums_pb2 as _enums_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
@@ -22,9 +21,9 @@ class RequestMeta(_message.Message):
     idempotency_key: str
     tenant_server_id: str
     user_id: str
-    app_roles: _containers.RepeatedScalarFieldContainer[_enums_pb2.AppRole]
+    app_roles: _containers.RepeatedScalarFieldContainer[str]
     if_none_match: str
-    def __init__(self, request_id: _Optional[str] = ..., idempotency_key: _Optional[str] = ..., tenant_server_id: _Optional[str] = ..., user_id: _Optional[str] = ..., app_roles: _Optional[_Iterable[_Union[_enums_pb2.AppRole, str]]] = ..., if_none_match: _Optional[str] = ...) -> None: ...
+    def __init__(self, request_id: _Optional[str] = ..., idempotency_key: _Optional[str] = ..., tenant_server_id: _Optional[str] = ..., user_id: _Optional[str] = ..., app_roles: _Optional[_Iterable[str]] = ..., if_none_match: _Optional[str] = ...) -> None: ...
 
 class PageRequest(_message.Message):
     __slots__ = ("page_size", "page_token")

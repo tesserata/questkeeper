@@ -1,14 +1,23 @@
 -- Enums
 -- depends: 00001-init
 
-CREATE DOMAIN questkeeper.game_system AS smallint
-  CHECK (VALUE IN (0,1,2,3));
+CREATE DOMAIN questkeeper.game_system AS varchar
+  CHECK (VALUE IN (
+    'Pathfinder 1E',
+    'Pathfinder 2E',
+    'D&D 5E',
+    'DSA 5E'
+  ));
 
-CREATE DOMAIN questkeeper.seat AS smallint
-  CHECK (VALUE IN (0,1));
+CREATE DOMAIN questkeeper.seat AS varchar
+  CHECK (VALUE IN ('Main','Reserve'));
 
-CREATE DOMAIN questkeeper.session_status AS smallint
-  CHECK (VALUE IN (0,1,2,3,4));
+CREATE DOMAIN questkeeper.schedule_status AS varchar
+  CHECK (VALUE IN ('Draft', 'Scheduled', 'Cancelled', 'Completed'));
 
-CREATE DOMAIN questkeeper.app_role AS smallint
-  CHECK (VALUE IN (0,1,2));
+CREATE DOMAIN questkeeper.app_role AS varchar
+  CHECK (VALUE IN (
+    'Server administrator',
+    'Game master',
+    'Player'
+  ));

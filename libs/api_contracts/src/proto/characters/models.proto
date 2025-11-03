@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package questkeeper.characters.models;
+
+import "google/protobuf/timestamp.proto";
+import "common.proto";
+
+
+// write input (client -> server)
+message CharacterInfo {
+  int64 user_id = 1;
+  string game_system = 2;
+
+  string name = 3;
+  string class = 4;
+  string subclass = 5;
+  int32 level = 6;
+  string race = 7;
+  string notes = 8;
+}
+
+// resource (server -> client)
+message Character {
+  string character_id = 1;
+  CharacterInfo info = 2;
+
+  common.VersionHeader version = 6;
+}
+
+// summary (UI-friendly projection)
+message CharacterSummary {
+  int64 user_id = 1;
+  string character_id = 2;
+
+  string name = 3;
+  string snippet = 4;
+
+  common.VersionHeader version = 5;
+}
+
+message PlayRecord {
+  string session_title = 1;
+  int64 gm_user_id = 2;
+  google.protobuf.Timestamp time = 3;
+
+  int64 server_id = 4;
+  int64 channel_id = 5;
+  int64 message_id = 6;
+
+  common.VersionHeader version = 7;
+}

@@ -4,7 +4,6 @@ syntax = "proto3";
 package questkeeper.common;
 
 import "google/protobuf/timestamp.proto";
-import "enums.proto";
 
 // Request wrappers
 message RequestMeta {
@@ -12,7 +11,7 @@ message RequestMeta {
   string idempotency_key = 2;
   string tenant_server_id = 3;
   string user_id = 4;
-  repeated enums.AppRole app_roles = 5;
+  repeated string app_roles = 5;
   string if_none_match = 6;
 }
 

@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package questkeeper.events.models;
+
+import "google/protobuf/timestamp.proto";
+import "common.proto";
+import "sessions/models.proto";
+
+
+// write input (client -> server)
+message EventInfo {
+  int64 server_id = 1;
+  string title = 2;
+  string summary = 3;
+  string system = 4;
+
+  string location = 5;
+  repeated string additional_links = 6;
+
+  google.protobuf.Timestamp time_start = 7;
+  google.protobuf.Timestamp time_end = 8;
+
+  repeated string role_mentions = 9;
+}
+
+// resource (server -> client)
+message Event {
+  string event_id = 1;
+  EventInfo info = 2;
+
+  int64 channel_id = 3;
+  int64 message_id = 4;
+  string status = 5;
+
+  common.VersionHeader version = 6;
+}
+
+// summary (UI-friendly projection)
+message EventSummary { // manual field selection to optimize data sent
+  string title = 1;
+  string game_system = 2;
+
+  string status = 3;
+  google.protobuf.Timestamp time_start = 4;
+  google.protobuf.Timestamp time_end = 5;
+
+  int64 server_id = 6;
+  int64 channel_id = 7;
+  int64 message_id = 8;
+
+  string event_id = 9;
+  common.VersionHeader version = 10;
+}
+
+// view (UI-friendly projection)
+message EventView {
+  Event event = 1;
+  int32 seats_taken = 2;
+  repeated sessions.models.SessionSummary sessions = 3;
+}

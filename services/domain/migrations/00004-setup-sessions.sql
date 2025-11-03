@@ -16,9 +16,8 @@ CREATE TABLE questkeeper.sessions (
   location            text,
   additional_links    text[] NOT NULL DEFAULT '{}',
 
-  starts_at           timestamptz NOT NULL,
+  `time`              timestamptz NOT NULL,
   duration_minutes    integer NOT NULL CHECK (duration_minutes >= 0),
-  timezone            text NOT NULL,
 
   capacity            integer NOT NULL CHECK (capacity >= 0),
 
@@ -28,7 +27,6 @@ CREATE TABLE questkeeper.sessions (
   status              questkeeper.session_status NOT NULL DEFAULT 0, -- DRAFT by default
 
   version             bigint NOT NULL DEFAULT 0,
-
   created_at          timestamptz NOT NULL DEFAULT now(),
   updated_at          timestamptz NOT NULL DEFAULT now()
 );

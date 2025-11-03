@@ -7,9 +7,7 @@ from datetime import datetime
 
 from google.protobuf.message import Message  # type: ignore
 
-from pydantic import BaseModel, ConfigDict, Field
-
-from .enums_p2p import AppRole
+from pydantic import BaseModel, Field
 
 
 class RequestMeta(BaseModel):
@@ -17,12 +15,11 @@ class RequestMeta(BaseModel):
     Request wrappers
     """
 
-    model_config = ConfigDict(validate_default=True)
     request_id: str = Field(default="")
     idempotency_key: str = Field(default="")
     tenant_server_id: str = Field(default="")
     user_id: str = Field(default="")
-    app_roles: typing.List[AppRole] = Field(default_factory=list)
+    app_roles: typing.List[str] = Field(default_factory=list)
     if_none_match: str = Field(default="")
 
 
