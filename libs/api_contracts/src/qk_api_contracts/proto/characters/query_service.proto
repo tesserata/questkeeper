@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package questkeeper.characters.query_service;
+
+import "common.proto";
+import "characters/models.proto";
+
+// --- queries service (read models/projections)
+service CharactersQuery {
+  rpc GetCharacter(GetCharacterRequest) returns (models.Character);
+  rpc GetCharacterSummary(GetCharacterRequest) returns (models.CharacterSummary);
+  rpc ListCharacters(ListCharactersRequest) returns (ListCharactersResponse);
+}
+
+// --- requests ---
+
+message GetCharacterRequest {
+  string event_id = 1;
+}
+
+message ListCharactersRequest {
+  int64 user_id = 1;
+  string system = 2;
+
+  common.PageRequest page = 6;
+}
+
+message ListCharactersResponse {
+  repeated models.CharacterSummary items = 1;
+  common.Page page = 2;
+}

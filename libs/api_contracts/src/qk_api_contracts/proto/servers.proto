@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package questkeeper.servers;
+
+// --- service ---
+service Servers {
+  rpc GetServerSettings(GetServerSettingsRequest) returns (ServerSettings);
+  rpc EditServerSettings(ServerSettings) returns (ServerSettings);
+
+  rpc GetRoleMapping(GetRoleMappingRequest) returns (RoleMapping);
+  rpc UpdateRoleMapping(RoleMapping) returns (RoleMapping);
+}
+
+// --- server settings ---
+// requests
+
+message GetServerSettingsRequest {
+  string server_id = 1;
+}
+
+
+// models
+
+message ServerSettings {
+  string server_id = 1;
+  string default_announcement_channel_id = 2;
+  string default_system = 3;
+  bool dm_notifications_enabled = 4;
+  map<string, string> role_mapping = 5;
+  repeated string mentionable_roles = 6;
+}
+
+
+// --- roles mapping ---
+// requests
+
+message GetRoleMappingRequest {
+  string server_id = 1;
+}
+
+// model
+
+message RoleMapping {
+  string server_id = 1;
+  map<string, string> mapping = 2;
+}

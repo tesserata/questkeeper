@@ -1,10 +1,6 @@
-[build-system]
-requires = ["hatchling>=1.25"]
-build-backend = "hatchling.build"
-
 [project]
 name = "questkeeper-worker"
 version = "0.1.0"
 description = "Worker"
 requires-python = ">=3.12"
-dependencies = ["TBD"]
+dependencies = []

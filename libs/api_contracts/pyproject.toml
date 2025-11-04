@@ -3,18 +3,10 @@ requires = ["hatchling>=1.25"]
 build-backend = "hatchling.build"
 
 [project]
-name = "questkeeper-render-sdk"
+name = "questkeeper-api-contracts"
 version = "0.1.0"
 description = "Shared API contracts, DTO, protobuf"
-requires-python = ">=3.13"
-license = { text = "MIT" }
-authors = [{ name = "Daria Silman daria.silman@gmail.com" }]
-dependencies = [
-  "grpcio==1.76.0",
-  "grpcio-tools==1.76.0",
-  "protobuf==6.33.0",
-  "pydantic>=2.12",
-]
+dependencies = []
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["src/qk_api_contracts"]
