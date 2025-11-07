@@ -7,7 +7,7 @@ import "common.proto";
 import "sessions/models.proto";
 
 // --- queries service (read models/projections)
-service SessionQuery {
+service SessionsQuery {
   rpc GetSession(GetSessionRequest) returns (models.Session);
   rpc GetSessionView(GetSessionRequest) returns (models.SessionView);
   rpc GetSessionSummary(GetSessionRequest) returns (models.SessionSummary);

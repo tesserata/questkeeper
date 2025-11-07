@@ -16,7 +16,7 @@ from qk_api_contracts.grpc.events.query_service_pb2 import (
 from qk_api_contracts.grpc.events.query_service_pb2_grpc import EventsQueryServicer
 
 
-class EventsService(EventsCommandsServicer):
+class EventsCommandsService(EventsCommandsServicer):
     async def CreateEvent(self, request: EventInfo, context: grpc.aio.ServicerContext) -> Event:
         pass
 

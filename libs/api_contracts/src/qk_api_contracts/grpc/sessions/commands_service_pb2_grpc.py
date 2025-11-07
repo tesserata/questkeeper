@@ -28,7 +28,7 @@ if _version_not_supported:
 
 
 class SessionCommandsStub(object):
-    """--- domain commands service (write) ---
+    """--- backend commands service (write) ---
     """
 
     def __init__(self, channel):
@@ -80,7 +80,7 @@ class SessionCommandsStub(object):
 
 
 class SessionCommandsServicer(object):
-    """--- domain commands service (write) ---
+    """--- backend commands service (write) ---
     """
 
     def CreateSession(self, request, context):
@@ -184,7 +184,7 @@ def add_SessionCommandsServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class SessionCommands(object):
-    """--- domain commands service (write) ---
+    """--- backend commands service (write) ---
     """
 
     @staticmethod

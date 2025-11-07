@@ -8,7 +8,7 @@ from qk_api_contracts.grpc.characters.commands_service_pb2 import (
     EditRaceRequest,
     EditSystemRequest,
 )
-from qk_api_contracts.grpc.characters.commands_service_pb2_grpc import CharacterCommandsServicer
+from qk_api_contracts.grpc.characters.commands_service_pb2_grpc import CharactersCommandsServicer
 from qk_api_contracts.grpc.characters.models_pb2 import Character, CharacterInfo, CharacterSummary
 from qk_api_contracts.grpc.characters.query_service_pb2 import (
     GetCharacterRequest,
@@ -18,7 +18,7 @@ from qk_api_contracts.grpc.characters.query_service_pb2 import (
 from qk_api_contracts.grpc.characters.query_service_pb2_grpc import CharactersQueryServicer
 
 
-class CharactersService(CharacterCommandsServicer):
+class CharactersCommandsService(CharactersCommandsServicer):
     async def CreateCharacter(
         self, request: CharacterInfo, context: grpc.aio.ServicerContext
     ) -> Character:

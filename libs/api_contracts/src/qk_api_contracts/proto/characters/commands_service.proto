@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 import "characters/models.proto";
 
 // --- domain commands service (write) ---
-service CharacterCommands {
+service CharactersCommands {
   rpc CreateCharacter(models.CharacterInfo) returns (models.Character);
   rpc EditName(EditNameRequest) returns (models.Character);
   rpc EditSystem(EditSystemRequest) returns (models.Character);

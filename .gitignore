@@ -7,3 +7,6 @@ dist
 /libs/*/uv.lock
 *.postman_collection.json
 .idea
+initdb
+.env
+__pycache__

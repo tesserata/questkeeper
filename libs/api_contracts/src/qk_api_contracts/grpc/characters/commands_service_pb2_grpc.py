@@ -27,8 +27,8 @@ if _version_not_supported:
     )
 
 
-class CharacterCommandsStub(object):
-    """--- domain commands service (write) ---
+class CharactersCommandsStub(object):
+    """--- backend commands service (write) ---
     """
 
     def __init__(self, channel):
@@ -38,49 +38,49 @@ class CharacterCommandsStub(object):
             channel: A grpc.Channel.
         """
         self.CreateCharacter = channel.unary_unary(
-                '/questkeeper.characters.commands_service.CharacterCommands/CreateCharacter',
+                '/questkeeper.characters.commands_service.CharactersCommands/CreateCharacter',
                 request_serializer=characters_dot_models__pb2.CharacterInfo.SerializeToString,
                 response_deserializer=characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditName = channel.unary_unary(
-                '/questkeeper.characters.commands_service.CharacterCommands/EditName',
+                '/questkeeper.characters.commands_service.CharactersCommands/EditName',
                 request_serializer=characters_dot_commands__service__pb2.EditNameRequest.SerializeToString,
                 response_deserializer=characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditSystem = channel.unary_unary(
-                '/questkeeper.characters.commands_service.CharacterCommands/EditSystem',
+                '/questkeeper.characters.commands_service.CharactersCommands/EditSystem',
                 request_serializer=characters_dot_commands__service__pb2.EditSystemRequest.SerializeToString,
                 response_deserializer=characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditClass = channel.unary_unary(
-                '/questkeeper.characters.commands_service.CharacterCommands/EditClass',
+                '/questkeeper.characters.commands_service.CharactersCommands/EditClass',
                 request_serializer=characters_dot_commands__service__pb2.EditClassRequest.SerializeToString,
                 response_deserializer=characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditRace = channel.unary_unary(
-                '/questkeeper.characters.commands_service.CharacterCommands/EditRace',
+                '/questkeeper.characters.commands_service.CharactersCommands/EditRace',
                 request_serializer=characters_dot_commands__service__pb2.EditRaceRequest.SerializeToString,
                 response_deserializer=characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditLevel = channel.unary_unary(
-                '/questkeeper.characters.commands_service.CharacterCommands/EditLevel',
+                '/questkeeper.characters.commands_service.CharactersCommands/EditLevel',
                 request_serializer=characters_dot_commands__service__pb2.EditLevelRequest.SerializeToString,
                 response_deserializer=characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditNotes = channel.unary_unary(
-                '/questkeeper.characters.commands_service.CharacterCommands/EditNotes',
+                '/questkeeper.characters.commands_service.CharactersCommands/EditNotes',
                 request_serializer=characters_dot_commands__service__pb2.EditNotesRequest.SerializeToString,
                 response_deserializer=characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.DeleteCharacter = channel.unary_unary(
-                '/questkeeper.characters.commands_service.CharacterCommands/DeleteCharacter',
+                '/questkeeper.characters.commands_service.CharactersCommands/DeleteCharacter',
                 request_serializer=characters_dot_commands__service__pb2.DeleteCharacterRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
 
 
-class CharacterCommandsServicer(object):
-    """--- domain commands service (write) ---
+class CharactersCommandsServicer(object):
+    """--- backend commands service (write) ---
     """
 
     def CreateCharacter(self, request, context):
@@ -132,7 +132,7 @@ class CharacterCommandsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_CharacterCommandsServicer_to_server(servicer, server):
+def add_CharactersCommandsServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateCharacter': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateCharacter,
@@ -176,14 +176,14 @@ def add_CharacterCommandsServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.characters.commands_service.CharacterCommands', rpc_method_handlers)
+            'questkeeper.characters.commands_service.CharactersCommands', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.characters.commands_service.CharacterCommands', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.characters.commands_service.CharactersCommands', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class CharacterCommands(object):
-    """--- domain commands service (write) ---
+class CharactersCommands(object):
+    """--- backend commands service (write) ---
     """
 
     @staticmethod
@@ -200,7 +200,7 @@ class CharacterCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.commands_service.CharacterCommands/CreateCharacter',
+            '/questkeeper.characters.commands_service.CharactersCommands/CreateCharacter',
             characters_dot_models__pb2.CharacterInfo.SerializeToString,
             characters_dot_models__pb2.Character.FromString,
             options,
@@ -227,7 +227,7 @@ class CharacterCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.commands_service.CharacterCommands/EditName',
+            '/questkeeper.characters.commands_service.CharactersCommands/EditName',
             characters_dot_commands__service__pb2.EditNameRequest.SerializeToString,
             characters_dot_models__pb2.Character.FromString,
             options,
@@ -254,7 +254,7 @@ class CharacterCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.commands_service.CharacterCommands/EditSystem',
+            '/questkeeper.characters.commands_service.CharactersCommands/EditSystem',
             characters_dot_commands__service__pb2.EditSystemRequest.SerializeToString,
             characters_dot_models__pb2.Character.FromString,
             options,
@@ -281,7 +281,7 @@ class CharacterCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.commands_service.CharacterCommands/EditClass',
+            '/questkeeper.characters.commands_service.CharactersCommands/EditClass',
             characters_dot_commands__service__pb2.EditClassRequest.SerializeToString,
             characters_dot_models__pb2.Character.FromString,
             options,
@@ -308,7 +308,7 @@ class CharacterCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.commands_service.CharacterCommands/EditRace',
+            '/questkeeper.characters.commands_service.CharactersCommands/EditRace',
             characters_dot_commands__service__pb2.EditRaceRequest.SerializeToString,
             characters_dot_models__pb2.Character.FromString,
             options,
@@ -335,7 +335,7 @@ class CharacterCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.commands_service.CharacterCommands/EditLevel',
+            '/questkeeper.characters.commands_service.CharactersCommands/EditLevel',
             characters_dot_commands__service__pb2.EditLevelRequest.SerializeToString,
             characters_dot_models__pb2.Character.FromString,
             options,
@@ -362,7 +362,7 @@ class CharacterCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.commands_service.CharacterCommands/EditNotes',
+            '/questkeeper.characters.commands_service.CharactersCommands/EditNotes',
             characters_dot_commands__service__pb2.EditNotesRequest.SerializeToString,
             characters_dot_models__pb2.Character.FromString,
             options,
@@ -389,7 +389,7 @@ class CharacterCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.commands_service.CharacterCommands/DeleteCharacter',
+            '/questkeeper.characters.commands_service.CharactersCommands/DeleteCharacter',
             characters_dot_commands__service__pb2.DeleteCharacterRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,

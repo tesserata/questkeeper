@@ -3,9 +3,9 @@ requires = ["hatchling>=1.25"]
 build-backend = "hatchling.build"
 
 [project]
-name = "questkeeper-domain"
+name = "questkeeper-backend"
 version = "0.1.0"
-description = "Domain service"
+description = "Backend domain service"
 requires-python = ">=3.13"
 dependencies = []
 

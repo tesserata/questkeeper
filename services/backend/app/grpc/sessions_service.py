@@ -28,7 +28,7 @@ from qk_api_contracts.grpc.sessions.query_service_pb2 import (
     ListSessionsRequest,
     ListSessionsResponse,
 )
-from qk_api_contracts.grpc.sessions.query_service_pb2_grpc import SessionQueryServicer
+from qk_api_contracts.grpc.sessions.query_service_pb2_grpc import SessionsQueryServicer
 
 
 class SessionsCommandsService(SessionCommandsServicer):
@@ -91,7 +91,7 @@ class SignupsCommandsService(SignupCommandsServicer):
         pass
 
 
-class SessionsQueryService(SessionQueryServicer):
+class SessionsQueryService(SessionsQueryServicer):
     async def GetSession(
         self, request: GetSessionRequest, context: grpc.aio.ServicerContext
     ) -> Session:

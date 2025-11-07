@@ -1,4 +1,4 @@
-// python -m grpc_tools.protoc -I src/proto --python_out=src/grpc --pyi_out=src/grpc --grpc_python_out=src/grpc --protobuf-to-pydantic_out=src/pydantic src/proto/*.proto
+// python -m grpc_tools.protoc   -I src/qk_api_contracts/proto   --python_out=src/qk_api_contracts/grpc   --pyi_out=src/qk_api_contracts/grpc   --grpc_python_out=src/qk_api_contracts/grpc   --protobuf-to-pydantic_out=src/qk_api_contracts/pydantic   src/qk_api_contracts/proto/*.proto src/qk_api_contracts/proto/*/*.proto
 syntax = "proto3";
 
 package questkeeper.common;
