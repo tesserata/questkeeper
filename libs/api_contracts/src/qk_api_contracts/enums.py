@@ -14,7 +14,7 @@ class GameSystem(StrEnum):
     DSA_5 = "DSA 5E"
 
 
-class Seat(StrEnum):
+class SignupRole(StrEnum):
     MAIN = "Main"
     RESERVE = "Reserve"
 

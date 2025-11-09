@@ -11,13 +11,15 @@ dependencies = [
     "grpcio==1.76.0",
     "grpcio-tools==1.76.0",
     "httpx>=0.28.1",
-    "protobuf==6.33.0",
+    "loguru>=0.7.3",
+    "protobuf>=6.33.0",
     "psycopg>=3.2.12",
     "psycopg-binary>=3.2.12",
     "pydantic>=2.12.3",
     "pydantic-settings>=2.11.0",
     "questkeeper-api-contracts",
     "questkeeper-render-sdk",
+    "redis>=7.0.1",
     "sqlalchemy[asyncio]>=2.0.44",
 ]
 

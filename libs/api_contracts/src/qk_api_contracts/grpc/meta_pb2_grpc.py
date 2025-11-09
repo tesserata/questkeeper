@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-import meta_pb2 as meta__pb2
+from qk_api_contracts.grpc import meta_pb2 as qk__api__contracts_dot_grpc_dot_meta__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -18,7 +18,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in meta_pb2_grpc.py depends on'
+        + ' but the generated code in qk_api_contracts/grpc/meta_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -36,13 +36,13 @@ class MetaStub(object):
         """
         self.Health = channel.unary_unary(
                 '/questkeeper.meta.Meta/Health',
-                request_serializer=meta__pb2.HealthRequest.SerializeToString,
-                response_deserializer=meta__pb2.HealthResponse.FromString,
+                request_serializer=qk__api__contracts_dot_grpc_dot_meta__pb2.HealthRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_meta__pb2.HealthResponse.FromString,
                 _registered_method=True)
         self.Versions = channel.unary_unary(
                 '/questkeeper.meta.Meta/Versions',
-                request_serializer=meta__pb2.VersionsRequest.SerializeToString,
-                response_deserializer=meta__pb2.VersionsResponse.FromString,
+                request_serializer=qk__api__contracts_dot_grpc_dot_meta__pb2.VersionsRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_meta__pb2.VersionsResponse.FromString,
                 _registered_method=True)
 
 
@@ -66,13 +66,13 @@ def add_MetaServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Health': grpc.unary_unary_rpc_method_handler(
                     servicer.Health,
-                    request_deserializer=meta__pb2.HealthRequest.FromString,
-                    response_serializer=meta__pb2.HealthResponse.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_meta__pb2.HealthRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_meta__pb2.HealthResponse.SerializeToString,
             ),
             'Versions': grpc.unary_unary_rpc_method_handler(
                     servicer.Versions,
-                    request_deserializer=meta__pb2.VersionsRequest.FromString,
-                    response_serializer=meta__pb2.VersionsResponse.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_meta__pb2.VersionsRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_meta__pb2.VersionsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -100,8 +100,8 @@ class Meta(object):
             request,
             target,
             '/questkeeper.meta.Meta/Health',
-            meta__pb2.HealthRequest.SerializeToString,
-            meta__pb2.HealthResponse.FromString,
+            qk__api__contracts_dot_grpc_dot_meta__pb2.HealthRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_meta__pb2.HealthResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -127,8 +127,8 @@ class Meta(object):
             request,
             target,
             '/questkeeper.meta.Meta/Versions',
-            meta__pb2.VersionsRequest.SerializeToString,
-            meta__pb2.VersionsResponse.FromString,
+            qk__api__contracts_dot_grpc_dot_meta__pb2.VersionsRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_meta__pb2.VersionsResponse.FromString,
             options,
             channel_credentials,
             insecure,

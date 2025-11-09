@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package questkeeper.events.query_service;
+package questkeeper.events;
 
 import "google/protobuf/timestamp.proto";
-import "common.proto";
-import "events/models.proto";
+import "qk_api_contracts/grpc/common.proto";
+import "qk_api_contracts/grpc/events/models.proto";
 
 // --- queries service (read models/projections)
 service EventsQuery {

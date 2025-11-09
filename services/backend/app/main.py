@@ -2,6 +2,7 @@ import asyncio
 import signal
 
 import grpc
+from loguru import logger
 from qk_api_contracts.grpc.characters.commands_service_pb2_grpc import (
     add_CharactersCommandsServicer_to_server,
 )
@@ -15,6 +16,7 @@ from qk_api_contracts.grpc.events.query_service_pb2_grpc import add_EventsQueryS
 from qk_api_contracts.grpc.servers_pb2_grpc import add_ServersServicer_to_server
 from qk_api_contracts.grpc.sessions.commands_service_pb2_grpc import (
     add_SessionCommandsServicer_to_server,
+    add_SignupCommandsServicer_to_server,
 )
 from qk_api_contracts.grpc.sessions.query_service_pb2_grpc import (
     add_SessionsQueryServicer_to_server,
@@ -25,7 +27,9 @@ from app.core.config import CONFIG
 from app.grpc.characters_service import CharactersCommandsService, CharactersQueryService
 from app.grpc.events_service import EventsCommandsService, EventsQueryService
 from app.grpc.servers_service import ServersService
-from app.grpc.sessions_service import SessionsCommandsService, SessionsQueryService
+from app.grpc.sessions.commands_service import SessionsCommandsService
+from app.grpc.sessions.query_service import SessionsQueryService
+from app.grpc.signups_service import SignupsCommandsService
 from app.grpc.workers_service import WorkersService
 
 # Constants
@@ -54,6 +58,7 @@ def _register_services(server: grpc.aio.Server) -> None:
 
     add_SessionCommandsServicer_to_server(SessionsCommandsService(), server)
     add_SessionsQueryServicer_to_server(SessionsQueryService(), server)
+    add_SignupCommandsServicer_to_server(SignupsCommandsService(), server)
 
     add_ServersServicer_to_server(ServersService(), server)
     add_WorkerServicer_to_server(WorkersService(), server)
@@ -79,9 +84,16 @@ def _configure_server_port(server: grpc.aio.Server) -> None:
     """Configure server port based on TLS and UDS settings."""
     if not CONFIG.use_tls and CONFIG.uds_path:
         server.add_insecure_port(f"unix://{CONFIG.uds_path}")
+        logger.info(f"Starting UDS connection on {CONFIG.uds_path}")
     else:
-        credentials = _load_ssl_credentials()
-        server.add_secure_port(CONFIG.grpc_addr, credentials)
+        if CONFIG.secure:
+            credentials = _load_ssl_credentials()
+            server.add_secure_port(CONFIG.grpc_addr, credentials)
+            logger.info(f"Starting secure connection on {CONFIG.grpc_addr}")
+        else:
+            server.add_insecure_port(CONFIG.grpc_addr)
+            logger.info(f"Starting insecure connection on {CONFIG.grpc_addr}")
+
 
 
 def _setup_signal_handlers(stop_event: asyncio.Event) -> None:
@@ -106,6 +118,7 @@ async def serve() -> None:
     _configure_server_port(server)
 
     await server.start()
+    logger.info("gRPC started")
 
     stop_event = asyncio.Event()
     _setup_signal_handlers(stop_event)

@@ -15,4 +15,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 COPY services/backend/app ./app
 COPY services/backend/alembic.ini ./alembic.ini
 
-EXPOSE 8000
+EXPOSE 50051

@@ -3,9 +3,9 @@
 import grpc
 import warnings
 
-from events import models_pb2 as events_dot_models__pb2
-from sessions import models_pb2 as sessions_dot_models__pb2
-import worker_service_pb2 as worker__service__pb2
+from qk_api_contracts.grpc.events import models_pb2 as qk__api__contracts_dot_grpc_dot_events_dot_models__pb2
+from qk_api_contracts.grpc.sessions import models_pb2 as qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2
+from qk_api_contracts.grpc import worker_service_pb2 as qk__api__contracts_dot_grpc_dot_worker__service__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -20,7 +20,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in worker_service_pb2_grpc.py depends on'
+        + ' but the generated code in qk_api_contracts/grpc/worker_service_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -39,13 +39,13 @@ class WorkerStub(object):
         """
         self.SetSessionMessageId = channel.unary_unary(
                 '/questkeeper.worker.Worker/SetSessionMessageId',
-                request_serializer=worker__service__pb2.SetMessageIdRequest.SerializeToString,
-                response_deserializer=sessions_dot_models__pb2.Session.FromString,
+                request_serializer=qk__api__contracts_dot_grpc_dot_worker__service__pb2.SetMessageIdRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
                 _registered_method=True)
         self.SetEventMessageId = channel.unary_unary(
                 '/questkeeper.worker.Worker/SetEventMessageId',
-                request_serializer=worker__service__pb2.SetMessageIdRequest.SerializeToString,
-                response_deserializer=events_dot_models__pb2.Event.FromString,
+                request_serializer=qk__api__contracts_dot_grpc_dot_worker__service__pb2.SetMessageIdRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
                 _registered_method=True)
 
 
@@ -70,13 +70,13 @@ def add_WorkerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'SetSessionMessageId': grpc.unary_unary_rpc_method_handler(
                     servicer.SetSessionMessageId,
-                    request_deserializer=worker__service__pb2.SetMessageIdRequest.FromString,
-                    response_serializer=sessions_dot_models__pb2.Session.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_worker__service__pb2.SetMessageIdRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.SerializeToString,
             ),
             'SetEventMessageId': grpc.unary_unary_rpc_method_handler(
                     servicer.SetEventMessageId,
-                    request_deserializer=worker__service__pb2.SetMessageIdRequest.FromString,
-                    response_serializer=events_dot_models__pb2.Event.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_worker__service__pb2.SetMessageIdRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -105,8 +105,8 @@ class Worker(object):
             request,
             target,
             '/questkeeper.worker.Worker/SetSessionMessageId',
-            worker__service__pb2.SetMessageIdRequest.SerializeToString,
-            sessions_dot_models__pb2.Session.FromString,
+            qk__api__contracts_dot_grpc_dot_worker__service__pb2.SetMessageIdRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
             channel_credentials,
             insecure,
@@ -132,8 +132,8 @@ class Worker(object):
             request,
             target,
             '/questkeeper.worker.Worker/SetEventMessageId',
-            worker__service__pb2.SetMessageIdRequest.SerializeToString,
-            events_dot_models__pb2.Event.FromString,
+            qk__api__contracts_dot_grpc_dot_worker__service__pb2.SetMessageIdRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
             options,
             channel_credentials,
             insecure,

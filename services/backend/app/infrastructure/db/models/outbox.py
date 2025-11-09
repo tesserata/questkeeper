@@ -15,7 +15,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from .base import Base, TimestampMixin
 
 
-class Outbox(Base, TimestampMixin):
+class OutboxORM(Base, TimestampMixin):
     __tablename__ = "outbox"
     __table_args__ = (
         Index("ix_outbox_status_available", "status", "available_at"),
@@ -44,7 +44,7 @@ class Outbox(Base, TimestampMixin):
     last_error: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 
-class OutboxDLQ(Base):
+class OutboxDLQORM(Base):
     __tablename__ = "outbox_dlq"
     __table_args__ = (
         Index("ix_outbox_dlq_aggregate_created", "aggregate_type", "created_at"),

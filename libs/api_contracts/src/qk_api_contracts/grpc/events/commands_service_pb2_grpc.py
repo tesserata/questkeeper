@@ -3,8 +3,8 @@
 import grpc
 import warnings
 
-from events import commands_service_pb2 as events_dot_commands__service__pb2
-from events import models_pb2 as events_dot_models__pb2
+from qk_api_contracts.grpc.events import commands_service_pb2 as qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2
+from qk_api_contracts.grpc.events import models_pb2 as qk__api__contracts_dot_grpc_dot_events_dot_models__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -19,7 +19,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in events/commands_service_pb2_grpc.py depends on'
+        + ' but the generated code in qk_api_contracts/grpc/events/commands_service_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -27,7 +27,7 @@ if _version_not_supported:
 
 
 class EventsCommandsStub(object):
-    """--- backend commands service (write) ---
+    """--- domain commands service (write) ---
     """
 
     def __init__(self, channel):
@@ -37,39 +37,39 @@ class EventsCommandsStub(object):
             channel: A grpc.Channel.
         """
         self.CreateEvent = channel.unary_unary(
-                '/questkeeper.events.commands_service.EventsCommands/CreateEvent',
-                request_serializer=events_dot_models__pb2.EventInfo.SerializeToString,
-                response_deserializer=events_dot_models__pb2.Event.FromString,
+                '/questkeeper.events.EventsCommands/CreateEvent',
+                request_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.EventInfo.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
                 _registered_method=True)
         self.EditBasics = channel.unary_unary(
-                '/questkeeper.events.commands_service.EventsCommands/EditBasics',
-                request_serializer=events_dot_commands__service__pb2.EditBasicsRequest.SerializeToString,
-                response_deserializer=events_dot_models__pb2.Event.FromString,
+                '/questkeeper.events.EventsCommands/EditBasics',
+                request_serializer=qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.EditBasicsRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
                 _registered_method=True)
         self.EditSchedule = channel.unary_unary(
-                '/questkeeper.events.commands_service.EventsCommands/EditSchedule',
-                request_serializer=events_dot_commands__service__pb2.EditScheduleRequest.SerializeToString,
-                response_deserializer=events_dot_models__pb2.Event.FromString,
+                '/questkeeper.events.EventsCommands/EditSchedule',
+                request_serializer=qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.EditScheduleRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
                 _registered_method=True)
         self.EditOrganization = channel.unary_unary(
-                '/questkeeper.events.commands_service.EventsCommands/EditOrganization',
-                request_serializer=events_dot_commands__service__pb2.EditOrganizationRequest.SerializeToString,
-                response_deserializer=events_dot_models__pb2.Event.FromString,
+                '/questkeeper.events.EventsCommands/EditOrganization',
+                request_serializer=qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.EditOrganizationRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
                 _registered_method=True)
         self.PublishEvent = channel.unary_unary(
-                '/questkeeper.events.commands_service.EventsCommands/PublishEvent',
-                request_serializer=events_dot_commands__service__pb2.PublishEventRequest.SerializeToString,
-                response_deserializer=events_dot_models__pb2.Event.FromString,
+                '/questkeeper.events.EventsCommands/PublishEvent',
+                request_serializer=qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.PublishEventRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
                 _registered_method=True)
         self.CancelEvent = channel.unary_unary(
-                '/questkeeper.events.commands_service.EventsCommands/CancelEvent',
-                request_serializer=events_dot_commands__service__pb2.CancelEventRequest.SerializeToString,
-                response_deserializer=events_dot_models__pb2.Event.FromString,
+                '/questkeeper.events.EventsCommands/CancelEvent',
+                request_serializer=qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.CancelEventRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
                 _registered_method=True)
 
 
 class EventsCommandsServicer(object):
-    """--- backend commands service (write) ---
+    """--- domain commands service (write) ---
     """
 
     def CreateEvent(self, request, context):
@@ -114,44 +114,44 @@ def add_EventsCommandsServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateEvent': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateEvent,
-                    request_deserializer=events_dot_models__pb2.EventInfo.FromString,
-                    response_serializer=events_dot_models__pb2.Event.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.EventInfo.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.SerializeToString,
             ),
             'EditBasics': grpc.unary_unary_rpc_method_handler(
                     servicer.EditBasics,
-                    request_deserializer=events_dot_commands__service__pb2.EditBasicsRequest.FromString,
-                    response_serializer=events_dot_models__pb2.Event.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.EditBasicsRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.SerializeToString,
             ),
             'EditSchedule': grpc.unary_unary_rpc_method_handler(
                     servicer.EditSchedule,
-                    request_deserializer=events_dot_commands__service__pb2.EditScheduleRequest.FromString,
-                    response_serializer=events_dot_models__pb2.Event.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.EditScheduleRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.SerializeToString,
             ),
             'EditOrganization': grpc.unary_unary_rpc_method_handler(
                     servicer.EditOrganization,
-                    request_deserializer=events_dot_commands__service__pb2.EditOrganizationRequest.FromString,
-                    response_serializer=events_dot_models__pb2.Event.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.EditOrganizationRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.SerializeToString,
             ),
             'PublishEvent': grpc.unary_unary_rpc_method_handler(
                     servicer.PublishEvent,
-                    request_deserializer=events_dot_commands__service__pb2.PublishEventRequest.FromString,
-                    response_serializer=events_dot_models__pb2.Event.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.PublishEventRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.SerializeToString,
             ),
             'CancelEvent': grpc.unary_unary_rpc_method_handler(
                     servicer.CancelEvent,
-                    request_deserializer=events_dot_commands__service__pb2.CancelEventRequest.FromString,
-                    response_serializer=events_dot_models__pb2.Event.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.CancelEventRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.events.commands_service.EventsCommands', rpc_method_handlers)
+            'questkeeper.events.EventsCommands', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.events.commands_service.EventsCommands', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.events.EventsCommands', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
 class EventsCommands(object):
-    """--- backend commands service (write) ---
+    """--- domain commands service (write) ---
     """
 
     @staticmethod
@@ -168,9 +168,9 @@ class EventsCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.events.commands_service.EventsCommands/CreateEvent',
-            events_dot_models__pb2.EventInfo.SerializeToString,
-            events_dot_models__pb2.Event.FromString,
+            '/questkeeper.events.EventsCommands/CreateEvent',
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.EventInfo.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
             options,
             channel_credentials,
             insecure,
@@ -195,9 +195,9 @@ class EventsCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.events.commands_service.EventsCommands/EditBasics',
-            events_dot_commands__service__pb2.EditBasicsRequest.SerializeToString,
-            events_dot_models__pb2.Event.FromString,
+            '/questkeeper.events.EventsCommands/EditBasics',
+            qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.EditBasicsRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
             options,
             channel_credentials,
             insecure,
@@ -222,9 +222,9 @@ class EventsCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.events.commands_service.EventsCommands/EditSchedule',
-            events_dot_commands__service__pb2.EditScheduleRequest.SerializeToString,
-            events_dot_models__pb2.Event.FromString,
+            '/questkeeper.events.EventsCommands/EditSchedule',
+            qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.EditScheduleRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
             options,
             channel_credentials,
             insecure,
@@ -249,9 +249,9 @@ class EventsCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.events.commands_service.EventsCommands/EditOrganization',
-            events_dot_commands__service__pb2.EditOrganizationRequest.SerializeToString,
-            events_dot_models__pb2.Event.FromString,
+            '/questkeeper.events.EventsCommands/EditOrganization',
+            qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.EditOrganizationRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
             options,
             channel_credentials,
             insecure,
@@ -276,9 +276,9 @@ class EventsCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.events.commands_service.EventsCommands/PublishEvent',
-            events_dot_commands__service__pb2.PublishEventRequest.SerializeToString,
-            events_dot_models__pb2.Event.FromString,
+            '/questkeeper.events.EventsCommands/PublishEvent',
+            qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.PublishEventRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
             options,
             channel_credentials,
             insecure,
@@ -303,9 +303,9 @@ class EventsCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.events.commands_service.EventsCommands/CancelEvent',
-            events_dot_commands__service__pb2.CancelEventRequest.SerializeToString,
-            events_dot_models__pb2.Event.FromString,
+            '/questkeeper.events.EventsCommands/CancelEvent',
+            qk__api__contracts_dot_grpc_dot_events_dot_commands__service__pb2.CancelEventRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
             options,
             channel_credentials,
             insecure,

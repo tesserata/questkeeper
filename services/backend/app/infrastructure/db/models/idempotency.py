@@ -14,7 +14,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from .base import Base
 
 
-class IdempotencyKey(Base):
+class IdempotencyKeyORM(Base):
     __tablename__ = "idempotency_keys"
     __table_args__ = (
         Index("ix_idempotency_keys_server_created", "server_id", "created_at"),

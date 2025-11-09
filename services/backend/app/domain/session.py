@@ -1,63 +1,79 @@
-from __future__ import annotations
-
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
-from enum import Enum, auto
-from typing import Dict, Optional, Iterable
+from datetime import UTC, datetime
+from uuid import UUID, uuid4
+
+from qk_api_contracts.enums import GameSystem, ScheduleStatus, SignupRole
+
+from app.domain.common import VersionHeader
 
 
 # -------- Domain errors --------
 class DomainError(Exception): ...
+
+
 class AlreadySignedUp(DomainError): ...
+
+
 class NotSignedUp(DomainError): ...
+
+
 class SeatUnavailable(DomainError): ...
+
+
 class InvalidTransition(DomainError): ...
+
+
 class InvariantViolation(DomainError): ...
-
-
-# -------- Value objects --------
-class SignupRole(Enum):
-    MAIN = auto()
-    RESERVE = auto()
 
 
 @dataclass
 class Signup:
-    user_id: str
+    session_id: UUID
+    user_id: int
     role: SignupRole
-    active: bool = True
-    character_id: Optional[str] = None
-    no_show: bool = False
+    character_id: UUID | None = None
 
-    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
     def touch(self) -> None:
-        self.updated_at = datetime.now(timezone.utc)
+        self.updated_at = datetime.now(UTC)
 
 
 # -------- Aggregate root --------
 @dataclass
 class Session:
-    session_id: str
-    server_id: str
-    event_id: str
-    gm_user_id: str
+    server_id: int
+    event_id: UUID | None
+    gm_user_id: int
 
     title: str
     summary: str
-    capacity: int  # number of MAIN seats
+    capacity: int
 
-    # Active + historical signups for this session keyed by user_id (last record per user)
-    # If you prefer full history, store a list per user and adjust lookups accordingly.
-    signups: Dict[str, Signup] = field(default_factory=dict)
+    vtt_link: str | None
+    location: str | None
 
-    # Monotonic version for projections/caching (bump on any user-visible mutation)
-    version: int = 0
+    system: GameSystem = field(default=GameSystem.PATHFINDER_2E)
+    additional_links: list[str] = field(default_factory=list)
+    role_mentions: list[str] = field(default_factory=list)
+
+    session_id: UUID = field(default_factory=uuid4)
+
+    status: ScheduleStatus = field(default=ScheduleStatus.SCHEDULED)
+    time: datetime = field(default_factory=lambda: datetime.now(UTC))
+    duration_minutes: int = 3 * 60
+
+    channel_id: int | None = None
+    message_id: int | None = None
+    version_header: VersionHeader = field(default_factory=VersionHeader)
+
+    signups: dict[str, Signup] = field(default_factory=dict)
 
     # ---------- Queries ----------
     def main_active_count(self) -> int:
-        return sum(1 for s in self._active_signups() if s.role is SignupRole.MAIN)
+        return sum(1 for s in self._active_signups() if s.role == SignupRole.MAIN)
 
     def has_active_signup(self, user_id: str) -> bool:
         s = self.signups.get(user_id)
@@ -87,7 +103,7 @@ class Session:
             raise InvariantViolation("capacity cannot be negative")
 
     # ---------- Commands (all mutate + enforce invariants + bump version) ----------
-    def signup(self, *, user_id: str, role: SignupRole, character_id: Optional[str] = None) -> None:
+    def signup(self, *, user_id: str, role: SignupRole, character_id: str | None = None) -> None:
         """
         Manual signup: user picks MAIN or RESERVE.
         Rules:
@@ -149,7 +165,7 @@ class Session:
         self._assert_invariants()
         self._bump_version()
 
-    def attach_character(self, *, user_id: str, character_id: Optional[str]) -> None:
+    def attach_character(self, *, user_id: str, character_id: str | None) -> None:
         """
         Attach or change character on the (active) signup.
         """
@@ -159,7 +175,6 @@ class Session:
         s.character_id = character_id
         s.touch()
         self._bump_version()
-
 
     # ---------- Admin / GM ops ----------
     def set_capacity(self, *, new_capacity: int) -> None:

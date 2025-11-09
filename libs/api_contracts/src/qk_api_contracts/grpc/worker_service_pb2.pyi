@@ -1,5 +1,5 @@
-from sessions import models_pb2 as _models_pb2
-from events import models_pb2 as _models_pb2_1
+from qk_api_contracts.grpc.sessions import models_pb2 as _models_pb2
+from qk_api_contracts.grpc.events import models_pb2 as _models_pb2_1
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from typing import ClassVar as _ClassVar, Optional as _Optional

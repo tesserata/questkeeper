@@ -1,18 +1,17 @@
 # This is an automatically generated file, please do not change
 # gen by protobuf_to_pydantic[v0.3.3.1](https://github.com/so1n/protobuf_to_pydantic)
-# Protobuf Version: 6.33.0
-# Pydantic Version: 2.12.3
-from datetime import datetime
-
-from google.protobuf.message import Message  # type: ignore
-from pydantic import BaseModel, Field
-
+# Protobuf Version: 6.33.0 
+# Pydantic Version: 2.12.3 
 from ..common_p2p import VersionHeader
+from datetime import datetime
+from google.protobuf.message import Message  # type: ignore
+from pydantic import BaseModel
+from pydantic import Field
 
 
 class CharacterInfo(BaseModel):
     """
-    write input (client -> server)
+     write input (client -> server)
     """
 
     user_id: int = Field(default=0)
@@ -23,20 +22,18 @@ class CharacterInfo(BaseModel):
     race: str = Field(default="")
     notes: str = Field(default="")
 
-
 class Character(BaseModel):
     """
-    resource (server -> client)
+     resource (server -> client)
     """
 
     character_id: str = Field(default="")
     info: CharacterInfo = Field(default_factory=CharacterInfo)
     version: VersionHeader = Field(default_factory=VersionHeader)
 
-
 class CharacterSummary(BaseModel):
     """
-    summary (UI-friendly projection)
+     summary (UI-friendly projection)
     """
 
     user_id: int = Field(default=0)
@@ -44,7 +41,6 @@ class CharacterSummary(BaseModel):
     name: str = Field(default="")
     snippet: str = Field(default="")
     version: VersionHeader = Field(default_factory=VersionHeader)
-
 
 class PlayRecord(BaseModel):
     session_title: str = Field(default="")

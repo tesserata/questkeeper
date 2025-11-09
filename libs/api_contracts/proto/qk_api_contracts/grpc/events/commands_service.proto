@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package questkeeper.events.commands_service;
+package questkeeper.events;
 
 import "google/protobuf/timestamp.proto";
-import "events/models.proto";
+import "qk_api_contracts/grpc/events/models.proto";
 
 // --- domain commands service (write) ---
 service EventsCommands {

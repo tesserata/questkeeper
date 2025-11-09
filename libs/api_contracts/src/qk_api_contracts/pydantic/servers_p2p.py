@@ -1,16 +1,15 @@
 # This is an automatically generated file, please do not change
 # gen by protobuf_to_pydantic[v0.3.3.1](https://github.com/so1n/protobuf_to_pydantic)
-# Protobuf Version: 6.33.0
-# Pydantic Version: 2.12.3
-import typing
-
+# Protobuf Version: 6.33.0 
+# Pydantic Version: 2.12.3 
 from google.protobuf.message import Message  # type: ignore
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+from pydantic import Field
+import typing
 
 
 class GetServerSettingsRequest(BaseModel):
     server_id: str = Field(default="")
-
 
 class ServerSettings(BaseModel):
     server_id: str = Field(default="")
@@ -20,10 +19,8 @@ class ServerSettings(BaseModel):
     role_mapping: "typing.Dict[str, str]" = Field(default_factory=dict)
     mentionable_roles: typing.List[str] = Field(default_factory=list)
 
-
 class GetRoleMappingRequest(BaseModel):
     server_id: str = Field(default="")
-
 
 class RoleMapping(BaseModel):
     server_id: str = Field(default="")

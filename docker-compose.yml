@@ -10,11 +10,21 @@ services:
 #      interval: 5s
 #      timeout: 5s
 #      retries: 10
-    networks:
-      - db_network
     hostname: db
     command: ["postgres", "-c", "log_connections=on", "-c", "log_hostname=on"]
 
+  backend:
+    build:
+      context: .
+      dockerfile: ./services/backend/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+    ports: ["50051:50051"]
+    command: ["python","-m","app.main"]
+    restart: unless-stopped
 
   migrations:
     build:
@@ -27,9 +37,3 @@ services:
         condition: service_started
 #        condition: service_healthy
     command: [ "bash", "-lc", "/app/.venv/bin/alembic -c alembic.ini upgrade head" ]
-    networks:
-      - db_network
-
-networks:
-  db_network:
-    driver: bridge

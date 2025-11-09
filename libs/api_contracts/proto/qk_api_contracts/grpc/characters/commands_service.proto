@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package questkeeper.characters.commands_service;
+package questkeeper.characters;
 
 import "google/protobuf/empty.proto";
-import "characters/models.proto";
+import "qk_api_contracts/grpc/characters/models.proto";
 
 // --- domain commands service (write) ---
 service CharactersCommands {

@@ -3,8 +3,8 @@
 import grpc
 import warnings
 
-from events import models_pb2 as events_dot_models__pb2
-from events import query_service_pb2 as events_dot_query__service__pb2
+from qk_api_contracts.grpc.events import models_pb2 as qk__api__contracts_dot_grpc_dot_events_dot_models__pb2
+from qk_api_contracts.grpc.events import query_service_pb2 as qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -19,7 +19,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in events/query_service_pb2_grpc.py depends on'
+        + ' but the generated code in qk_api_contracts/grpc/events/query_service_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -37,24 +37,24 @@ class EventsQueryStub(object):
             channel: A grpc.Channel.
         """
         self.GetEvent = channel.unary_unary(
-                '/questkeeper.events.query_service.EventsQuery/GetEvent',
-                request_serializer=events_dot_query__service__pb2.GetEventRequest.SerializeToString,
-                response_deserializer=events_dot_models__pb2.Event.FromString,
+                '/questkeeper.events.EventsQuery/GetEvent',
+                request_serializer=qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.GetEventRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
                 _registered_method=True)
         self.GetEventView = channel.unary_unary(
-                '/questkeeper.events.query_service.EventsQuery/GetEventView',
-                request_serializer=events_dot_query__service__pb2.GetEventRequest.SerializeToString,
-                response_deserializer=events_dot_models__pb2.EventView.FromString,
+                '/questkeeper.events.EventsQuery/GetEventView',
+                request_serializer=qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.GetEventRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.EventView.FromString,
                 _registered_method=True)
         self.GetEventSummary = channel.unary_unary(
-                '/questkeeper.events.query_service.EventsQuery/GetEventSummary',
-                request_serializer=events_dot_query__service__pb2.GetEventRequest.SerializeToString,
-                response_deserializer=events_dot_models__pb2.EventSummary.FromString,
+                '/questkeeper.events.EventsQuery/GetEventSummary',
+                request_serializer=qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.GetEventRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.EventSummary.FromString,
                 _registered_method=True)
         self.ListEvents = channel.unary_unary(
-                '/questkeeper.events.query_service.EventsQuery/ListEvents',
-                request_serializer=events_dot_query__service__pb2.ListEventsRequest.SerializeToString,
-                response_deserializer=events_dot_query__service__pb2.ListEventsResponse.FromString,
+                '/questkeeper.events.EventsQuery/ListEvents',
+                request_serializer=qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.ListEventsRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.ListEventsResponse.FromString,
                 _registered_method=True)
 
 
@@ -91,29 +91,29 @@ def add_EventsQueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetEvent': grpc.unary_unary_rpc_method_handler(
                     servicer.GetEvent,
-                    request_deserializer=events_dot_query__service__pb2.GetEventRequest.FromString,
-                    response_serializer=events_dot_models__pb2.Event.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.GetEventRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.SerializeToString,
             ),
             'GetEventView': grpc.unary_unary_rpc_method_handler(
                     servicer.GetEventView,
-                    request_deserializer=events_dot_query__service__pb2.GetEventRequest.FromString,
-                    response_serializer=events_dot_models__pb2.EventView.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.GetEventRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.EventView.SerializeToString,
             ),
             'GetEventSummary': grpc.unary_unary_rpc_method_handler(
                     servicer.GetEventSummary,
-                    request_deserializer=events_dot_query__service__pb2.GetEventRequest.FromString,
-                    response_serializer=events_dot_models__pb2.EventSummary.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.GetEventRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.EventSummary.SerializeToString,
             ),
             'ListEvents': grpc.unary_unary_rpc_method_handler(
                     servicer.ListEvents,
-                    request_deserializer=events_dot_query__service__pb2.ListEventsRequest.FromString,
-                    response_serializer=events_dot_query__service__pb2.ListEventsResponse.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.ListEventsRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.ListEventsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.events.query_service.EventsQuery', rpc_method_handlers)
+            'questkeeper.events.EventsQuery', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.events.query_service.EventsQuery', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.events.EventsQuery', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -135,9 +135,9 @@ class EventsQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.events.query_service.EventsQuery/GetEvent',
-            events_dot_query__service__pb2.GetEventRequest.SerializeToString,
-            events_dot_models__pb2.Event.FromString,
+            '/questkeeper.events.EventsQuery/GetEvent',
+            qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.GetEventRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
             options,
             channel_credentials,
             insecure,
@@ -162,9 +162,9 @@ class EventsQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.events.query_service.EventsQuery/GetEventView',
-            events_dot_query__service__pb2.GetEventRequest.SerializeToString,
-            events_dot_models__pb2.EventView.FromString,
+            '/questkeeper.events.EventsQuery/GetEventView',
+            qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.GetEventRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.EventView.FromString,
             options,
             channel_credentials,
             insecure,
@@ -189,9 +189,9 @@ class EventsQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.events.query_service.EventsQuery/GetEventSummary',
-            events_dot_query__service__pb2.GetEventRequest.SerializeToString,
-            events_dot_models__pb2.EventSummary.FromString,
+            '/questkeeper.events.EventsQuery/GetEventSummary',
+            qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.GetEventRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.EventSummary.FromString,
             options,
             channel_credentials,
             insecure,
@@ -216,9 +216,9 @@ class EventsQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.events.query_service.EventsQuery/ListEvents',
-            events_dot_query__service__pb2.ListEventsRequest.SerializeToString,
-            events_dot_query__service__pb2.ListEventsResponse.FromString,
+            '/questkeeper.events.EventsQuery/ListEvents',
+            qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.ListEventsRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_events_dot_query__service__pb2.ListEventsResponse.FromString,
             options,
             channel_credentials,
             insecure,

@@ -3,7 +3,7 @@ syntax = "proto3";
 package questkeeper.characters.models;
 
 import "google/protobuf/timestamp.proto";
-import "common.proto";
+import "qk_api_contracts/grpc/common.proto";
 
 
 // write input (client -> server)

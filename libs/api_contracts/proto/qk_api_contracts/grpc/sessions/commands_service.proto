@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package questkeeper.sessions.commands_service;
+package questkeeper.sessions;
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
-import "sessions/models.proto";
+import "qk_api_contracts/grpc/sessions/models.proto";
 
 // --- domain commands service (write) ---
 service SessionCommands {
@@ -20,10 +20,10 @@ service SessionCommands {
 }
 
 service SignupCommands {
-  rpc Signup(models.SignupInfo) returns (models.Signup);
+  rpc JoinSession(models.SignupInfo) returns (models.Signup);
   rpc SwitchReserve(SwitchReserveRequest) returns (models.Signup);
   rpc SwitchMain(SwitchMainRequest) returns (models.Signup);
-  rpc SignOut(SignOutRequest) returns (google.protobuf.Empty);
+  rpc LeaveSession(SignOutRequest) returns (google.protobuf.Empty);
   rpc SetCharacter(SetCharacterRequest) returns (models.Signup);
 }
 

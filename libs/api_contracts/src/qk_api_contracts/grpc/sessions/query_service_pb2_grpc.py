@@ -3,8 +3,8 @@
 import grpc
 import warnings
 
-from sessions import models_pb2 as sessions_dot_models__pb2
-from sessions import query_service_pb2 as sessions_dot_query__service__pb2
+from qk_api_contracts.grpc.sessions import models_pb2 as qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2
+from qk_api_contracts.grpc.sessions import query_service_pb2 as qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -19,7 +19,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in sessions/query_service_pb2_grpc.py depends on'
+        + ' but the generated code in qk_api_contracts/grpc/sessions/query_service_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -37,24 +37,24 @@ class SessionsQueryStub(object):
             channel: A grpc.Channel.
         """
         self.GetSession = channel.unary_unary(
-                '/questkeeper.sessions.query_service.SessionsQuery/GetSession',
-                request_serializer=sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
-                response_deserializer=sessions_dot_models__pb2.Session.FromString,
+                '/questkeeper.sessions.SessionsQuery/GetSession',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
                 _registered_method=True)
         self.GetSessionView = channel.unary_unary(
-                '/questkeeper.sessions.query_service.SessionsQuery/GetSessionView',
-                request_serializer=sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
-                response_deserializer=sessions_dot_models__pb2.SessionView.FromString,
+                '/questkeeper.sessions.SessionsQuery/GetSessionView',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionView.FromString,
                 _registered_method=True)
         self.GetSessionSummary = channel.unary_unary(
-                '/questkeeper.sessions.query_service.SessionsQuery/GetSessionSummary',
-                request_serializer=sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
-                response_deserializer=sessions_dot_models__pb2.SessionSummary.FromString,
+                '/questkeeper.sessions.SessionsQuery/GetSessionSummary',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionSummary.FromString,
                 _registered_method=True)
         self.ListSessions = channel.unary_unary(
-                '/questkeeper.sessions.query_service.SessionsQuery/ListSessions',
-                request_serializer=sessions_dot_query__service__pb2.ListSessionsRequest.SerializeToString,
-                response_deserializer=sessions_dot_query__service__pb2.ListSessionsResponse.FromString,
+                '/questkeeper.sessions.SessionsQuery/ListSessions',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.ListSessionsRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.ListSessionsResponse.FromString,
                 _registered_method=True)
 
 
@@ -91,29 +91,29 @@ def add_SessionsQueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetSession': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSession,
-                    request_deserializer=sessions_dot_query__service__pb2.GetSessionRequest.FromString,
-                    response_serializer=sessions_dot_models__pb2.Session.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.GetSessionRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.SerializeToString,
             ),
             'GetSessionView': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSessionView,
-                    request_deserializer=sessions_dot_query__service__pb2.GetSessionRequest.FromString,
-                    response_serializer=sessions_dot_models__pb2.SessionView.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.GetSessionRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionView.SerializeToString,
             ),
             'GetSessionSummary': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSessionSummary,
-                    request_deserializer=sessions_dot_query__service__pb2.GetSessionRequest.FromString,
-                    response_serializer=sessions_dot_models__pb2.SessionSummary.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.GetSessionRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionSummary.SerializeToString,
             ),
             'ListSessions': grpc.unary_unary_rpc_method_handler(
                     servicer.ListSessions,
-                    request_deserializer=sessions_dot_query__service__pb2.ListSessionsRequest.FromString,
-                    response_serializer=sessions_dot_query__service__pb2.ListSessionsResponse.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.ListSessionsRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.ListSessionsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.sessions.query_service.SessionsQuery', rpc_method_handlers)
+            'questkeeper.sessions.SessionsQuery', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.sessions.query_service.SessionsQuery', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.sessions.SessionsQuery', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -135,9 +135,9 @@ class SessionsQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.query_service.SessionsQuery/GetSession',
-            sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
-            sessions_dot_models__pb2.Session.FromString,
+            '/questkeeper.sessions.SessionsQuery/GetSession',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
             channel_credentials,
             insecure,
@@ -162,9 +162,9 @@ class SessionsQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.query_service.SessionsQuery/GetSessionView',
-            sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
-            sessions_dot_models__pb2.SessionView.FromString,
+            '/questkeeper.sessions.SessionsQuery/GetSessionView',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionView.FromString,
             options,
             channel_credentials,
             insecure,
@@ -189,9 +189,9 @@ class SessionsQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.query_service.SessionsQuery/GetSessionSummary',
-            sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
-            sessions_dot_models__pb2.SessionSummary.FromString,
+            '/questkeeper.sessions.SessionsQuery/GetSessionSummary',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.GetSessionRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionSummary.FromString,
             options,
             channel_credentials,
             insecure,
@@ -216,9 +216,9 @@ class SessionsQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.query_service.SessionsQuery/ListSessions',
-            sessions_dot_query__service__pb2.ListSessionsRequest.SerializeToString,
-            sessions_dot_query__service__pb2.ListSessionsResponse.FromString,
+            '/questkeeper.sessions.SessionsQuery/ListSessions',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.ListSessionsRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_sessions_dot_query__service__pb2.ListSessionsResponse.FromString,
             options,
             channel_credentials,
             insecure,

@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package questkeeper.characters.query_service;
+package questkeeper.characters;
 
-import "common.proto";
-import "characters/models.proto";
+import "qk_api_contracts/grpc/common.proto";
+import "qk_api_contracts/grpc/characters/models.proto";
 
 // --- queries service (read models/projections)
 service CharactersQuery {

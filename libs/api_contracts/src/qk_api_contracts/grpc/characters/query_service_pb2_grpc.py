@@ -3,8 +3,8 @@
 import grpc
 import warnings
 
-from characters import models_pb2 as characters_dot_models__pb2
-from characters import query_service_pb2 as characters_dot_query__service__pb2
+from qk_api_contracts.grpc.characters import models_pb2 as qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2
+from qk_api_contracts.grpc.characters import query_service_pb2 as qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -19,7 +19,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in characters/query_service_pb2_grpc.py depends on'
+        + ' but the generated code in qk_api_contracts/grpc/characters/query_service_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -37,19 +37,19 @@ class CharactersQueryStub(object):
             channel: A grpc.Channel.
         """
         self.GetCharacter = channel.unary_unary(
-                '/questkeeper.characters.query_service.CharactersQuery/GetCharacter',
-                request_serializer=characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
-                response_deserializer=characters_dot_models__pb2.Character.FromString,
+                '/questkeeper.characters.CharactersQuery/GetCharacter',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.GetCharacterSummary = channel.unary_unary(
-                '/questkeeper.characters.query_service.CharactersQuery/GetCharacterSummary',
-                request_serializer=characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
-                response_deserializer=characters_dot_models__pb2.CharacterSummary.FromString,
+                '/questkeeper.characters.CharactersQuery/GetCharacterSummary',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.CharacterSummary.FromString,
                 _registered_method=True)
         self.ListCharacters = channel.unary_unary(
-                '/questkeeper.characters.query_service.CharactersQuery/ListCharacters',
-                request_serializer=characters_dot_query__service__pb2.ListCharactersRequest.SerializeToString,
-                response_deserializer=characters_dot_query__service__pb2.ListCharactersResponse.FromString,
+                '/questkeeper.characters.CharactersQuery/ListCharacters',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersResponse.FromString,
                 _registered_method=True)
 
 
@@ -80,24 +80,24 @@ def add_CharactersQueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetCharacter': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCharacter,
-                    request_deserializer=characters_dot_query__service__pb2.GetCharacterRequest.FromString,
-                    response_serializer=characters_dot_models__pb2.Character.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.SerializeToString,
             ),
             'GetCharacterSummary': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCharacterSummary,
-                    request_deserializer=characters_dot_query__service__pb2.GetCharacterRequest.FromString,
-                    response_serializer=characters_dot_models__pb2.CharacterSummary.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.CharacterSummary.SerializeToString,
             ),
             'ListCharacters': grpc.unary_unary_rpc_method_handler(
                     servicer.ListCharacters,
-                    request_deserializer=characters_dot_query__service__pb2.ListCharactersRequest.FromString,
-                    response_serializer=characters_dot_query__service__pb2.ListCharactersResponse.SerializeToString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.characters.query_service.CharactersQuery', rpc_method_handlers)
+            'questkeeper.characters.CharactersQuery', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.characters.query_service.CharactersQuery', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.characters.CharactersQuery', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -119,9 +119,9 @@ class CharactersQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.query_service.CharactersQuery/GetCharacter',
-            characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
-            characters_dot_models__pb2.Character.FromString,
+            '/questkeeper.characters.CharactersQuery/GetCharacter',
+            qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
             options,
             channel_credentials,
             insecure,
@@ -146,9 +146,9 @@ class CharactersQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.query_service.CharactersQuery/GetCharacterSummary',
-            characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
-            characters_dot_models__pb2.CharacterSummary.FromString,
+            '/questkeeper.characters.CharactersQuery/GetCharacterSummary',
+            qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.CharacterSummary.FromString,
             options,
             channel_credentials,
             insecure,
@@ -173,9 +173,9 @@ class CharactersQuery(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.query_service.CharactersQuery/ListCharacters',
-            characters_dot_query__service__pb2.ListCharactersRequest.SerializeToString,
-            characters_dot_query__service__pb2.ListCharactersResponse.FromString,
+            '/questkeeper.characters.CharactersQuery/ListCharacters',
+            qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersResponse.FromString,
             options,
             channel_credentials,
             insecure,

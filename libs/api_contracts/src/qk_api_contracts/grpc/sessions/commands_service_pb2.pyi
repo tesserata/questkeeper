@@ -2,7 +2,7 @@ import datetime
 
 from google.protobuf import timestamp_pb2 as _timestamp_pb2
 from google.protobuf import empty_pb2 as _empty_pb2
-from sessions import models_pb2 as _models_pb2
+from qk_api_contracts.grpc.sessions import models_pb2 as _models_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message

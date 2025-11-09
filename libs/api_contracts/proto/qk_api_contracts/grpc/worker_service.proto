@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package questkeeper.worker;
 
-import "sessions/models.proto";
-import "events/models.proto";
+import "qk_api_contracts/grpc/sessions/models.proto";
+import "qk_api_contracts/grpc/events/models.proto";
 
 // worker-only API
 service Worker {

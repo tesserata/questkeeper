@@ -15,7 +15,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .base import Base, TimestampMixin, VersionMixin
 
 
-class ServerSettings(Base, TimestampMixin, VersionMixin):
+class ServerSettingsORM(Base, TimestampMixin, VersionMixin):
     __tablename__ = "server_settings"
     __table_args__ = (
         Index("ix_server_settings_default_system", "default_system"),
@@ -35,10 +35,10 @@ class ServerSettings(Base, TimestampMixin, VersionMixin):
     )
 
     # Relationships
-    role_mappings: Mapped[list["ServerRoleMapping"]] = relationship(back_populates="server")
+    role_mappings: Mapped[list["ServerRoleMappingORM"]] = relationship(back_populates="server")
 
 
-class ServerRoleMapping(Base, TimestampMixin):
+class ServerRoleMappingORM(Base, TimestampMixin):
     __tablename__ = "server_role_mapping"
     __table_args__ = (
         PrimaryKeyConstraint("server_id", "discord_role_id"),
@@ -53,4 +53,4 @@ class ServerRoleMapping(Base, TimestampMixin):
     app_role: Mapped[str] = mapped_column(Text, nullable=False)
 
     # Relationships
-    server: Mapped["ServerSettings"] = relationship(back_populates="role_mappings")
+    server: Mapped["ServerSettingsORM"] = relationship(back_populates="role_mappings")

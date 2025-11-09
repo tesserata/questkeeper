@@ -3,11 +3,14 @@ from logging.config import fileConfig
 
 from alembic import context
 from sqlalchemy import engine_from_config, pool
-from app.infrastructure.db.models.base import Base, TimestampMixin, VersionMixin
-from app.infrastructure.db.models.domain import Event, Session, Character, CharacterHistory, Signup
-from app.infrastructure.db.models.idempotency import IdempotencyKey
-from app.infrastructure.db.models.outbox import Outbox, OutboxDLQ
-from app.infrastructure.db.models.server_settings import ServerSettings, ServerRoleMapping
+from app.infrastructure.db.models.base import Base, TimestampMixin, VersionMixin                     # noqa: F401
+from app.infrastructure.db.models.event import EventORM                                              # noqa: F401
+from app.infrastructure.db.models.session import SessionORM                                          # noqa: F401
+from app.infrastructure.db.models.signup import SignupORM                                            # noqa: F401
+from app.infrastructure.db.models.character import CharacterORM, CharacterHistoryORM                 # noqa: F401
+from app.infrastructure.db.models.idempotency import IdempotencyKeyORM                               # noqa: F401
+from app.infrastructure.db.models.outbox import OutboxORM, OutboxDLQORM                              # noqa: F401
+from app.infrastructure.db.models.server_settings import ServerSettingsORM, ServerRoleMappingORM     # noqa: F401
 
 
 config = context.config
@@ -28,8 +31,6 @@ def get_url() -> str:
 
 
 def run_migrations_offline() -> None:
-    # url = config.get_main_option("sqlalchemy.url")
-    # url = f"postgresql+apsyncpg://qk_admin:password@0.0.0.0:5432/questkeeper"
     url = get_url()
 
     context.configure(

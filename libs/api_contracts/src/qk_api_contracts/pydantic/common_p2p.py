@@ -1,17 +1,17 @@
 # This is an automatically generated file, please do not change
 # gen by protobuf_to_pydantic[v0.3.3.1](https://github.com/so1n/protobuf_to_pydantic)
-# Protobuf Version: 6.33.0
-# Pydantic Version: 2.12.3
-import typing
+# Protobuf Version: 6.33.0 
+# Pydantic Version: 2.12.3 
 from datetime import datetime
-
 from google.protobuf.message import Message  # type: ignore
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+from pydantic import Field
+import typing
 
 
 class RequestMeta(BaseModel):
     """
-    Request wrappers
+     Request wrappers
     """
 
     request_id: str = Field(default="")
@@ -21,20 +21,17 @@ class RequestMeta(BaseModel):
     app_roles: typing.List[str] = Field(default_factory=list)
     if_none_match: str = Field(default="")
 
-
 class PageRequest(BaseModel):
     page_size: int = Field(default=0)
     page_token: str = Field(default="")
-
 
 class Page(BaseModel):
     next_page_token: str = Field(default="")
     total_size: int = Field(default=0)
 
-
 class VersionHeader(BaseModel):
     """
-    Versioned view header for cache keys & weak ETags like W/"session:{id}:v{n}"
+     Versioned view header for cache keys & weak ETags like W/"session:{id}:v{n}"
     """
 
     version: int = Field(default=0)
