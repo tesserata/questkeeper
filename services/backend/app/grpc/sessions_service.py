@@ -16,7 +16,15 @@ from qk_api_contracts.grpc.sessions.commands_service_pb2_grpc import (
 from qk_api_contracts.grpc.sessions.models_pb2 import (
     Session,
     SessionInfo,
+    SessionSummary,
+    SessionView,
 )
+from qk_api_contracts.grpc.sessions.query_service_pb2 import (
+    GetSessionRequest,
+    ListSessionsRequest,
+    ListSessionsResponse,
+)
+from qk_api_contracts.grpc.sessions.query_service_pb2_grpc import SessionsQueryServicer
 
 from app.application.sessions import create_session
 
@@ -39,6 +47,7 @@ class SessionsCommandsService(SessionCommandsServicer):
             )
         except Exception as e:
             logger.exception(e)
+            return Session()
 
     async def EditBasics(
         self, request: EditBasicsRequest, context: grpc.aio.ServicerContext
@@ -71,4 +80,26 @@ class SessionsCommandsService(SessionCommandsServicer):
     async def CancelSession(
         self, request: CancelSessionRequest, context: grpc.aio.ServicerContext
     ) -> Session:
+        pass
+
+
+class SessionsQueryService(SessionsQueryServicer):
+    async def GetSession(
+        self, request: GetSessionRequest, context: grpc.aio.ServicerContext
+    ) -> Session:
+        pass
+
+    async def GetSessionView(
+        self, request: GetSessionRequest, context: grpc.aio.ServicerContext
+    ) -> SessionView:
+        pass
+
+    async def GetSessionSummary(
+        self, request: GetSessionRequest, context: grpc.aio.ServicerContext
+    ) -> SessionSummary:
+        pass
+
+    async def ListSessions(
+        self, request: ListSessionsRequest, context: grpc.aio.ServicerContext
+    ) -> ListSessionsResponse:
         pass

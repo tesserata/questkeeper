@@ -3,7 +3,7 @@ from sqlalchemy import select, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.domain.session import Session, Signup
-from app.infrastructure.db.models.event import EventORM     # noqa: F401
+from app.infrastructure.db.models.event import EventORM  # noqa: F401
 from app.infrastructure.db.models.session import SessionORM
 from app.infrastructure.db.models.signup import SignupORM
 

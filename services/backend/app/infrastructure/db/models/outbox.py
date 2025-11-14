@@ -38,7 +38,7 @@ class OutboxORM(Base, TimestampMixin):
     available_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )
-    next_attempt_at: Mapped[datetime | None] = mapped_column(
+    processed_at: Mapped[datetime | None] = mapped_column(
         TIMESTAMP(timezone=True), nullable=True
     )
     last_error: Mapped[str | None] = mapped_column(Text, nullable=True)

@@ -23,7 +23,7 @@ services:
       migrations:
         condition: service_completed_successfully
     ports: ["50051:50051"]
-    command: ["python","-m","app.main"]
+    command: ["python", "-m", "app.main"]
     restart: unless-stopped
 
   migrations:

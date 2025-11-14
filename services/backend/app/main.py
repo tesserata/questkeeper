@@ -23,12 +23,11 @@ from qk_api_contracts.grpc.sessions.query_service_pb2_grpc import (
 )
 from qk_api_contracts.grpc.worker_service_pb2_grpc import add_WorkerServicer_to_server
 
-from app.core.config import CONFIG
+from app.config import CONFIG
 from app.grpc.characters_service import CharactersCommandsService, CharactersQueryService
 from app.grpc.events_service import EventsCommandsService, EventsQueryService
 from app.grpc.servers_service import ServersService
-from app.grpc.sessions.commands_service import SessionsCommandsService
-from app.grpc.sessions.query_service import SessionsQueryService
+from app.grpc.sessions_service import SessionsCommandsService, SessionsQueryService
 from app.grpc.signups_service import SignupsCommandsService
 from app.grpc.workers_service import WorkersService
 
@@ -93,7 +92,6 @@ def _configure_server_port(server: grpc.aio.Server) -> None:
         else:
             server.add_insecure_port(CONFIG.grpc_addr)
             logger.info(f"Starting insecure connection on {CONFIG.grpc_addr}")
-
 
 
 def _setup_signal_handlers(stop_event: asyncio.Event) -> None:

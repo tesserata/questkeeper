@@ -4,10 +4,9 @@ from contextlib import AbstractAsyncContextManager
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from app.core.config import CONFIG
-from app.infrastructure.db.outbox import OutboxWriter
+from app.config import CONFIG
+from app.infrastructure.outbox.writer import OutboxWriter
 from app.infrastructure.repositories.sessions_repository import SessionsRepository
-from loguru import logger
 
 engine = create_async_engine(CONFIG.db_dsn, pool_size=10, max_overflow=20)
 SessionLocal = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)

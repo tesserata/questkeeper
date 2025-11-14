@@ -56,17 +56,17 @@ class Session:
     location: str | None
 
     system: GameSystem = field(default=GameSystem.PATHFINDER_2E)
-    additional_links: list[str] = field(default_factory=list)
-    role_mentions: list[str] = field(default_factory=list)
+    additional_links: Iterable[str] = field(default_factory=list)
+    role_mentions: Iterable[str] = field(default_factory=list)
 
     session_id: UUID = field(default_factory=uuid4)
 
     status: ScheduleStatus = field(default=ScheduleStatus.SCHEDULED)
     time: datetime = field(default_factory=lambda: datetime.now(UTC))
-    duration_minutes: int = 3 * 60
+    duration_minutes: int = field(default=3 * 60)
 
-    channel_id: int | None = None
-    message_id: int | None = None
+    channel_id: int | None = field(default=None)
+    message_id: int | None = field(default=None)
     version_header: VersionHeader = field(default_factory=VersionHeader)
 
     signups: dict[str, Signup] = field(default_factory=dict)
@@ -77,7 +77,7 @@ class Session:
 
     def has_active_signup(self, user_id: str) -> bool:
         s = self.signups.get(user_id)
-        return bool(s and s.active)
+        return bool(s)
 
     def get_signup(self, user_id: str) -> Signup:
         s = self.signups.get(user_id)

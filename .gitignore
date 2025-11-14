@@ -10,3 +10,4 @@ dist
 initdb
 .env
 __pycache__
+test_request.sh

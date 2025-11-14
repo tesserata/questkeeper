@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [ bot, api_gateway, domain, worker ]
+        service: [ bot, api_gateway, backend, worker ]
     permissions:
       contents: read
       packages: write

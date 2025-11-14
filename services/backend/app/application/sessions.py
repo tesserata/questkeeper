@@ -21,11 +21,11 @@ async def create_session(
         gm_user_id=request.gm_user_id,
         vtt_link=request.vtt_link,
         location=request.location,
-        additional_links=list(request.additional_links),
+        additional_links=request.additional_links,
         time=request.time.ToDatetime(),
         duration_minutes=request.duration_minutes,
         capacity=request.capacity,
-        role_mentions=list(request.role_mentions),
+        role_mentions=request.role_mentions,
     )
 
     async with UnitOfWork() as uow:
@@ -37,7 +37,7 @@ async def create_session(
         #     key=session_id,
         #     payload={"session_id": session_id, "version": version},
         # )
-        return session, version_header
+    return session, version_header
 
 
 async def signup(uow, *, session_id, user_id, role: SignupRole, character_id=None):

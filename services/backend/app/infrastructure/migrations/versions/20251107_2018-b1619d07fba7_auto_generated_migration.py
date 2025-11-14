@@ -93,7 +93,7 @@ def upgrade() -> None:
     sa.Column('status', sa.Text(), server_default=sa.text("'pending'"), nullable=False),
     sa.Column('attempts', sa.Integer(), server_default=sa.text('0'), nullable=False),
     sa.Column('available_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), nullable=False),
-    sa.Column('next_attempt_at', postgresql.TIMESTAMP(timezone=True), nullable=True),
+    sa.Column('processed_at', postgresql.TIMESTAMP(timezone=True), nullable=True),
     sa.Column('last_error', sa.Text(), nullable=True),
     sa.Column('created_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), nullable=False),
