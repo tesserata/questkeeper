@@ -9,15 +9,21 @@ from qk_api_contracts.grpc.sessions.commands_service_pb2 import (
     EditOrganizationRequest,
     EditScheduleRequest,
     PublishSessionRequest,
+    SetCharacterRequest,
+    SignOutRequest,
+    SwitchMainRequest,
+    SwitchReserveRequest,
 )
 from qk_api_contracts.grpc.sessions.commands_service_pb2_grpc import (
     SessionCommandsServicer,
+    SignupCommandsServicer,
 )
 from qk_api_contracts.grpc.sessions.models_pb2 import (
     Session,
     SessionInfo,
     SessionSummary,
     SessionView,
+    Signup,
 )
 from qk_api_contracts.grpc.sessions.query_service_pb2 import (
     GetSessionRequest,
@@ -41,7 +47,6 @@ class SessionsCommandsService(SessionCommandsServicer):
                 status=session.status,
                 version=VersionHeader(
                     version=version_header.version,
-                    weak_etag=version_header.weak_etag,
                     updated_at=version_header.updated_at,
                 ),
             )
@@ -102,4 +107,27 @@ class SessionsQueryService(SessionsQueryServicer):
     async def ListSessions(
         self, request: ListSessionsRequest, context: grpc.aio.ServicerContext
     ) -> ListSessionsResponse:
+        pass
+
+
+class SignupsCommandsService(SignupCommandsServicer):
+    async def SignupToSession(self, request: Signup, context: grpc.aio.ServicerContext) -> Signup:
+        pass
+
+    async def SwitchMain(
+        self, request: SwitchMainRequest, context: grpc.aio.ServicerContext
+    ) -> Signup:
+        pass
+
+    async def SwitchReserve(
+        self, request: SwitchReserveRequest, context: grpc.aio.ServicerContext
+    ) -> Signup:
+        pass
+
+    async def SignOut(self, request: SignOutRequest, context: grpc.aio.ServicerContext) -> None:
+        pass
+
+    async def SetCharacter(
+        self, request: SetCharacterRequest, context: grpc.aio.ServicerContext
+    ) -> Signup:
         pass

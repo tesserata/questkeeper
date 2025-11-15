@@ -39,18 +39,21 @@ class Character(_message.Message):
     def __init__(self, character_id: _Optional[str] = ..., info: _Optional[_Union[CharacterInfo, _Mapping]] = ..., version: _Optional[_Union[_common_pb2.VersionHeader, _Mapping]] = ...) -> None: ...
 
 class CharacterSummary(_message.Message):
-    __slots__ = ("user_id", "character_id", "name", "snippet", "version")
+    __slots__ = ("user_id", "character_id", "name", "level", "subclass", "version")
     USER_ID_FIELD_NUMBER: _ClassVar[int]
     CHARACTER_ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
-    SNIPPET_FIELD_NUMBER: _ClassVar[int]
+    LEVEL_FIELD_NUMBER: _ClassVar[int]
+    CLASS_FIELD_NUMBER: _ClassVar[int]
+    SUBCLASS_FIELD_NUMBER: _ClassVar[int]
     VERSION_FIELD_NUMBER: _ClassVar[int]
     user_id: int
     character_id: str
     name: str
-    snippet: str
+    level: int
+    subclass: str
     version: _common_pb2.VersionHeader
-    def __init__(self, user_id: _Optional[int] = ..., character_id: _Optional[str] = ..., name: _Optional[str] = ..., snippet: _Optional[str] = ..., version: _Optional[_Union[_common_pb2.VersionHeader, _Mapping]] = ...) -> None: ...
+    def __init__(self, user_id: _Optional[int] = ..., character_id: _Optional[str] = ..., name: _Optional[str] = ..., level: _Optional[int] = ..., subclass: _Optional[str] = ..., version: _Optional[_Union[_common_pb2.VersionHeader, _Mapping]] = ..., **kwargs) -> None: ...
 
 class PlayRecord(_message.Message):
     __slots__ = ("session_title", "gm_user_id", "time", "server_id", "channel_id", "message_id", "version")

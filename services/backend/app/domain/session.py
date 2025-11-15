@@ -61,15 +61,17 @@ class Session:
 
     session_id: UUID = field(default_factory=uuid4)
 
-    status: ScheduleStatus = field(default=ScheduleStatus.SCHEDULED)
+    status: ScheduleStatus = field(default=ScheduleStatus.DRAFT)
     time: datetime = field(default_factory=lambda: datetime.now(UTC))
     duration_minutes: int = field(default=3 * 60)
 
     channel_id: int | None = field(default=None)
     message_id: int | None = field(default=None)
+    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     version_header: VersionHeader = field(default_factory=VersionHeader)
 
-    signups: dict[str, Signup] = field(default_factory=dict)
+    main_signups: list[Signup] = field(default_factory=list)
+    reserve_signups: list[Signup] = field(default_factory=list)
 
     # ---------- Queries ----------
     def main_active_count(self) -> int:

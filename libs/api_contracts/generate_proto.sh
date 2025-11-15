@@ -4,6 +4,8 @@ PROTO_ROOT="libs/api_contracts/proto"
 OUT_ROOT="libs/api_contracts/src"
 P2P_OUT="libs/api_contracts/src/qk_api_contracts/pydantic"
 
+rm -rf "$P2P_OUT/"*
+
 python -m grpc_tools.protoc \
   -I "$PROTO_ROOT" \
   --python_out="$OUT_ROOT" \
@@ -24,4 +26,6 @@ python -m grpc_tools.protoc \
   qk_api_contracts/grpc/sessions/commands_service.proto \
   qk_api_contracts/grpc/sessions/query_service.proto
 
-mv "$P2P_OUT/qk_api_contracts/grpc"/* "$P2P_OUT" && rmdir "$P2P_OUT/qk_api_contracts/grpc" && rmdir "$P2P_OUT/qk_api_contracts"
+mv "$P2P_OUT/qk_api_contracts/grpc"/* "$P2P_OUT"
+rmdir "$P2P_OUT/qk_api_contracts/grpc"
+rmdir "$P2P_OUT/qk_api_contracts"

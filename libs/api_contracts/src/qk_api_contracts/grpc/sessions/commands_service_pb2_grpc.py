@@ -413,8 +413,8 @@ class SignupCommandsStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.JoinSession = channel.unary_unary(
-                '/questkeeper.sessions.SignupCommands/JoinSession',
+        self.SignupToSession = channel.unary_unary(
+                '/questkeeper.sessions.SignupCommands/SignupToSession',
                 request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SignupInfo.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.FromString,
                 _registered_method=True)
@@ -443,7 +443,7 @@ class SignupCommandsStub(object):
 class SignupCommandsServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def JoinSession(self, request, context):
+    def SignupToSession(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -476,8 +476,8 @@ class SignupCommandsServicer(object):
 
 def add_SignupCommandsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'JoinSession': grpc.unary_unary_rpc_method_handler(
-                    servicer.JoinSession,
+            'SignupToSession': grpc.unary_unary_rpc_method_handler(
+                    servicer.SignupToSession,
                     request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SignupInfo.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.SerializeToString,
             ),
@@ -513,7 +513,7 @@ class SignupCommands(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def JoinSession(request,
+    def SignupToSession(request,
             target,
             options=(),
             channel_credentials=None,
@@ -526,7 +526,7 @@ class SignupCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SignupCommands/JoinSession',
+            '/questkeeper.sessions.SignupCommands/SignupToSession',
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SignupInfo.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.FromString,
             options,

@@ -6,26 +6,26 @@ from uuid import UUID, uuid4
 
 
 class AggregateType(StrEnum):
-    session = auto()
-    event = auto()
+    SESSION = auto()
+    EVENT = auto()
 
 
 class EventType(StrEnum):
-    session_upsert = "discord.session.upsert"
-    session_delete = "discord.session.delete"
-    dm_signup_created = "discord.dm.signup_created"
-    dm_signup_cancelled = "discord.dm.signup_cancelled"
-    dm_session_cancelled = "discord.dm.session_cancelled"
-    dm_session_updated = "discord.dm.session_updated"
-    dm_session_reminder = "discord.dm.session_reminder"
-    dm_gm_session_reminder = "discord.dm.gm_reminder"
+    SESSION_UPSERT = "DISCORD.SESSION.UPSERT"
+    SESSION_DELETE = "discord.session.delete"
+    DM_SIGNUP_CREATED = "discord.dm.signup_created"
+    DM_SIGNUP_CANCELLED = "discord.dm.signup_cancelled"
+    DM_SESSION_CANCELLED = "discord.dm.session_cancelled"
+    DM_SESSION_UPDATED = "discord.dm.session_updated"
+    DM_SESSION_REMINDER = "discord.dm.session_reminder"
+    DM_GM_SESSION_REMINDER = "discord.dm.gm_reminder"
 
 
 class EventStatus(StrEnum):
-    enqueued = auto()
-    pending = auto()
-    processed = auto()
-    failed = auto()
+    ENQUEUED = auto()
+    PENDING = auto()
+    PROCESSED = auto()
+    FAILED = auto()
 
 
 @dataclass
@@ -39,7 +39,7 @@ class OutboxMessage:
 
 
     id: UUID = field(default_factory=uuid4)
-    status: EventStatus = field(default=EventStatus.enqueued)
+    status: EventStatus = field(default=EventStatus.ENQUEUED)
     attempts: int = field(default=0)
 
     available_at: datetime = field(default_factory=lambda: datetime.now(UTC))

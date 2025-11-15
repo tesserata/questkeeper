@@ -39,7 +39,8 @@ class CharacterSummary(BaseModel):
     user_id: int = Field(default=0)
     character_id: str = Field(default="")
     name: str = Field(default="")
-    snippet: str = Field(default="")
+    level: int = Field(default=0)
+    subclass: str = Field(default="")
     version: VersionHeader = Field(default_factory=VersionHeader)
 
 class PlayRecord(BaseModel):

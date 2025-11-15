@@ -38,7 +38,7 @@ class ServerSettingsORM(Base, TimestampMixin, VersionMixin):
     role_mappings: Mapped[list["ServerRoleMappingORM"]] = relationship(back_populates="server")
 
 
-class ServerRoleMappingORM(Base, TimestampMixin):
+class ServerRoleMappingORM(Base, TimestampMixin, VersionMixin):
     __tablename__ = "server_role_mapping"
     __table_args__ = (
         PrimaryKeyConstraint("server_id", "discord_role_id"),

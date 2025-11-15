@@ -15,15 +15,14 @@ class TimestampMixin:
     created_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )
+
+class VersionMixin:
+    """Mixin for optimistic locking"""
+
+    version: Mapped[int] = mapped_column(BigInteger, nullable=False, server_default=text("0"))
     updated_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True),
         nullable=False,
         server_default=text("now()"),
         onupdate=datetime.utcnow,
     )
-
-
-class VersionMixin:
-    """Mixin for optimistic locking"""
-
-    version: Mapped[int] = mapped_column(BigInteger, nullable=False, server_default=text("0"))

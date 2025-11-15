@@ -7,6 +7,7 @@ from sqlalchemy import (
     ForeignKey,
     Index,
     Integer,
+    PrimaryKeyConstraint,
     Text,
     text,
 )
@@ -65,12 +66,24 @@ class SessionORM(Base, TimestampMixin, VersionMixin):
     # )
 
 
-class SessionViewORM(Base):
-    __tablename__ = "sessions_view"
+class SignupORM(Base, TimestampMixin, VersionMixin):
+    __tablename__ = "signups"
     __table_args__ = (
-        Index("ix_session_views_user_session", "user_id", "session_id"),
+        PrimaryKeyConstraint("session_id", "user_id"),
+        Index("ix_signups_session_role", "session_id", "role"),
+        Index("ix_signups_character_id", "character_id"),
         {"schema": "service"},
     )
 
-    user_id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
-    session_id: Mapped[UUID] = mapped_column(PG_UUID(as_uuid=True), primary_key=True)
+    session_id: Mapped[UUID] = mapped_column(
+        PG_UUID(as_uuid=True), ForeignKey("service.sessions.session_id"), nullable=False
+    )
+    user_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    character_id: Mapped[UUID] = mapped_column(
+        PG_UUID(as_uuid=True), ForeignKey("service.characters.character_id"), nullable=False
+    )
+    role: Mapped[str] = mapped_column(Text, nullable=False)
+
+    # Relationships
+    # session: Mapped["SessionORM"] = relationship(back_populates="signups")
+    # character: Mapped["CharacterORM"] = relationship(back_populates="signups")

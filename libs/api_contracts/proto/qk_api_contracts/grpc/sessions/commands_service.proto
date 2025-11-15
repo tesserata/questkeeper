@@ -20,7 +20,7 @@ service SessionCommands {
 }
 
 service SignupCommands {
-  rpc JoinSession(models.SignupInfo) returns (models.Signup);
+  rpc SignupToSession(models.SignupInfo) returns (models.Signup);
   rpc SwitchReserve(SwitchReserveRequest) returns (models.Signup);
   rpc SwitchMain(SwitchMainRequest) returns (models.Signup);
   rpc LeaveSession(SignOutRequest) returns (google.protobuf.Empty);

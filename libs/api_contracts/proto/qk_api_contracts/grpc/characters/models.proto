@@ -33,9 +33,11 @@ message CharacterSummary {
   string character_id = 2;
 
   string name = 3;
-  string snippet = 4;
+  int32 level = 4;
+  string class = 5;
+  string subclass = 6;
 
-  common.VersionHeader version = 5;
+  common.VersionHeader version = 7;
 }
 
 message PlayRecord {

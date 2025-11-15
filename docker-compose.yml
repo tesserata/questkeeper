@@ -37,3 +37,4 @@ services:
         condition: service_started
 #        condition: service_healthy
     command: [ "bash", "-lc", "/app/.venv/bin/alembic -c alembic.ini upgrade head" ]
+#    command: [ "bash", "-lc", "/app/.venv/bin/alembic -c alembic.ini revision --autogenerate" ]

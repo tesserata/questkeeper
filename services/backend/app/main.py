@@ -27,8 +27,11 @@ from app.config import CONFIG
 from app.grpc.characters_service import CharactersCommandsService, CharactersQueryService
 from app.grpc.events_service import EventsCommandsService, EventsQueryService
 from app.grpc.servers_service import ServersService
-from app.grpc.sessions_service import SessionsCommandsService, SessionsQueryService
-from app.grpc.signups_service import SignupsCommandsService
+from app.grpc.sessions_service import (
+    SessionsCommandsService,
+    SessionsQueryService,
+    SignupsCommandsService,
+)
 from app.grpc.workers_service import WorkersService
 
 # Constants
