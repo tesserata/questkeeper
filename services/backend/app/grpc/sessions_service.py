@@ -1,6 +1,5 @@
 import grpc
 from loguru import logger
-from qk_api_contracts.grpc.common_pb2 import VersionHeader
 from qk_api_contracts.grpc.sessions.commands_service_pb2 import (
     CancelSessionRequest,
     EditBasicsRequest,
@@ -33,6 +32,7 @@ from qk_api_contracts.grpc.sessions.query_service_pb2 import (
 from qk_api_contracts.grpc.sessions.query_service_pb2_grpc import SessionsQueryServicer
 
 from app.application.sessions import create_session
+from app.grpc.mappers.session import session_domain_to_pb, session_info_pb_to_domain
 
 
 class SessionsCommandsService(SessionCommandsServicer):
@@ -40,16 +40,11 @@ class SessionsCommandsService(SessionCommandsServicer):
         self, request: SessionInfo, context: grpc.aio.ServicerContext
     ) -> Session:
         try:
-            session, version_header = await create_session(request)
-            return Session(
-                session_id=str(session.session_id),
-                info=request,
-                status=session.status,
-                version=VersionHeader(
-                    version=version_header.version,
-                    updated_at=version_header.updated_at,
-                ),
-            )
+            payload = session_info_pb_to_domain(request)
+            session = await create_session(payload)
+
+            return session_domain_to_pb(session)
+
         except Exception as e:
             logger.exception(e)
             return Session()

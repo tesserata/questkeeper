@@ -29,5 +29,6 @@ message Page {
 message VersionHeader {
   uint64 version = 1;
   string weak_etag = 2;
-  google.protobuf.Timestamp updated_at = 3;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
 }

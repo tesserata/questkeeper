@@ -42,16 +42,16 @@ class SessionInfo(_message.Message):
     def __init__(self, server_id: _Optional[int] = ..., event_id: _Optional[str] = ..., title: _Optional[str] = ..., summary: _Optional[str] = ..., system: _Optional[str] = ..., gm_user_id: _Optional[int] = ..., vtt_link: _Optional[str] = ..., location: _Optional[str] = ..., additional_links: _Optional[_Iterable[str]] = ..., time: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., duration_minutes: _Optional[int] = ..., capacity: _Optional[int] = ..., role_mentions: _Optional[_Iterable[str]] = ...) -> None: ...
 
 class SignupInfo(_message.Message):
-    __slots__ = ("session_id", "user_id", "character_id", "seat")
+    __slots__ = ("session_id", "user_id", "character_id", "role")
     SESSION_ID_FIELD_NUMBER: _ClassVar[int]
     USER_ID_FIELD_NUMBER: _ClassVar[int]
     CHARACTER_ID_FIELD_NUMBER: _ClassVar[int]
-    SEAT_FIELD_NUMBER: _ClassVar[int]
+    ROLE_FIELD_NUMBER: _ClassVar[int]
     session_id: str
     user_id: int
     character_id: str
-    seat: str
-    def __init__(self, session_id: _Optional[str] = ..., user_id: _Optional[int] = ..., character_id: _Optional[str] = ..., seat: _Optional[str] = ...) -> None: ...
+    role: str
+    def __init__(self, session_id: _Optional[str] = ..., user_id: _Optional[int] = ..., character_id: _Optional[str] = ..., role: _Optional[str] = ...) -> None: ...
 
 class Session(_message.Message):
     __slots__ = ("session_id", "info", "channel_id", "message_id", "status", "version")
@@ -106,21 +106,33 @@ class SessionSummary(_message.Message):
     def __init__(self, title: _Optional[str] = ..., game_system: _Optional[str] = ..., gm_user_id: _Optional[int] = ..., status: _Optional[str] = ..., time: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., capacity: _Optional[int] = ..., seats_taken: _Optional[int] = ..., server_id: _Optional[int] = ..., channel_id: _Optional[int] = ..., message_id: _Optional[int] = ..., session_id: _Optional[str] = ..., version: _Optional[_Union[_common_pb2.VersionHeader, _Mapping]] = ...) -> None: ...
 
 class SessionView(_message.Message):
-    __slots__ = ("session", "seats_taken", "main_signups", "reserve_signups")
-    SESSION_FIELD_NUMBER: _ClassVar[int]
+    __slots__ = ("session_id", "info", "channel_id", "message_id", "status", "seats_taken", "main_signups", "reserve_signups")
+    SESSION_ID_FIELD_NUMBER: _ClassVar[int]
+    INFO_FIELD_NUMBER: _ClassVar[int]
+    CHANNEL_ID_FIELD_NUMBER: _ClassVar[int]
+    MESSAGE_ID_FIELD_NUMBER: _ClassVar[int]
+    STATUS_FIELD_NUMBER: _ClassVar[int]
     SEATS_TAKEN_FIELD_NUMBER: _ClassVar[int]
     MAIN_SIGNUPS_FIELD_NUMBER: _ClassVar[int]
     RESERVE_SIGNUPS_FIELD_NUMBER: _ClassVar[int]
-    session: Session
+    session_id: str
+    info: SessionInfo
+    channel_id: int
+    message_id: int
+    status: str
     seats_taken: int
     main_signups: _containers.RepeatedCompositeFieldContainer[SignupView]
     reserve_signups: _containers.RepeatedCompositeFieldContainer[SignupView]
-    def __init__(self, session: _Optional[_Union[Session, _Mapping]] = ..., seats_taken: _Optional[int] = ..., main_signups: _Optional[_Iterable[_Union[SignupView, _Mapping]]] = ..., reserve_signups: _Optional[_Iterable[_Union[SignupView, _Mapping]]] = ...) -> None: ...
+    def __init__(self, session_id: _Optional[str] = ..., info: _Optional[_Union[SessionInfo, _Mapping]] = ..., channel_id: _Optional[int] = ..., message_id: _Optional[int] = ..., status: _Optional[str] = ..., seats_taken: _Optional[int] = ..., main_signups: _Optional[_Iterable[_Union[SignupView, _Mapping]]] = ..., reserve_signups: _Optional[_Iterable[_Union[SignupView, _Mapping]]] = ...) -> None: ...
 
 class SignupView(_message.Message):
-    __slots__ = ("user_id", "character")
+    __slots__ = ("user_id", "session_id", "role", "character")
     USER_ID_FIELD_NUMBER: _ClassVar[int]
+    SESSION_ID_FIELD_NUMBER: _ClassVar[int]
+    ROLE_FIELD_NUMBER: _ClassVar[int]
     CHARACTER_FIELD_NUMBER: _ClassVar[int]
-    user_id: str
+    user_id: int
+    session_id: str
+    role: str
     character: _models_pb2.CharacterSummary
-    def __init__(self, user_id: _Optional[str] = ..., character: _Optional[_Union[_models_pb2.CharacterSummary, _Mapping]] = ...) -> None: ...
+    def __init__(self, user_id: _Optional[int] = ..., session_id: _Optional[str] = ..., role: _Optional[str] = ..., character: _Optional[_Union[_models_pb2.CharacterSummary, _Mapping]] = ...) -> None: ...

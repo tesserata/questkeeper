@@ -16,7 +16,7 @@ class TimestampMixin:
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )
 
-class VersionMixin:
+class VersionMixin(TimestampMixin):
     """Mixin for optimistic locking"""
 
     version: Mapped[int] = mapped_column(BigInteger, nullable=False, server_default=text("0"))

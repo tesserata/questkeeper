@@ -12,10 +12,10 @@ from sqlalchemy.dialects.postgresql import ARRAY, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.infrastructure.db.models.base import Base, TimestampMixin, VersionMixin
+from app.infrastructure.db.models.base import Base, VersionMixin
 
 
-class EventORM(Base, TimestampMixin, VersionMixin):
+class EventORM(Base, VersionMixin):
     __tablename__ = "events"
     __table_args__ = (
         Index("events_server_id_idx", "server_id"),

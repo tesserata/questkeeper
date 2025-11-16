@@ -1,45 +1,30 @@
 from uuid import UUID
 
-from qk_api_contracts.enums import GameSystem, SignupRole
-from qk_api_contracts.grpc.sessions.models_pb2 import SessionInfo
+from qk_api_contracts.enums import SignupRole
 
 from app.domain.common import VersionHeader
 from app.domain.session import Session
 from app.infrastructure.db.uow import UnitOfWork
 
+
 # Session commands
 async def create_session(
-    payload: SessionInfo,
-) -> tuple[Session, VersionHeader]:
-    session = Session(
-        server_id=payload.server_id,
-        event_id=UUID(payload.event_id) if payload.event_id else None,
-        title=payload.title,
-        summary=payload.summary,
-        system=GameSystem(payload.system),
-        gm_user_id=payload.gm_user_id,
-        vtt_link=payload.vtt_link,
-        location=payload.location,
-        additional_links=payload.additional_links,
-        time=payload.time.ToDatetime(),
-        duration_minutes=payload.duration_minutes,
-        capacity=payload.capacity,
-        role_mentions=payload.role_mentions,
-    )
-
+    payload: Session,
+) -> Session:
     async with UnitOfWork() as uow:
-        await uow.sessions.create_session(session)
-        version_header = session.version_header
+        await uow.sessions.create_session(payload)
         # await uow.outbox.enqueue(
         #     topic="discord.session.created",
         #     key=session_id,
         #     payload={"session_id": session_id, "version": version},
         # )
-    return session, version_header
+    return payload
+
 
 # Session queries
 async def get_session(session_id: UUID) -> tuple[Session, VersionHeader]:
     pass
+
 
 # Signup commands
 async def signup(uow, *, session_id, user_id, role: SignupRole, character_id=None):

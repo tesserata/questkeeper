@@ -15,10 +15,10 @@ from sqlalchemy.dialects.postgresql import ARRAY, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.infrastructure.db.models.base import Base, TimestampMixin, VersionMixin
+from app.infrastructure.db.models.base import Base, VersionMixin
 
 
-class SessionORM(Base, TimestampMixin, VersionMixin):
+class SessionORM(Base, VersionMixin):
     __tablename__ = "sessions"
     __table_args__ = (
         Index("ix_sessions_server_id", "server_id"),
@@ -66,7 +66,7 @@ class SessionORM(Base, TimestampMixin, VersionMixin):
     # )
 
 
-class SignupORM(Base, TimestampMixin, VersionMixin):
+class SignupORM(Base, VersionMixin):
     __tablename__ = "signups"
     __table_args__ = (
         PrimaryKeyConstraint("session_id", "user_id"),

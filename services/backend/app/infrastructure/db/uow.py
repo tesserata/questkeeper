@@ -47,6 +47,7 @@ class UnitOfWork(AbstractAsyncContextManager):
                 raise
             else:
                 await self.session.commit()
+                
         finally:
             self._sessions_repo = None
             self._outbox = None

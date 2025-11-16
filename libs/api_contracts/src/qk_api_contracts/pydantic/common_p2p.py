@@ -36,4 +36,5 @@ class VersionHeader(BaseModel):
 
     version: int = Field(default=0)
     weak_etag: str = Field(default="")
+    created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)

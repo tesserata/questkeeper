@@ -26,7 +26,6 @@ def session_orm_to_domain(row: SessionORM) -> Session:
         channel_id=row.channel_id,
         message_id=row.message_id,
         version_header=_get_version_header(row),
-        created_at=row.created_at
     )
 
 
@@ -50,12 +49,12 @@ def session_domain_to_orm(entity: Session, row: SessionORM | None = None) -> Ses
     return row
 
 
-def signup_orm_to_domain(signup_row: SignupORM) -> Signup:
+def signup_orm_to_domain(row: SignupORM) -> Signup:
     return Signup(
-        session_id=signup_row.session_id,
-        user_id=signup_row.user_id,
-        role=SignupRole(signup_row.role),
-        character_id=signup_row.character_id,
+        session_id=row.session_id,
+        user_id=row.user_id,
+        role=SignupRole(row.role),
+        character_id=row.character_id,
     )
 
 
@@ -70,4 +69,4 @@ def signup_domain_to_orm(entity: Signup, row: SignupORM | None = None) -> Signup
 
 
 def _get_version_header(row: VersionMixin) -> VersionHeader:
-    return VersionHeader(version=row.version, updated_at=row.updated_at)
+    return VersionHeader(version=row.version, created_at=row.created_at, updated_at=row.updated_at)

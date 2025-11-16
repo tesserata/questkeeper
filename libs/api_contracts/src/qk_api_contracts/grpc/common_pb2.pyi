@@ -42,11 +42,13 @@ class Page(_message.Message):
     def __init__(self, next_page_token: _Optional[str] = ..., total_size: _Optional[int] = ...) -> None: ...
 
 class VersionHeader(_message.Message):
-    __slots__ = ("version", "weak_etag", "updated_at")
+    __slots__ = ("version", "weak_etag", "created_at", "updated_at")
     VERSION_FIELD_NUMBER: _ClassVar[int]
     WEAK_ETAG_FIELD_NUMBER: _ClassVar[int]
+    CREATED_AT_FIELD_NUMBER: _ClassVar[int]
     UPDATED_AT_FIELD_NUMBER: _ClassVar[int]
     version: int
     weak_etag: str
+    created_at: _timestamp_pb2.Timestamp
     updated_at: _timestamp_pb2.Timestamp
-    def __init__(self, version: _Optional[int] = ..., weak_etag: _Optional[str] = ..., updated_at: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...
+    def __init__(self, version: _Optional[int] = ..., weak_etag: _Optional[str] = ..., created_at: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., updated_at: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...

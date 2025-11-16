@@ -34,7 +34,7 @@ class SignupInfo(BaseModel):
     session_id: str = Field(default="")
     user_id: int = Field(default=0)
     character_id: str = Field(default="")
-    seat: str = Field(default="")
+    role: str = Field(default="")
 
 class Session(BaseModel):
     """
@@ -71,7 +71,9 @@ class SessionSummary(BaseModel):#  manual field selection to optimize data sent
     version: VersionHeader = Field(default_factory=VersionHeader)
 
 class SignupView(BaseModel):
-    user_id: str = Field(default="")
+    user_id: int = Field(default=0)
+    session_id: str = Field(default="")
+    role: str = Field(default="")
     character: CharacterSummary = Field(default_factory=CharacterSummary)
 
 class SessionView(BaseModel):
@@ -79,7 +81,11 @@ class SessionView(BaseModel):
      view (UI-friendly projection)
     """
 
-    session: Session = Field(default_factory=Session)
+    session_id: str = Field(default="")
+    info: SessionInfo = Field(default_factory=SessionInfo)
+    channel_id: int = Field(default=0)
+    message_id: int = Field(default=0)
+    status: str = Field(default="")
     seats_taken: int = Field(default=0)
     main_signups: typing.List[SignupView] = Field(default_factory=list)
     reserve_signups: typing.List[SignupView] = Field(default_factory=list)

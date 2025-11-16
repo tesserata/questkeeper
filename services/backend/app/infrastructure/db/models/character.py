@@ -15,10 +15,10 @@ from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.infrastructure.db.models.base import Base, TimestampMixin, VersionMixin
+from app.infrastructure.db.models.base import Base, VersionMixin
 
 
-class CharacterORM(Base, TimestampMixin, VersionMixin):
+class CharacterORM(Base, VersionMixin):
     __tablename__ = "characters"
     __table_args__ = (
         Index("ix_characters_user_id", "user_id"),

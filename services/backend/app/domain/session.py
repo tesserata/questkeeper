@@ -34,11 +34,10 @@ class Signup:
     role: SignupRole
     character_id: UUID | None = None
 
-    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
-    updated_at: datetime = field(default_factory=lambda: datetime.now(UTC))
+    version_header: VersionHeader = field(default_factory=VersionHeader)
 
     def touch(self) -> None:
-        self.updated_at = datetime.now(UTC)
+        self.version_header.updated_at = datetime.now(UTC)
 
 
 # -------- Aggregate root --------
@@ -67,7 +66,6 @@ class Session:
 
     channel_id: int | None = field(default=None)
     message_id: int | None = field(default=None)
-    created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     version_header: VersionHeader = field(default_factory=VersionHeader)
 
     main_signups: list[Signup] = field(default_factory=list)

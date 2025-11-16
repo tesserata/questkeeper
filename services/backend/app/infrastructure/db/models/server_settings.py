@@ -4,7 +4,6 @@ from sqlalchemy import (
     Boolean,
     ForeignKey,
     Index,
-    Integer,
     PrimaryKeyConstraint,
     Text,
     text,
@@ -12,10 +11,10 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .base import Base, TimestampMixin, VersionMixin
+from .base import Base, VersionMixin
 
 
-class ServerSettingsORM(Base, TimestampMixin, VersionMixin):
+class ServerSettingsORM(Base, VersionMixin):
     __tablename__ = "server_settings"
     __table_args__ = (
         Index("ix_server_settings_default_system", "default_system"),
@@ -38,7 +37,7 @@ class ServerSettingsORM(Base, TimestampMixin, VersionMixin):
     role_mappings: Mapped[list["ServerRoleMappingORM"]] = relationship(back_populates="server")
 
 
-class ServerRoleMappingORM(Base, TimestampMixin, VersionMixin):
+class ServerRoleMappingORM(Base, VersionMixin):
     __tablename__ = "server_role_mapping"
     __table_args__ = (
         PrimaryKeyConstraint("server_id", "discord_role_id"),

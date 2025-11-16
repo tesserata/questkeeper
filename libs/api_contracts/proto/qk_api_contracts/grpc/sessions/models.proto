@@ -31,7 +31,7 @@ message SignupInfo {
   string session_id = 1;
   int64 user_id = 2;
   string character_id = 3;
-  string seat = 4;
+  string role = 4;
 }
 
 // resource (server -> client)
@@ -73,13 +73,20 @@ message SessionSummary { // manual field selection to optimize data sent
 
 // view (UI-friendly projection)
 message SessionView {
-  Session session = 1;
-  int32 seats_taken = 2;
-  repeated SignupView main_signups = 3;
-  repeated SignupView reserve_signups = 4;
+  string session_id = 1;
+  SessionInfo info = 2;
+
+  int64 channel_id = 3;
+  int64 message_id = 4;
+  string status = 5;
+  int32 seats_taken = 6;
+  repeated SignupView main_signups = 7;
+  repeated SignupView reserve_signups = 8;
 }
 
 message SignupView {
-  string user_id = 1;
-  characters.models.CharacterSummary character = 2;
+  int64 user_id = 1;
+  string session_id = 2;
+  string role = 3;
+  characters.models.CharacterSummary character = 4;
 }
