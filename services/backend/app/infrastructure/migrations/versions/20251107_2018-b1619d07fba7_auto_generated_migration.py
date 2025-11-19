@@ -61,8 +61,8 @@ def upgrade() -> None:
     sa.Column('level', sa.Integer(), server_default=sa.text('1'), nullable=False),
     sa.Column('name', sa.Text(), nullable=False),
     sa.Column('race', sa.Text(), nullable=True),
-    sa.Column('class', sa.Text(), nullable=True),
-    sa.Column('subclass', sa.Text(), nullable=True),
+    sa.Column('class_name', sa.Text(), nullable=True),
+    sa.Column('subclass_name', sa.Text(), nullable=True),
     sa.Column('notes', sa.Text(), nullable=True),
     sa.Column('created_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('version', sa.BigInteger(), server_default=sa.text('0'), nullable=False),
@@ -78,7 +78,7 @@ def upgrade() -> None:
     sa.Column('server_id', sa.BigInteger(), nullable=False),
     sa.Column('role_mentions', postgresql.ARRAY(sa.Text()), server_default=sa.text("'{}'"), nullable=False),
     sa.Column('title', sa.Text(), nullable=False),
-    sa.Column('summary', sa.Text(), server_default=sa.text("''"), nullable=False),
+    sa.Column('description', sa.Text(), server_default=sa.text("''"), nullable=False),
     sa.Column('system', sa.Text(), nullable=False),
     sa.Column('time_start', postgresql.TIMESTAMP(timezone=True), nullable=False),
     sa.Column('time_end', postgresql.TIMESTAMP(timezone=True), nullable=False),
@@ -143,7 +143,7 @@ def upgrade() -> None:
     sa.Column('gm_user_id', sa.BigInteger(), nullable=False),
     sa.Column('role_mentions', postgresql.ARRAY(sa.Text()), server_default=sa.text("'{}'"), nullable=False),
     sa.Column('title', sa.Text(), nullable=False),
-    sa.Column('summary', sa.Text(), server_default=sa.text("''"), nullable=False),
+    sa.Column('description', sa.Text(), server_default=sa.text("''"), nullable=False),
     sa.Column('system', sa.Text(), nullable=False),
     sa.Column('vtt_link', sa.Text(), nullable=True),
     sa.Column('location', sa.Text(), nullable=True),
@@ -169,18 +169,17 @@ def upgrade() -> None:
     op.create_index('ix_sessions_server_status_time', 'sessions', ['server_id', 'status', 'time'], unique=False, schema='service')
     op.create_index('ix_sessions_status', 'sessions', ['status'], unique=False, schema='service')
     op.create_index('ix_sessions_time', 'sessions', ['time'], unique=False, schema='service')
-    op.create_table('character_history',
+    op.create_table('characters_play_history',
     sa.Column('character_id', sa.UUID(), nullable=False),
     sa.Column('session_id', sa.UUID(), nullable=False),
-    sa.Column('event_id', sa.UUID(), nullable=True),
     sa.Column('created_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.ForeignKeyConstraint(['character_id'], ['service.characters.character_id'], ),
     sa.ForeignKeyConstraint(['session_id'], ['service.sessions.session_id'], ),
     sa.PrimaryKeyConstraint('character_id', 'session_id'),
     schema='service'
     )
-    op.create_index('ix_character_history_character_created', 'character_history', ['character_id', 'created_at'], unique=False, schema='service')
-    op.create_index('ix_character_history_session_id', 'character_history', ['session_id'], unique=False, schema='service')
+    op.create_index('ix_characters_play_history_character_created', 'characters_play_history', ['character_id', 'created_at'], unique=False, schema='service')
+    op.create_index('ix_characters_play_history_session_id', 'characters_play_history', ['session_id'], unique=False, schema='service')
     op.create_table('signups',
     sa.Column('session_id', sa.UUID(), nullable=False),
     sa.Column('user_id', sa.BigInteger(), nullable=False),
@@ -204,9 +203,9 @@ def downgrade() -> None:
     op.drop_index('ix_signups_session_role', table_name='signups', schema='service')
     op.drop_index('ix_signups_character_id', table_name='signups', schema='service')
     op.drop_table('signups', schema='service')
-    op.drop_index('ix_character_history_session_id', table_name='character_history', schema='service')
-    op.drop_index('ix_character_history_character_created', table_name='character_history', schema='service')
-    op.drop_table('character_history', schema='service')
+    op.drop_index('ix_characters_play_history_session_id', table_name='characters_play_history', schema='service')
+    op.drop_index('ix_characters_play_history_character_created', table_name='characters_play_history', schema='service')
+    op.drop_table('characters_play_history', schema='service')
     op.drop_index('ix_sessions_time', table_name='sessions', schema='service')
     op.drop_index('ix_sessions_status', table_name='sessions', schema='service')
     op.drop_index('ix_sessions_server_status_time', table_name='sessions', schema='service')

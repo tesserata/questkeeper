@@ -35,8 +35,8 @@ class CharacterORM(Base, VersionMixin):
     level: Mapped[int] = mapped_column(Integer, nullable=False, server_default=text("1"))
     name: Mapped[str] = mapped_column(Text, nullable=False)
     race: Mapped[str | None] = mapped_column(Text, nullable=True)
-    class_: Mapped[str | None] = mapped_column("class", Text, nullable=True)
-    subclass: Mapped[str | None] = mapped_column(Text, nullable=True)
+    class_name: Mapped[str | None] = mapped_column(Text, nullable=True)
+    subclass_name: Mapped[str | None] = mapped_column(Text, nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     # Relationships
@@ -46,12 +46,12 @@ class CharacterORM(Base, VersionMixin):
     # )
 
 
-class CharacterHistoryORM(Base):
-    __tablename__ = "character_history"
+class CharacterPlayHistoryORM(Base):
+    __tablename__ = "characters_play_history"
     __table_args__ = (
         PrimaryKeyConstraint("character_id", "session_id"),
-        Index("ix_character_history_character_created", "character_id", "created_at"),
-        Index("ix_character_history_session_id", "session_id"),
+        Index("ix_characters_play_history_character_created", "character_id", "created_at"),
+        Index("ix_characters_play_history_session_id", "session_id"),
         {"schema": "service"},
     )
 
@@ -61,7 +61,6 @@ class CharacterHistoryORM(Base):
     session_id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True), ForeignKey("service.sessions.session_id"), nullable=False
     )
-    event_id: Mapped[UUID | None] = mapped_column(PG_UUID(as_uuid=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )

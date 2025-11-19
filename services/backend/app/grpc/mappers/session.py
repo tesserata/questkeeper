@@ -9,17 +9,12 @@ from qk_api_contracts.grpc.sessions.models_pb2 import (
     SignupInfo,
     SignupView,
 )
-from qk_api_contracts.grpc.sessions.models_pb2 import (
-    Session as PbSession,
-)
-from qk_api_contracts.grpc.sessions.models_pb2 import (
-    SessionInfo as PbSessionInfo,
-)
-from qk_api_contracts.grpc.sessions.models_pb2 import (
-    SessionView as PbSessionView,
-)
+from qk_api_contracts.grpc.sessions.models_pb2 import Session as PbSession
+from qk_api_contracts.grpc.sessions.models_pb2 import SessionInfo as PbSessionInfo
+from qk_api_contracts.grpc.sessions.models_pb2 import SessionSummary as PbSessionSummary
+from qk_api_contracts.grpc.sessions.models_pb2 import SessionView as PbSessionView
 
-from app.domain.characters import Character
+from app.domain.character import Character
 from app.domain.common import VersionHeader as DomainVersionHeader
 from app.domain.session import Session as DomainSession
 from app.domain.session import Signup as DomainSignup
@@ -31,7 +26,7 @@ from app.grpc.mappers._common import (
     _version_from_pb,
     _version_to_pb,
 )
-from app.grpc.mappers.character import character_domain_to_summary_pb
+from app.grpc.mappers.character import character_domain_to_pb
 
 
 # Core helpers
@@ -40,7 +35,7 @@ def _session_to_info_pb(domain: DomainSession) -> PbSessionInfo:
         server_id=domain.server_id,
         event_id=str(domain.event_id) if domain.event_id else "",
         title=domain.title,
-        summary=domain.summary,
+        description=domain.description,
         system=domain.system,
         gm_user_id=domain.gm_user_id,
         vtt_link=domain.vtt_link or "",
@@ -69,7 +64,7 @@ def _session_from_info_pb(
         server_id=info.server_id,
         event_id=_uuid_or_none(info.event_id),
         title=info.title,
-        summary=info.summary,
+        description=info.description,
         system=_enum_or_none(GameSystem, info.system),
         gm_user_id=info.gm_user_id,
         vtt_link=info.vtt_link,
@@ -155,7 +150,7 @@ def signup_domain_to_view_pb(
         user_id=signup.user_id,
         session_id=str(signup.session_id),
         role=signup.role,
-        character=character_domain_to_summary_pb(character),
+        character=character_domain_to_pb(character),
     )
 
 
@@ -213,22 +208,17 @@ def session_view_pb_to_domain(pb_obj: SessionView) -> DomainSession:
 def session_domain_to_view_pb(
     session: DomainSession,
     *,
-    main_characters: dict[UUID, Character],
-    reserve_characters: dict[UUID, Character],
+    characters: dict[UUID, Character],
 ) -> PbSessionView:
     main_views: list[SignupView] = []
     for signup in session.main_signups:
-        char = main_characters.get(signup.character_id)
-        if not char:
-            continue
-        main_views.append(signup_domain_to_view_pb(signup, char))
+        view = signup_domain_to_view_pb(signup, characters[signup.character_id])
+        main_views.append(view)
 
     reserve_views: list[SignupView] = []
     for signup in session.reserve_signups:
-        char = reserve_characters.get(signup.character_id)
-        if not char:
-            continue
-        reserve_views.append(signup_domain_to_view_pb(signup, char))
+        view = signup_domain_to_view_pb(signup, characters[signup.character_id])
+        main_views.append(view)
 
     return PbSessionView(
         session_id=str(session.session_id),
@@ -239,4 +229,35 @@ def session_domain_to_view_pb(
         seats_taken=len(session.main_signups),
         main_signups=main_views,
         reserve_signups=reserve_views,
+    )
+
+
+# session summary
+# def session_summary_pb_to_domain(pb_obj: SessionSummary) -> DomainSession:
+#     return DomainSession(
+#         pb_obj.info,
+#         session_id=UUID(pb_obj.session_id),
+#         status=_enum_or_none(ScheduleStatus, pb_obj.status),
+#         channel_id=pb_obj.channel_id or None,
+#         message_id=pb_obj.message_id or None,
+#         main_signups=main_signups,
+#         reserve_signups=reserve_signups,
+#     )
+
+
+def session_domain_to_summary_pb(
+    session: DomainSession,
+) -> PbSessionSummary:
+    return PbSessionSummary(
+        title=session.title,
+        game_system=session.system,
+        gm_user_id=session.gm_user_id,
+        status=session.status,
+        time=_dt_to_ts(session.time),
+        capacity=session.capacity,
+        seats_taken=session.seats_taken,
+        server_id=session.server_id,
+        channel_id=session.channel_id or 0,
+        message_id=session.message_id or 0,
+        session_id=str(session.session_id),
     )

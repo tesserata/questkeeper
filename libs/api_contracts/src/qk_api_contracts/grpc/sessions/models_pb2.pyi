@@ -12,11 +12,11 @@ from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class SessionInfo(_message.Message):
-    __slots__ = ("server_id", "event_id", "title", "summary", "system", "gm_user_id", "vtt_link", "location", "additional_links", "time", "duration_minutes", "capacity", "role_mentions")
+    __slots__ = ("server_id", "event_id", "title", "description", "system", "gm_user_id", "vtt_link", "location", "additional_links", "time", "duration_minutes", "capacity", "role_mentions")
     SERVER_ID_FIELD_NUMBER: _ClassVar[int]
     EVENT_ID_FIELD_NUMBER: _ClassVar[int]
     TITLE_FIELD_NUMBER: _ClassVar[int]
-    SUMMARY_FIELD_NUMBER: _ClassVar[int]
+    DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
     SYSTEM_FIELD_NUMBER: _ClassVar[int]
     GM_USER_ID_FIELD_NUMBER: _ClassVar[int]
     VTT_LINK_FIELD_NUMBER: _ClassVar[int]
@@ -29,7 +29,7 @@ class SessionInfo(_message.Message):
     server_id: int
     event_id: str
     title: str
-    summary: str
+    description: str
     system: str
     gm_user_id: int
     vtt_link: str
@@ -39,7 +39,7 @@ class SessionInfo(_message.Message):
     duration_minutes: int
     capacity: int
     role_mentions: _containers.RepeatedScalarFieldContainer[str]
-    def __init__(self, server_id: _Optional[int] = ..., event_id: _Optional[str] = ..., title: _Optional[str] = ..., summary: _Optional[str] = ..., system: _Optional[str] = ..., gm_user_id: _Optional[int] = ..., vtt_link: _Optional[str] = ..., location: _Optional[str] = ..., additional_links: _Optional[_Iterable[str]] = ..., time: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., duration_minutes: _Optional[int] = ..., capacity: _Optional[int] = ..., role_mentions: _Optional[_Iterable[str]] = ...) -> None: ...
+    def __init__(self, server_id: _Optional[int] = ..., event_id: _Optional[str] = ..., title: _Optional[str] = ..., description: _Optional[str] = ..., system: _Optional[str] = ..., gm_user_id: _Optional[int] = ..., vtt_link: _Optional[str] = ..., location: _Optional[str] = ..., additional_links: _Optional[_Iterable[str]] = ..., time: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., duration_minutes: _Optional[int] = ..., capacity: _Optional[int] = ..., role_mentions: _Optional[_Iterable[str]] = ...) -> None: ...
 
 class SignupInfo(_message.Message):
     __slots__ = ("session_id", "user_id", "character_id", "role")
@@ -134,5 +134,5 @@ class SignupView(_message.Message):
     user_id: int
     session_id: str
     role: str
-    character: _models_pb2.CharacterSummary
-    def __init__(self, user_id: _Optional[int] = ..., session_id: _Optional[str] = ..., role: _Optional[str] = ..., character: _Optional[_Union[_models_pb2.CharacterSummary, _Mapping]] = ...) -> None: ...
+    character: _models_pb2.Character
+    def __init__(self, user_id: _Optional[int] = ..., session_id: _Optional[str] = ..., role: _Optional[str] = ..., character: _Optional[_Union[_models_pb2.Character, _Mapping]] = ...) -> None: ...

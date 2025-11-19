@@ -40,7 +40,6 @@ class Signup:
         self.version_header.updated_at = datetime.now(UTC)
 
 
-# -------- Aggregate root --------
 @dataclass
 class Session:
     server_id: int
@@ -48,7 +47,7 @@ class Session:
     gm_user_id: int
 
     title: str
-    summary: str
+    description: str
     capacity: int
 
     vtt_link: str | None
@@ -71,8 +70,21 @@ class Session:
     main_signups: list[Signup] = field(default_factory=list)
     reserve_signups: list[Signup] = field(default_factory=list)
 
+
+    @property
+    def main_signup_character_ids(self) -> list[UUID]:
+        return [s.character_id for s in self.main_signups if s.character_id]
+
+    @property
+    def reserve_signup_character_ids(self) -> list[UUID]:
+        return [s.character_id for s in self.reserve_signups if s.character_id]
+
+    @property
+    def seats_taken(self) -> int:
+        return len(self.main_signup_character_ids)
+
     # ---------- Queries ----------
-    def main_active_count(self) -> int:
+    def main_signup_count(self) -> int:
         return sum(1 for s in self._active_signups() if s.role == SignupRole.MAIN)
 
     def has_active_signup(self, user_id: str) -> bool:
@@ -80,7 +92,7 @@ class Session:
         return bool(s)
 
     def get_signup(self, user_id: str) -> Signup:
-        s = self.signups.get(user_id)
+        s = self.main_signups.get(user_id)
         if not s:
             raise NotSignedUp(f"user {user_id} has no record for session {self.session_id}")
         return s

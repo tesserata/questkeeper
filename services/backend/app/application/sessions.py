@@ -2,7 +2,7 @@ from uuid import UUID
 
 from qk_api_contracts.enums import SignupRole
 
-from app.domain.common import VersionHeader
+from app.domain.character import Character
 from app.domain.session import Session
 from app.infrastructure.db.uow import UnitOfWork
 
@@ -22,8 +22,23 @@ async def create_session(
 
 
 # Session queries
-async def get_session(session_id: UUID) -> tuple[Session, VersionHeader]:
-    pass
+async def get_session(session_id: UUID, with_signups: bool = False) -> Session:
+    async with UnitOfWork() as uow:
+        return await uow.sessions.get_session(session_id, with_signups=with_signups)
+
+
+async def get_session_view(
+    session_id: UUID,
+) -> tuple[Session, dict[UUID, Character]]:
+    async with UnitOfWork() as uow:
+        session = await uow.sessions.get_session(session_id, with_signups=True)
+
+    character_ids = session.main_signup_character_ids + session.reserve_signup_character_ids
+    if character_ids:
+        async with UnitOfWork() as uow:
+            characters = await uow.characters.get_many_by_ids(character_ids)
+
+    return session, characters
 
 
 # Signup commands

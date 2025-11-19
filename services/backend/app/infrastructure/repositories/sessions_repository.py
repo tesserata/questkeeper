@@ -4,14 +4,13 @@ from qk_api_contracts.enums import SignupRole
 from sqlalchemy import select, text, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.domain.session import Session, Signup
-from app.infrastructure.db.mappers import (
+from app.domain.session import Session
+from app.infrastructure.db.models.session import SessionORM, SignupORM
+from app.infrastructure.repositories.mappers import (
     session_domain_to_orm,
     session_orm_to_domain,
     signup_orm_to_domain,
 )
-from app.infrastructure.db.models.event import EventORM  # noqa: F401
-from app.infrastructure.db.models.session import SessionORM, SignupORM
 
 
 class SessionsRepository:

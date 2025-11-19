@@ -9,11 +9,11 @@ import "qk_api_contracts/grpc/common.proto";
 // write input (client -> server)
 message CharacterInfo {
   int64 user_id = 1;
-  string game_system = 2;
+  string system = 2;
 
   string name = 3;
-  string class = 4;
-  string subclass = 5;
+  string class_name = 4;
+  string subclass_name = 5;
   int32 level = 6;
   string race = 7;
   string notes = 8;
@@ -25,19 +25,6 @@ message Character {
   CharacterInfo info = 2;
 
   common.VersionHeader version = 6;
-}
-
-// summary (UI-friendly projection)
-message CharacterSummary {
-  int64 user_id = 1;
-  string character_id = 2;
-
-  string name = 3;
-  int32 level = 4;
-  string class = 5;
-  string subclass = 6;
-
-  common.VersionHeader version = 7;
 }
 
 message PlayRecord {

@@ -34,7 +34,7 @@ class EventORM(Base, VersionMixin):
         ARRAY(Text), nullable=False, server_default=text("'{}'")
     )
     title: Mapped[str] = mapped_column(Text, nullable=False)
-    summary: Mapped[str] = mapped_column(Text, nullable=False, server_default=text("''"))
+    description: Mapped[str] = mapped_column(Text, nullable=False, server_default=text("''"))
     system: Mapped[str] = mapped_column(Text, nullable=False)
     time_start: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), nullable=False)
     time_end: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), nullable=False)

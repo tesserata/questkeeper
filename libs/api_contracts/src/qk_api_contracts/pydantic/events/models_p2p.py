@@ -18,7 +18,7 @@ class EventInfo(BaseModel):
 
     server_id: int = Field(default=0)
     title: str = Field(default="")
-    summary: str = Field(default="")
+    description: str = Field(default="")
     system: str = Field(default="")
     location: str = Field(default="")
     additional_links: typing.List[str] = Field(default_factory=list)

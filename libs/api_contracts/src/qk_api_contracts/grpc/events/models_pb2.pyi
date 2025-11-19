@@ -12,10 +12,10 @@ from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class EventInfo(_message.Message):
-    __slots__ = ("server_id", "title", "summary", "system", "location", "additional_links", "time_start", "time_end", "role_mentions")
+    __slots__ = ("server_id", "title", "description", "system", "location", "additional_links", "time_start", "time_end", "role_mentions")
     SERVER_ID_FIELD_NUMBER: _ClassVar[int]
     TITLE_FIELD_NUMBER: _ClassVar[int]
-    SUMMARY_FIELD_NUMBER: _ClassVar[int]
+    DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
     SYSTEM_FIELD_NUMBER: _ClassVar[int]
     LOCATION_FIELD_NUMBER: _ClassVar[int]
     ADDITIONAL_LINKS_FIELD_NUMBER: _ClassVar[int]
@@ -24,14 +24,14 @@ class EventInfo(_message.Message):
     ROLE_MENTIONS_FIELD_NUMBER: _ClassVar[int]
     server_id: int
     title: str
-    summary: str
+    description: str
     system: str
     location: str
     additional_links: _containers.RepeatedScalarFieldContainer[str]
     time_start: _timestamp_pb2.Timestamp
     time_end: _timestamp_pb2.Timestamp
     role_mentions: _containers.RepeatedScalarFieldContainer[str]
-    def __init__(self, server_id: _Optional[int] = ..., title: _Optional[str] = ..., summary: _Optional[str] = ..., system: _Optional[str] = ..., location: _Optional[str] = ..., additional_links: _Optional[_Iterable[str]] = ..., time_start: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., time_end: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., role_mentions: _Optional[_Iterable[str]] = ...) -> None: ...
+    def __init__(self, server_id: _Optional[int] = ..., title: _Optional[str] = ..., description: _Optional[str] = ..., system: _Optional[str] = ..., location: _Optional[str] = ..., additional_links: _Optional[_Iterable[str]] = ..., time_start: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., time_end: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., role_mentions: _Optional[_Iterable[str]] = ...) -> None: ...
 
 class Event(_message.Message):
     __slots__ = ("event_id", "info", "channel_id", "message_id", "status", "version")

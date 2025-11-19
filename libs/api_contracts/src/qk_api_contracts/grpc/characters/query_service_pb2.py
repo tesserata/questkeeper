@@ -26,19 +26,21 @@ from qk_api_contracts.grpc import common_pb2 as qk__api__contracts_dot_grpc_dot_
 from qk_api_contracts.grpc.characters import models_pb2 as qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n4qk_api_contracts/grpc/characters/query_service.proto\x12\x16questkeeper.characters\x1a\"qk_api_contracts/grpc/common.proto\x1a-qk_api_contracts/grpc/characters/models.proto\"\'\n\x13GetCharacterRequest\x12\x10\n\x08\x65vent_id\x18\x01 \x01(\t\"g\n\x15ListCharactersRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x0e\n\x06system\x18\x02 \x01(\t\x12-\n\x04page\x18\x06 \x01(\x0b\x32\x1f.questkeeper.common.PageRequest\"\x80\x01\n\x16ListCharactersResponse\x12>\n\x05items\x18\x01 \x03(\x0b\x32/.questkeeper.characters.models.CharacterSummary\x12&\n\x04page\x18\x02 \x01(\x0b\x32\x18.questkeeper.common.Page2\xde\x02\n\x0f\x43haractersQuery\x12\x65\n\x0cGetCharacter\x12+.questkeeper.characters.GetCharacterRequest\x1a(.questkeeper.characters.models.Character\x12s\n\x13GetCharacterSummary\x12+.questkeeper.characters.GetCharacterRequest\x1a/.questkeeper.characters.models.CharacterSummary\x12o\n\x0eListCharacters\x12-.questkeeper.characters.ListCharactersRequest\x1a..questkeeper.characters.ListCharactersResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n4qk_api_contracts/grpc/characters/query_service.proto\x12\x16questkeeper.characters\x1a\"qk_api_contracts/grpc/common.proto\x1a-qk_api_contracts/grpc/characters/models.proto\"*\n\x12\x43haracterIdRequest\x12\x14\n\x0c\x63haracter_id\x18\x01 \x01(\t\"g\n\x15ListCharactersRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x0e\n\x06system\x18\x02 \x01(\t\x12-\n\x04page\x18\x06 \x01(\x0b\x32\x1f.questkeeper.common.PageRequest\"y\n\x16ListCharactersResponse\x12\x37\n\x05items\x18\x01 \x03(\x0b\x32(.questkeeper.characters.models.Character\x12&\n\x04page\x18\x02 \x01(\x0b\x32\x18.questkeeper.common.Page\"\x8f\x01\n\x13PlayHistoryResponse\x12:\n\x07records\x18\x01 \x03(\x0b\x32).questkeeper.characters.models.PlayRecord\x12\x14\n\x0c\x63haracter_id\x18\x02 \x01(\t\x12&\n\x04page\x18\x03 \x01(\x0b\x32\x18.questkeeper.common.Page2\xdc\x02\n\x0f\x43haractersQuery\x12\x64\n\x0cGetCharacter\x12*.questkeeper.characters.CharacterIdRequest\x1a(.questkeeper.characters.models.Character\x12o\n\x0eListCharacters\x12-.questkeeper.characters.ListCharactersRequest\x1a..questkeeper.characters.ListCharactersResponse\x12r\n\x17GetCharacterPlayHistory\x12*.questkeeper.characters.CharacterIdRequest\x1a+.questkeeper.characters.PlayHistoryResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'qk_api_contracts.grpc.characters.query_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_GETCHARACTERREQUEST']._serialized_start=163
-  _globals['_GETCHARACTERREQUEST']._serialized_end=202
-  _globals['_LISTCHARACTERSREQUEST']._serialized_start=204
-  _globals['_LISTCHARACTERSREQUEST']._serialized_end=307
-  _globals['_LISTCHARACTERSRESPONSE']._serialized_start=310
-  _globals['_LISTCHARACTERSRESPONSE']._serialized_end=438
-  _globals['_CHARACTERSQUERY']._serialized_start=441
-  _globals['_CHARACTERSQUERY']._serialized_end=791
+  _globals['_CHARACTERIDREQUEST']._serialized_start=163
+  _globals['_CHARACTERIDREQUEST']._serialized_end=205
+  _globals['_LISTCHARACTERSREQUEST']._serialized_start=207
+  _globals['_LISTCHARACTERSREQUEST']._serialized_end=310
+  _globals['_LISTCHARACTERSRESPONSE']._serialized_start=312
+  _globals['_LISTCHARACTERSRESPONSE']._serialized_end=433
+  _globals['_PLAYHISTORYRESPONSE']._serialized_start=436
+  _globals['_PLAYHISTORYRESPONSE']._serialized_end=579
+  _globals['_CHARACTERSQUERY']._serialized_start=582
+  _globals['_CHARACTERSQUERY']._serialized_end=930
 # @@protoc_insertion_point(module_scope)

@@ -44,7 +44,7 @@ class SessionORM(Base, VersionMixin):
         ARRAY(Text), nullable=False, server_default=text("'{}'")
     )
     title: Mapped[str] = mapped_column(Text, nullable=False)
-    summary: Mapped[str] = mapped_column(Text, nullable=False, server_default=text("''"))
+    description: Mapped[str] = mapped_column(Text, nullable=False, server_default=text("''"))
     system: Mapped[str] = mapped_column(Text, nullable=False)
     vtt_link: Mapped[str | None] = mapped_column(Text, nullable=True)
     location: Mapped[str | None] = mapped_column(Text, nullable=True)

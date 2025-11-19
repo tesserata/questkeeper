@@ -8,11 +8,11 @@ from typing import ClassVar as _ClassVar, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class GetCharacterRequest(_message.Message):
-    __slots__ = ("event_id",)
-    EVENT_ID_FIELD_NUMBER: _ClassVar[int]
-    event_id: str
-    def __init__(self, event_id: _Optional[str] = ...) -> None: ...
+class CharacterIdRequest(_message.Message):
+    __slots__ = ("character_id",)
+    CHARACTER_ID_FIELD_NUMBER: _ClassVar[int]
+    character_id: str
+    def __init__(self, character_id: _Optional[str] = ...) -> None: ...
 
 class ListCharactersRequest(_message.Message):
     __slots__ = ("user_id", "system", "page")
@@ -28,6 +28,16 @@ class ListCharactersResponse(_message.Message):
     __slots__ = ("items", "page")
     ITEMS_FIELD_NUMBER: _ClassVar[int]
     PAGE_FIELD_NUMBER: _ClassVar[int]
-    items: _containers.RepeatedCompositeFieldContainer[_models_pb2.CharacterSummary]
+    items: _containers.RepeatedCompositeFieldContainer[_models_pb2.Character]
     page: _common_pb2.Page
-    def __init__(self, items: _Optional[_Iterable[_Union[_models_pb2.CharacterSummary, _Mapping]]] = ..., page: _Optional[_Union[_common_pb2.Page, _Mapping]] = ...) -> None: ...
+    def __init__(self, items: _Optional[_Iterable[_Union[_models_pb2.Character, _Mapping]]] = ..., page: _Optional[_Union[_common_pb2.Page, _Mapping]] = ...) -> None: ...
+
+class PlayHistoryResponse(_message.Message):
+    __slots__ = ("records", "character_id", "page")
+    RECORDS_FIELD_NUMBER: _ClassVar[int]
+    CHARACTER_ID_FIELD_NUMBER: _ClassVar[int]
+    PAGE_FIELD_NUMBER: _ClassVar[int]
+    records: _containers.RepeatedCompositeFieldContainer[_models_pb2.PlayRecord]
+    character_id: str
+    page: _common_pb2.Page
+    def __init__(self, records: _Optional[_Iterable[_Union[_models_pb2.PlayRecord, _Mapping]]] = ..., character_id: _Optional[str] = ..., page: _Optional[_Union[_common_pb2.Page, _Mapping]] = ...) -> None: ...

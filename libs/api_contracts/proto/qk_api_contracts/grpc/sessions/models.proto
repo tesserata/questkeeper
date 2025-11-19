@@ -12,7 +12,7 @@ message SessionInfo {
   int64 server_id = 1;
   string event_id = 2;
   string title = 3;
-  string summary = 4;
+  string description = 4;
   string system = 5;
   int64 gm_user_id = 6;
 
@@ -88,5 +88,5 @@ message SignupView {
   int64 user_id = 1;
   string session_id = 2;
   string role = 3;
-  characters.models.CharacterSummary character = 4;
+  characters.models.Character character = 4;
 }

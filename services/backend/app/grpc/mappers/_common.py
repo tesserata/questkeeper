@@ -11,7 +11,7 @@ StrEnum = TypeVar("StrEnum")
 
 
 def _version_from_pb(pb: PbVersionHeader | None) -> DomainVersionHeader:
-    if pb is None:
+    if not pb:
         return DomainVersionHeader()
     return DomainVersionHeader(
         version=pb.version,
@@ -21,13 +21,15 @@ def _version_from_pb(pb: PbVersionHeader | None) -> DomainVersionHeader:
 
 
 def _version_to_pb(version: DomainVersionHeader | None) -> PbVersionHeader | None:
-    if version is None:
+    if not version:
         return None
-    return PbVersionHeader(
+
+    pb = PbVersionHeader(
         version=version.version,
         created_at=_dt_to_ts(version.created_at),
         updated_at=_dt_to_ts(version.updated_at),
     )
+    return pb
 
 
 def _ts_to_dt(ts: Timestamp | None) -> datetime | None:
@@ -37,9 +39,11 @@ def _ts_to_dt(ts: Timestamp | None) -> datetime | None:
 
 
 def _dt_to_ts(dt: datetime | None) -> Timestamp | None:
-    if dt is None:
+    if not dt:
         return None
-    return Timestamp().FromDatetime(dt)
+    ts = Timestamp()
+    ts.FromDatetime(dt)
+    return ts
 
 
 def _uuid_or_none(value: str | None) -> UUID | None:

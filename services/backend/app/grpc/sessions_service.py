@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import grpc
 from loguru import logger
 from qk_api_contracts.grpc.sessions.commands_service_pb2 import (
@@ -31,14 +33,19 @@ from qk_api_contracts.grpc.sessions.query_service_pb2 import (
 )
 from qk_api_contracts.grpc.sessions.query_service_pb2_grpc import SessionsQueryServicer
 
-from app.application.sessions import create_session
-from app.grpc.mappers.session import session_domain_to_pb, session_info_pb_to_domain
+from app.application.sessions import create_session, get_session, get_session_view
+from app.grpc.mappers.session import (
+    session_domain_to_pb,
+    session_domain_to_summary_pb,
+    session_domain_to_view_pb,
+    session_info_pb_to_domain,
+)
 
 
 class SessionsCommandsService(SessionCommandsServicer):
     async def CreateSession(
         self, request: SessionInfo, context: grpc.aio.ServicerContext
-    ) -> Session:
+    ) -> Session | None:
         try:
             payload = session_info_pb_to_domain(request)
             session = await create_session(payload)
@@ -47,7 +54,6 @@ class SessionsCommandsService(SessionCommandsServicer):
 
         except Exception as e:
             logger.exception(e)
-            return Session()
 
     async def EditBasics(
         self, request: EditBasicsRequest, context: grpc.aio.ServicerContext
@@ -86,18 +92,32 @@ class SessionsCommandsService(SessionCommandsServicer):
 class SessionsQueryService(SessionsQueryServicer):
     async def GetSession(
         self, request: GetSessionRequest, context: grpc.aio.ServicerContext
-    ) -> Session:
-        pass
+    ) -> Session | None:
+        try:
+            session = await get_session(session_id=UUID(request.session_id))
+            return session_domain_to_pb(session)
+        except Exception as e:
+            logger.exception(e)
 
     async def GetSessionView(
         self, request: GetSessionRequest, context: grpc.aio.ServicerContext
-    ) -> SessionView:
-        pass
+    ) -> SessionView | None:
+        try:
+            session, characters = await get_session_view(
+                session_id=UUID(request.session_id)
+            )
+            return session_domain_to_view_pb(session, characters=characters)
+        except Exception as e:
+            logger.exception(e)
 
     async def GetSessionSummary(
         self, request: GetSessionRequest, context: grpc.aio.ServicerContext
-    ) -> SessionSummary:
-        pass
+    ) -> SessionSummary | None:
+        try:
+            session = await get_session(session_id=UUID(request.session_id), with_signups=True)
+            return session_domain_to_summary_pb(session)
+        except Exception as e:
+            logger.exception(e)
 
     async def ListSessions(
         self, request: ListSessionsRequest, context: grpc.aio.ServicerContext

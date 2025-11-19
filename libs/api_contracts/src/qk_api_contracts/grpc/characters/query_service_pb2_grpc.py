@@ -38,18 +38,18 @@ class CharactersQueryStub(object):
         """
         self.GetCharacter = channel.unary_unary(
                 '/questkeeper.characters.CharactersQuery/GetCharacter',
-                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.CharacterIdRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
-                _registered_method=True)
-        self.GetCharacterSummary = channel.unary_unary(
-                '/questkeeper.characters.CharactersQuery/GetCharacterSummary',
-                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
-                response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.CharacterSummary.FromString,
                 _registered_method=True)
         self.ListCharacters = channel.unary_unary(
                 '/questkeeper.characters.CharactersQuery/ListCharacters',
                 request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersResponse.FromString,
+                _registered_method=True)
+        self.GetCharacterPlayHistory = channel.unary_unary(
+                '/questkeeper.characters.CharactersQuery/GetCharacterPlayHistory',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.CharacterIdRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.PlayHistoryResponse.FromString,
                 _registered_method=True)
 
 
@@ -63,13 +63,13 @@ class CharactersQueryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetCharacterSummary(self, request, context):
+    def ListCharacters(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ListCharacters(self, request, context):
+    def GetCharacterPlayHistory(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -80,18 +80,18 @@ def add_CharactersQueryServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetCharacter': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCharacter,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.CharacterIdRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.SerializeToString,
-            ),
-            'GetCharacterSummary': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetCharacterSummary,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.FromString,
-                    response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.CharacterSummary.SerializeToString,
             ),
             'ListCharacters': grpc.unary_unary_rpc_method_handler(
                     servicer.ListCharacters,
                     request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersResponse.SerializeToString,
+            ),
+            'GetCharacterPlayHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCharacterPlayHistory,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.CharacterIdRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.PlayHistoryResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -120,35 +120,8 @@ class CharactersQuery(object):
             request,
             target,
             '/questkeeper.characters.CharactersQuery/GetCharacter',
-            qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.CharacterIdRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def GetCharacterSummary(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/questkeeper.characters.CharactersQuery/GetCharacterSummary',
-            qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.GetCharacterRequest.SerializeToString,
-            qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.CharacterSummary.FromString,
             options,
             channel_credentials,
             insecure,
@@ -176,6 +149,33 @@ class CharactersQuery(object):
             '/questkeeper.characters.CharactersQuery/ListCharacters',
             qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.ListCharactersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCharacterPlayHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/questkeeper.characters.CharactersQuery/GetCharacterPlayHistory',
+            qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.CharacterIdRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_characters_dot_query__service__pb2.PlayHistoryResponse.FromString,
             options,
             channel_credentials,
             insecure,

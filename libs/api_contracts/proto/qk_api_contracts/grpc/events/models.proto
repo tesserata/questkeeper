@@ -11,7 +11,7 @@ import "qk_api_contracts/grpc/sessions/models.proto";
 message EventInfo {
   int64 server_id = 1;
   string title = 2;
-  string summary = 3;
+  string description = 3;
   string system = 4;
 
   string location = 5;

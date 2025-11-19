@@ -5,7 +5,7 @@
 from ..common_p2p import VersionHeader
 from datetime import datetime
 from google.protobuf.message import Message  # type: ignore
-from models_p2p import CharacterSummary
+from models_p2p import Character
 from pydantic import BaseModel
 from pydantic import Field
 import typing
@@ -19,7 +19,7 @@ class SessionInfo(BaseModel):
     server_id: int = Field(default=0)
     event_id: str = Field(default="")
     title: str = Field(default="")
-    summary: str = Field(default="")
+    description: str = Field(default="")
     system: str = Field(default="")
     gm_user_id: int = Field(default=0)
     vtt_link: str = Field(default="")
@@ -74,7 +74,7 @@ class SignupView(BaseModel):
     user_id: int = Field(default=0)
     session_id: str = Field(default="")
     role: str = Field(default="")
-    character: CharacterSummary = Field(default_factory=CharacterSummary)
+    character: Character = Field(default_factory=Character)
 
 class SessionView(BaseModel):
     """

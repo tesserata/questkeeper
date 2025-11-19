@@ -15,9 +15,10 @@ class CharacterInfo(BaseModel):
     """
 
     user_id: int = Field(default=0)
-    game_system: str = Field(default="")
+    system: str = Field(default="")
     name: str = Field(default="")
-    subclass: str = Field(default="")
+    class_name: str = Field(default="")
+    subclass_name: str = Field(default="")
     level: int = Field(default=0)
     race: str = Field(default="")
     notes: str = Field(default="")
@@ -29,18 +30,6 @@ class Character(BaseModel):
 
     character_id: str = Field(default="")
     info: CharacterInfo = Field(default_factory=CharacterInfo)
-    version: VersionHeader = Field(default_factory=VersionHeader)
-
-class CharacterSummary(BaseModel):
-    """
-     summary (UI-friendly projection)
-    """
-
-    user_id: int = Field(default=0)
-    character_id: str = Field(default="")
-    name: str = Field(default="")
-    level: int = Field(default=0)
-    subclass: str = Field(default="")
     version: VersionHeader = Field(default_factory=VersionHeader)
 
 class PlayRecord(BaseModel):

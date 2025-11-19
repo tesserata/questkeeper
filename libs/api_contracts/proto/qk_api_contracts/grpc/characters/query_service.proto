@@ -7,15 +7,15 @@ import "qk_api_contracts/grpc/characters/models.proto";
 
 // --- queries service (read models/projections)
 service CharactersQuery {
-  rpc GetCharacter(GetCharacterRequest) returns (models.Character);
-  rpc GetCharacterSummary(GetCharacterRequest) returns (models.CharacterSummary);
+  rpc GetCharacter(CharacterIdRequest) returns (models.Character);
   rpc ListCharacters(ListCharactersRequest) returns (ListCharactersResponse);
+  rpc GetCharacterPlayHistory(CharacterIdRequest) returns (PlayHistoryResponse);
 }
 
 // --- requests ---
 
-message GetCharacterRequest {
-  string event_id = 1;
+message CharacterIdRequest {
+  string character_id = 1;
 }
 
 message ListCharactersRequest {
@@ -26,6 +26,13 @@ message ListCharactersRequest {
 }
 
 message ListCharactersResponse {
-  repeated models.CharacterSummary items = 1;
+  repeated models.Character items = 1;
   common.Page page = 2;
+}
+
+message PlayHistoryResponse {
+  repeated models.PlayRecord records = 1;
+  string character_id = 2;
+
+  common.Page page = 3;
 }
