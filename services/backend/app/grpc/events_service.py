@@ -1,22 +1,23 @@
 import grpc
-from qk_api_contracts.grpc.events.commands_service_pb2 import (
-    CancelEventRequest,
+from qk_api_contracts.grpc.events.models_pb2 import (
+    Event,
+    EventInfo,
+    EventSummary,
+    EventView,
+)
+from qk_api_contracts.grpc.events.service_pb2 import (
     EditBasicsRequest,
     EditOrganizationRequest,
     EditScheduleRequest,
-    PublishEventRequest,
-)
-from qk_api_contracts.grpc.events.commands_service_pb2_grpc import EventsCommandsServicer
-from qk_api_contracts.grpc.events.models_pb2 import Event, EventInfo, EventSummary, EventView
-from qk_api_contracts.grpc.events.query_service_pb2 import (
+    EventOperationRequest,
     GetEventRequest,
     ListEventsRequest,
     ListEventsResponse,
 )
-from qk_api_contracts.grpc.events.query_service_pb2_grpc import EventsQueryServicer
+from qk_api_contracts.grpc.events.service_pb2_grpc import EventsServicer
 
 
-class EventsCommandsService(EventsCommandsServicer):
+class EventsServiceImpl(EventsServicer):
     async def CreateEvent(self, request: EventInfo, context: grpc.aio.ServicerContext) -> Event:
         pass
 
@@ -36,17 +37,15 @@ class EventsCommandsService(EventsCommandsServicer):
         pass
 
     async def PublishEvent(
-        self, request: PublishEventRequest, context: grpc.aio.ServicerContext
+        self, request: EventOperationRequest, context: grpc.aio.ServicerContext
     ) -> Event:
         pass
 
     async def CancelEvent(
-        self, request: CancelEventRequest, context: grpc.aio.ServicerContext
+        self, request: EventOperationRequest, context: grpc.aio.ServicerContext
     ) -> Event:
         pass
 
-
-class EventsQueryService(EventsQueryServicer):
     async def GetEvent(self, request: GetEventRequest, context: grpc.aio.ServicerContext) -> Event:
         pass
 

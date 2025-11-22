@@ -4,8 +4,8 @@ import grpc
 import warnings
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from qk_api_contracts.grpc.sessions import commands_service_pb2 as qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2
 from qk_api_contracts.grpc.sessions import models_pb2 as qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2
+from qk_api_contracts.grpc.sessions import service_pb2 as qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -20,16 +20,15 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in qk_api_contracts/grpc/sessions/commands_service_pb2_grpc.py depends on'
+        + ' but the generated code in qk_api_contracts/grpc/sessions/service_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class SessionCommandsStub(object):
-    """--- domain commands service (write) ---
-    """
+class SessionsStub(object):
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -38,53 +37,72 @@ class SessionCommandsStub(object):
             channel: A grpc.Channel.
         """
         self.CreateSession = channel.unary_unary(
-                '/questkeeper.sessions.SessionCommands/CreateSession',
+                '/questkeeper.v1.sessions.Sessions/CreateSession',
                 request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionInfo.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
                 _registered_method=True)
         self.EditBasics = channel.unary_unary(
-                '/questkeeper.sessions.SessionCommands/EditBasics',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditBasicsRequest.SerializeToString,
+                '/questkeeper.v1.sessions.Sessions/EditBasics',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditBasicsRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
                 _registered_method=True)
         self.EditSchedule = channel.unary_unary(
-                '/questkeeper.sessions.SessionCommands/EditSchedule',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditScheduleRequest.SerializeToString,
+                '/questkeeper.v1.sessions.Sessions/EditSchedule',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditScheduleRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
                 _registered_method=True)
         self.EditCapacity = channel.unary_unary(
-                '/questkeeper.sessions.SessionCommands/EditCapacity',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditCapacityRequest.SerializeToString,
+                '/questkeeper.v1.sessions.Sessions/EditCapacity',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditCapacityRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
                 _registered_method=True)
         self.EditOrganization = channel.unary_unary(
-                '/questkeeper.sessions.SessionCommands/EditOrganization',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditOrganizationRequest.SerializeToString,
+                '/questkeeper.v1.sessions.Sessions/EditOrganization',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditOrganizationRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
                 _registered_method=True)
         self.EditGM = channel.unary_unary(
-                '/questkeeper.sessions.SessionCommands/EditGM',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditGMRequest.SerializeToString,
+                '/questkeeper.v1.sessions.Sessions/EditGM',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditGMRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
                 _registered_method=True)
         self.PublishSession = channel.unary_unary(
-                '/questkeeper.sessions.SessionCommands/PublishSession',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.PublishSessionRequest.SerializeToString,
+                '/questkeeper.v1.sessions.Sessions/PublishSession',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SessionOperationRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
                 _registered_method=True)
         self.CancelSession = channel.unary_unary(
-                '/questkeeper.sessions.SessionCommands/CancelSession',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.CancelSessionRequest.SerializeToString,
+                '/questkeeper.v1.sessions.Sessions/CancelSession',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SessionOperationRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
+                _registered_method=True)
+        self.GetSession = channel.unary_unary(
+                '/questkeeper.v1.sessions.Sessions/GetSession',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.GetSessionRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
+                _registered_method=True)
+        self.GetSessionView = channel.unary_unary(
+                '/questkeeper.v1.sessions.Sessions/GetSessionView',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.GetSessionRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionView.FromString,
+                _registered_method=True)
+        self.GetSessionSummary = channel.unary_unary(
+                '/questkeeper.v1.sessions.Sessions/GetSessionSummary',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.GetSessionRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionSummary.FromString,
+                _registered_method=True)
+        self.ListSessions = channel.unary_unary(
+                '/questkeeper.v1.sessions.Sessions/ListSessions',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.ListSessionsRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.ListSessionsResponse.FromString,
                 _registered_method=True)
 
 
-class SessionCommandsServicer(object):
-    """--- domain commands service (write) ---
-    """
+class SessionsServicer(object):
+    """Missing associated documentation comment in .proto file."""
 
     def CreateSession(self, request, context):
-        """session lifecycle
+        """commands
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -132,8 +150,33 @@ class SessionCommandsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetSession(self, request, context):
+        """queries
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-def add_SessionCommandsServicer_to_server(servicer, server):
+    def GetSessionView(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSessionSummary(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListSessions(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_SessionsServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateSession': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateSession,
@@ -142,50 +185,69 @@ def add_SessionCommandsServicer_to_server(servicer, server):
             ),
             'EditBasics': grpc.unary_unary_rpc_method_handler(
                     servicer.EditBasics,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditBasicsRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditBasicsRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.SerializeToString,
             ),
             'EditSchedule': grpc.unary_unary_rpc_method_handler(
                     servicer.EditSchedule,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditScheduleRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditScheduleRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.SerializeToString,
             ),
             'EditCapacity': grpc.unary_unary_rpc_method_handler(
                     servicer.EditCapacity,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditCapacityRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditCapacityRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.SerializeToString,
             ),
             'EditOrganization': grpc.unary_unary_rpc_method_handler(
                     servicer.EditOrganization,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditOrganizationRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditOrganizationRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.SerializeToString,
             ),
             'EditGM': grpc.unary_unary_rpc_method_handler(
                     servicer.EditGM,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditGMRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditGMRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.SerializeToString,
             ),
             'PublishSession': grpc.unary_unary_rpc_method_handler(
                     servicer.PublishSession,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.PublishSessionRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SessionOperationRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.SerializeToString,
             ),
             'CancelSession': grpc.unary_unary_rpc_method_handler(
                     servicer.CancelSession,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.CancelSessionRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SessionOperationRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.SerializeToString,
+            ),
+            'GetSession': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSession,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.GetSessionRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.SerializeToString,
+            ),
+            'GetSessionView': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSessionView,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.GetSessionRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionView.SerializeToString,
+            ),
+            'GetSessionSummary': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSessionSummary,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.GetSessionRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionSummary.SerializeToString,
+            ),
+            'ListSessions': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListSessions,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.ListSessionsRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.ListSessionsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.sessions.SessionCommands', rpc_method_handlers)
+            'questkeeper.v1.sessions.Sessions', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.sessions.SessionCommands', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.v1.sessions.Sessions', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class SessionCommands(object):
-    """--- domain commands service (write) ---
-    """
+class Sessions(object):
+    """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def CreateSession(request,
@@ -201,7 +263,7 @@ class SessionCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SessionCommands/CreateSession',
+            '/questkeeper.v1.sessions.Sessions/CreateSession',
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionInfo.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
@@ -228,8 +290,8 @@ class SessionCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SessionCommands/EditBasics',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditBasicsRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Sessions/EditBasics',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditBasicsRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
             channel_credentials,
@@ -255,8 +317,8 @@ class SessionCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SessionCommands/EditSchedule',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditScheduleRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Sessions/EditSchedule',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditScheduleRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
             channel_credentials,
@@ -282,8 +344,8 @@ class SessionCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SessionCommands/EditCapacity',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditCapacityRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Sessions/EditCapacity',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditCapacityRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
             channel_credentials,
@@ -309,8 +371,8 @@ class SessionCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SessionCommands/EditOrganization',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditOrganizationRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Sessions/EditOrganization',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditOrganizationRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
             channel_credentials,
@@ -336,8 +398,8 @@ class SessionCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SessionCommands/EditGM',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.EditGMRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Sessions/EditGM',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.EditGMRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
             channel_credentials,
@@ -363,8 +425,8 @@ class SessionCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SessionCommands/PublishSession',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.PublishSessionRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Sessions/PublishSession',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SessionOperationRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
             channel_credentials,
@@ -390,8 +452,8 @@ class SessionCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SessionCommands/CancelSession',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.CancelSessionRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Sessions/CancelSession',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SessionOperationRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
             channel_credentials,
@@ -403,8 +465,116 @@ class SessionCommands(object):
             metadata,
             _registered_method=True)
 
+    @staticmethod
+    def GetSession(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/questkeeper.v1.sessions.Sessions/GetSession',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.GetSessionRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
-class SignupCommandsStub(object):
+    @staticmethod
+    def GetSessionView(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/questkeeper.v1.sessions.Sessions/GetSessionView',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.GetSessionRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionView.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetSessionSummary(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/questkeeper.v1.sessions.Sessions/GetSessionSummary',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.GetSessionRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SessionSummary.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListSessions(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/questkeeper.v1.sessions.Sessions/ListSessions',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.ListSessionsRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.ListSessionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+
+class SignupsStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -414,33 +584,33 @@ class SignupCommandsStub(object):
             channel: A grpc.Channel.
         """
         self.SignupToSession = channel.unary_unary(
-                '/questkeeper.sessions.SignupCommands/SignupToSession',
+                '/questkeeper.v1.sessions.Signups/SignupToSession',
                 request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SignupInfo.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.FromString,
                 _registered_method=True)
         self.SwitchReserve = channel.unary_unary(
-                '/questkeeper.sessions.SignupCommands/SwitchReserve',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SwitchReserveRequest.SerializeToString,
+                '/questkeeper.v1.sessions.Signups/SwitchReserve',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SignupOperationRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.FromString,
                 _registered_method=True)
         self.SwitchMain = channel.unary_unary(
-                '/questkeeper.sessions.SignupCommands/SwitchMain',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SwitchMainRequest.SerializeToString,
+                '/questkeeper.v1.sessions.Signups/SwitchMain',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SignupOperationRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.FromString,
                 _registered_method=True)
-        self.LeaveSession = channel.unary_unary(
-                '/questkeeper.sessions.SignupCommands/LeaveSession',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SignOutRequest.SerializeToString,
+        self.SignOut = channel.unary_unary(
+                '/questkeeper.v1.sessions.Signups/SignOut',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SignupOperationRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
         self.SetCharacter = channel.unary_unary(
-                '/questkeeper.sessions.SignupCommands/SetCharacter',
-                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SetCharacterRequest.SerializeToString,
+                '/questkeeper.v1.sessions.Signups/SetCharacter',
+                request_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SetCharacterRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.FromString,
                 _registered_method=True)
 
 
-class SignupCommandsServicer(object):
+class SignupsServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def SignupToSession(self, request, context):
@@ -461,7 +631,7 @@ class SignupCommandsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def LeaveSession(self, request, context):
+    def SignOut(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -474,7 +644,7 @@ class SignupCommandsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_SignupCommandsServicer_to_server(servicer, server):
+def add_SignupsServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'SignupToSession': grpc.unary_unary_rpc_method_handler(
                     servicer.SignupToSession,
@@ -483,33 +653,33 @@ def add_SignupCommandsServicer_to_server(servicer, server):
             ),
             'SwitchReserve': grpc.unary_unary_rpc_method_handler(
                     servicer.SwitchReserve,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SwitchReserveRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SignupOperationRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.SerializeToString,
             ),
             'SwitchMain': grpc.unary_unary_rpc_method_handler(
                     servicer.SwitchMain,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SwitchMainRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SignupOperationRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.SerializeToString,
             ),
-            'LeaveSession': grpc.unary_unary_rpc_method_handler(
-                    servicer.LeaveSession,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SignOutRequest.FromString,
+            'SignOut': grpc.unary_unary_rpc_method_handler(
+                    servicer.SignOut,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SignupOperationRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'SetCharacter': grpc.unary_unary_rpc_method_handler(
                     servicer.SetCharacter,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SetCharacterRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SetCharacterRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.sessions.SignupCommands', rpc_method_handlers)
+            'questkeeper.v1.sessions.Signups', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.sessions.SignupCommands', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.v1.sessions.Signups', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class SignupCommands(object):
+class Signups(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -526,7 +696,7 @@ class SignupCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SignupCommands/SignupToSession',
+            '/questkeeper.v1.sessions.Signups/SignupToSession',
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.SignupInfo.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.FromString,
             options,
@@ -553,8 +723,8 @@ class SignupCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SignupCommands/SwitchReserve',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SwitchReserveRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Signups/SwitchReserve',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SignupOperationRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.FromString,
             options,
             channel_credentials,
@@ -580,8 +750,8 @@ class SignupCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SignupCommands/SwitchMain',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SwitchMainRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Signups/SwitchMain',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SignupOperationRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.FromString,
             options,
             channel_credentials,
@@ -594,7 +764,7 @@ class SignupCommands(object):
             _registered_method=True)
 
     @staticmethod
-    def LeaveSession(request,
+    def SignOut(request,
             target,
             options=(),
             channel_credentials=None,
@@ -607,8 +777,8 @@ class SignupCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SignupCommands/LeaveSession',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SignOutRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Signups/SignOut',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SignupOperationRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
@@ -634,8 +804,8 @@ class SignupCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.sessions.SignupCommands/SetCharacter',
-            qk__api__contracts_dot_grpc_dot_sessions_dot_commands__service__pb2.SetCharacterRequest.SerializeToString,
+            '/questkeeper.v1.sessions.Signups/SetCharacter',
+            qk__api__contracts_dot_grpc_dot_sessions_dot_service__pb2.SetCharacterRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Signup.FromString,
             options,
             channel_credentials,

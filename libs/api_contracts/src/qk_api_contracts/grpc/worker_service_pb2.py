@@ -26,15 +26,15 @@ from qk_api_contracts.grpc.sessions import models_pb2 as qk__api__contracts_dot_
 from qk_api_contracts.grpc.events import models_pb2 as qk__api__contracts_dot_grpc_dot_events_dot_models__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*qk_api_contracts/grpc/worker_service.proto\x12\x12questkeeper.worker\x1a+qk_api_contracts/grpc/sessions/models.proto\x1a)qk_api_contracts/grpc/events/models.proto\"W\n\x13SetMessageIdRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x12\n\nmessage_id\x18\x02 \x01(\t\x12\x18\n\x10\x65xpected_version\x18\x03 \x01(\x04\x32\xce\x01\n\x06Worker\x12\x64\n\x13SetSessionMessageId\x12\'.questkeeper.worker.SetMessageIdRequest\x1a$.questkeeper.sessions.models.Session\x12^\n\x11SetEventMessageId\x12\'.questkeeper.worker.SetMessageIdRequest\x1a .questkeeper.events.models.Eventb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*qk_api_contracts/grpc/worker_service.proto\x12\x15questkeeper.v1.worker\x1a+qk_api_contracts/grpc/sessions/models.proto\x1a)qk_api_contracts/grpc/events/models.proto\"W\n\x13SetMessageIdRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x12\n\nmessage_id\x18\x02 \x01(\t\x12\x18\n\x10\x65xpected_version\x18\x03 \x01(\x04\x32\xda\x01\n\x06Worker\x12j\n\x13SetSessionMessageId\x12*.questkeeper.v1.worker.SetMessageIdRequest\x1a\'.questkeeper.v1.sessions.models.Session\x12\x64\n\x11SetEventMessageId\x12*.questkeeper.v1.worker.SetMessageIdRequest\x1a#.questkeeper.v1.events.models.Eventb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'qk_api_contracts.grpc.worker_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_SETMESSAGEIDREQUEST']._serialized_start=154
-  _globals['_SETMESSAGEIDREQUEST']._serialized_end=241
-  _globals['_WORKER']._serialized_start=244
-  _globals['_WORKER']._serialized_end=450
+  _globals['_SETMESSAGEIDREQUEST']._serialized_start=157
+  _globals['_SETMESSAGEIDREQUEST']._serialized_end=244
+  _globals['_WORKER']._serialized_start=247
+  _globals['_WORKER']._serialized_end=465
 # @@protoc_insertion_point(module_scope)

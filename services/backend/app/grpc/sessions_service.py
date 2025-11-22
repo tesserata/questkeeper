@@ -2,23 +2,6 @@ from uuid import UUID
 
 import grpc
 from loguru import logger
-from qk_api_contracts.grpc.sessions.commands_service_pb2 import (
-    CancelSessionRequest,
-    EditBasicsRequest,
-    EditCapacityRequest,
-    EditGMRequest,
-    EditOrganizationRequest,
-    EditScheduleRequest,
-    PublishSessionRequest,
-    SetCharacterRequest,
-    SignOutRequest,
-    SwitchMainRequest,
-    SwitchReserveRequest,
-)
-from qk_api_contracts.grpc.sessions.commands_service_pb2_grpc import (
-    SessionCommandsServicer,
-    SignupCommandsServicer,
-)
 from qk_api_contracts.grpc.sessions.models_pb2 import (
     Session,
     SessionInfo,
@@ -26,12 +9,23 @@ from qk_api_contracts.grpc.sessions.models_pb2 import (
     SessionView,
     Signup,
 )
-from qk_api_contracts.grpc.sessions.query_service_pb2 import (
+from qk_api_contracts.grpc.sessions.service_pb2 import (
+    EditBasicsRequest,
+    EditCapacityRequest,
+    EditGMRequest,
+    EditOrganizationRequest,
+    EditScheduleRequest,
     GetSessionRequest,
     ListSessionsRequest,
     ListSessionsResponse,
+    SessionOperationRequest,
+    SetCharacterRequest,
+    SignupOperationRequest,
 )
-from qk_api_contracts.grpc.sessions.query_service_pb2_grpc import SessionsQueryServicer
+from qk_api_contracts.grpc.sessions.service_pb2_grpc import (
+    SessionsServicer,
+    SignupsServicer,
+)
 
 from app.application.sessions import create_session, get_session, get_session_view
 from app.grpc.mappers.session import (
@@ -42,7 +36,7 @@ from app.grpc.mappers.session import (
 )
 
 
-class SessionsCommandsService(SessionCommandsServicer):
+class SessionsServiceImpl(SessionsServicer):
     async def CreateSession(
         self, request: SessionInfo, context: grpc.aio.ServicerContext
     ) -> Session | None:
@@ -79,17 +73,15 @@ class SessionsCommandsService(SessionCommandsServicer):
         pass
 
     async def PublishSession(
-        self, request: PublishSessionRequest, context: grpc.aio.ServicerContext
+        self, request: SessionOperationRequest, context: grpc.aio.ServicerContext
     ) -> Session:
         pass
 
     async def CancelSession(
-        self, request: CancelSessionRequest, context: grpc.aio.ServicerContext
+        self, request: SessionOperationRequest, context: grpc.aio.ServicerContext
     ) -> Session:
         pass
 
-
-class SessionsQueryService(SessionsQueryServicer):
     async def GetSession(
         self, request: GetSessionRequest, context: grpc.aio.ServicerContext
     ) -> Session | None:
@@ -103,9 +95,7 @@ class SessionsQueryService(SessionsQueryServicer):
         self, request: GetSessionRequest, context: grpc.aio.ServicerContext
     ) -> SessionView | None:
         try:
-            session, characters = await get_session_view(
-                session_id=UUID(request.session_id)
-            )
+            session, characters = await get_session_view(session_id=UUID(request.session_id))
             return session_domain_to_view_pb(session, characters=characters)
         except Exception as e:
             logger.exception(e)
@@ -125,21 +115,23 @@ class SessionsQueryService(SessionsQueryServicer):
         pass
 
 
-class SignupsCommandsService(SignupCommandsServicer):
+class SignupsServiceImpl(SignupsServicer):
     async def SignupToSession(self, request: Signup, context: grpc.aio.ServicerContext) -> Signup:
         pass
 
     async def SwitchMain(
-        self, request: SwitchMainRequest, context: grpc.aio.ServicerContext
+        self, request: SignupOperationRequest, context: grpc.aio.ServicerContext
     ) -> Signup:
         pass
 
     async def SwitchReserve(
-        self, request: SwitchReserveRequest, context: grpc.aio.ServicerContext
+        self, request: SessionOperationRequest, context: grpc.aio.ServicerContext
     ) -> Signup:
         pass
 
-    async def SignOut(self, request: SignOutRequest, context: grpc.aio.ServicerContext) -> None:
+    async def SignOut(
+        self, request: SignupOperationRequest, context: grpc.aio.ServicerContext
+    ) -> None:
         pass
 
     async def SetCharacter(

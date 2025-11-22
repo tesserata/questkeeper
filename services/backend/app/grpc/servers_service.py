@@ -8,7 +8,7 @@ from qk_api_contracts.grpc.servers_pb2 import (
 from qk_api_contracts.grpc.servers_pb2_grpc import ServersServicer
 
 
-class ServersService(ServersServicer):
+class ServersServiceImpl(ServersServicer):
     async def GetServerSettings(
         self, request: GetServerSettingsRequest, context: grpc.aio.ServicerContext
     ) -> ServerSettings:

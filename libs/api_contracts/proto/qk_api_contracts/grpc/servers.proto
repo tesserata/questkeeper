@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package questkeeper.servers;
+package questkeeper.v1.servers;
 
 // --- service ---
 service Servers {

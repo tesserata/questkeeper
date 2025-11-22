@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n qk_api_contracts/grpc/meta.proto\x12\x10questkeeper.meta\"\x0f\n\rHealthRequest\" \n\x0eHealthResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\"\x11\n\x0fVersionsRequest\"\x8d\x01\n\x10VersionsResponse\x12\x46\n\ncomponents\x18\x01 \x03(\x0b\x32\x32.questkeeper.meta.VersionsResponse.ComponentsEntry\x1a\x31\n\x0f\x43omponentsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x32\xa6\x01\n\x04Meta\x12K\n\x06Health\x12\x1f.questkeeper.meta.HealthRequest\x1a .questkeeper.meta.HealthResponse\x12Q\n\x08Versions\x12!.questkeeper.meta.VersionsRequest\x1a\".questkeeper.meta.VersionsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n qk_api_contracts/grpc/meta.proto\x12\x13questkeeper.v1.meta\"\x0f\n\rHealthRequest\" \n\x0eHealthResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\"\x11\n\x0fVersionsRequest\"\x90\x01\n\x10VersionsResponse\x12I\n\ncomponents\x18\x01 \x03(\x0b\x32\x35.questkeeper.v1.meta.VersionsResponse.ComponentsEntry\x1a\x31\n\x0f\x43omponentsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x32\xb2\x01\n\x04Meta\x12Q\n\x06Health\x12\".questkeeper.v1.meta.HealthRequest\x1a#.questkeeper.v1.meta.HealthResponse\x12W\n\x08Versions\x12$.questkeeper.v1.meta.VersionsRequest\x1a%.questkeeper.v1.meta.VersionsResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,16 +33,16 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_VERSIONSRESPONSE_COMPONENTSENTRY']._loaded_options = None
   _globals['_VERSIONSRESPONSE_COMPONENTSENTRY']._serialized_options = b'8\001'
-  _globals['_HEALTHREQUEST']._serialized_start=54
-  _globals['_HEALTHREQUEST']._serialized_end=69
-  _globals['_HEALTHRESPONSE']._serialized_start=71
-  _globals['_HEALTHRESPONSE']._serialized_end=103
-  _globals['_VERSIONSREQUEST']._serialized_start=105
-  _globals['_VERSIONSREQUEST']._serialized_end=122
-  _globals['_VERSIONSRESPONSE']._serialized_start=125
-  _globals['_VERSIONSRESPONSE']._serialized_end=266
-  _globals['_VERSIONSRESPONSE_COMPONENTSENTRY']._serialized_start=217
-  _globals['_VERSIONSRESPONSE_COMPONENTSENTRY']._serialized_end=266
-  _globals['_META']._serialized_start=269
-  _globals['_META']._serialized_end=435
+  _globals['_HEALTHREQUEST']._serialized_start=57
+  _globals['_HEALTHREQUEST']._serialized_end=72
+  _globals['_HEALTHRESPONSE']._serialized_start=74
+  _globals['_HEALTHRESPONSE']._serialized_end=106
+  _globals['_VERSIONSREQUEST']._serialized_start=108
+  _globals['_VERSIONSREQUEST']._serialized_end=125
+  _globals['_VERSIONSRESPONSE']._serialized_start=128
+  _globals['_VERSIONSRESPONSE']._serialized_end=272
+  _globals['_VERSIONSRESPONSE_COMPONENTSENTRY']._serialized_start=223
+  _globals['_VERSIONSRESPONSE_COMPONENTSENTRY']._serialized_end=272
+  _globals['_META']._serialized_start=275
+  _globals['_META']._serialized_end=453
 # @@protoc_insertion_point(module_scope)

@@ -1,7 +1,7 @@
 // python -m grpc_tools.protoc   -I src/qk_api_contracts/proto   --python_out=src/qk_api_contracts/grpc   --pyi_out=src/qk_api_contracts/grpc   --grpc_python_out=src/qk_api_contracts/grpc   --protobuf-to-pydantic_out=src/qk_api_contracts/pydantic   src/qk_api_contracts/proto/*.proto src/qk_api_contracts/proto/*/*.proto
 syntax = "proto3";
 
-package questkeeper.common;
+package questkeeper.v1.common;
 
 import "google/protobuf/timestamp.proto";
 

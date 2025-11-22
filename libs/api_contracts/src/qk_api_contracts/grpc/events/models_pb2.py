@@ -27,19 +27,19 @@ from qk_api_contracts.grpc import common_pb2 as qk__api__contracts_dot_grpc_dot_
 from qk_api_contracts.grpc.sessions import models_pb2 as qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)qk_api_contracts/grpc/events/models.proto\x12\x19questkeeper.events.models\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\"qk_api_contracts/grpc/common.proto\x1a+qk_api_contracts/grpc/sessions/models.proto\"\xf3\x01\n\tEventInfo\x12\x11\n\tserver_id\x18\x01 \x01(\x03\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0e\n\x06system\x18\x04 \x01(\t\x12\x10\n\x08location\x18\x05 \x01(\t\x12\x18\n\x10\x61\x64\x64itional_links\x18\x06 \x03(\t\x12.\n\ntime_start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08time_end\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\rrole_mentions\x18\t \x03(\t\"\xb9\x01\n\x05\x45vent\x12\x10\n\x08\x65vent_id\x18\x01 \x01(\t\x12\x32\n\x04info\x18\x02 \x01(\x0b\x32$.questkeeper.events.models.EventInfo\x12\x12\n\nchannel_id\x18\x03 \x01(\x03\x12\x12\n\nmessage_id\x18\x04 \x01(\x03\x12\x0e\n\x06status\x18\x05 \x01(\t\x12\x32\n\x07version\x18\x06 \x01(\x0b\x32!.questkeeper.common.VersionHeader\"\xa1\x02\n\x0c\x45ventSummary\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0bgame_system\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12.\n\ntime_start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08time_end\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tserver_id\x18\x06 \x01(\x03\x12\x12\n\nchannel_id\x18\x07 \x01(\x03\x12\x12\n\nmessage_id\x18\x08 \x01(\x03\x12\x10\n\x08\x65vent_id\x18\t \x01(\t\x12\x32\n\x07version\x18\n \x01(\x0b\x32!.questkeeper.common.VersionHeader\"\x90\x01\n\tEventView\x12/\n\x05\x65vent\x18\x01 \x01(\x0b\x32 .questkeeper.events.models.Event\x12\x13\n\x0bseats_taken\x18\x02 \x01(\x05\x12=\n\x08sessions\x18\x03 \x03(\x0b\x32+.questkeeper.sessions.models.SessionSummaryb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n)qk_api_contracts/grpc/events/models.proto\x12\x1cquestkeeper.v1.events.models\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\"qk_api_contracts/grpc/common.proto\x1a+qk_api_contracts/grpc/sessions/models.proto\"\xf3\x01\n\tEventInfo\x12\x11\n\tserver_id\x18\x01 \x01(\x03\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0e\n\x06system\x18\x04 \x01(\t\x12\x10\n\x08location\x18\x05 \x01(\t\x12\x18\n\x10\x61\x64\x64itional_links\x18\x06 \x03(\t\x12.\n\ntime_start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08time_end\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\rrole_mentions\x18\t \x03(\t\"\xbf\x01\n\x05\x45vent\x12\x10\n\x08\x65vent_id\x18\x01 \x01(\t\x12\x35\n\x04info\x18\x02 \x01(\x0b\x32\'.questkeeper.v1.events.models.EventInfo\x12\x12\n\nchannel_id\x18\x03 \x01(\x03\x12\x12\n\nmessage_id\x18\x04 \x01(\x03\x12\x0e\n\x06status\x18\x05 \x01(\t\x12\x35\n\x07version\x18\x06 \x01(\x0b\x32$.questkeeper.v1.common.VersionHeader\"\xa4\x02\n\x0c\x45ventSummary\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0bgame_system\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12.\n\ntime_start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08time_end\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tserver_id\x18\x06 \x01(\x03\x12\x12\n\nchannel_id\x18\x07 \x01(\x03\x12\x12\n\nmessage_id\x18\x08 \x01(\x03\x12\x10\n\x08\x65vent_id\x18\t \x01(\t\x12\x35\n\x07version\x18\n \x01(\x0b\x32$.questkeeper.v1.common.VersionHeader\"\x96\x01\n\tEventView\x12\x32\n\x05\x65vent\x18\x01 \x01(\x0b\x32#.questkeeper.v1.events.models.Event\x12\x13\n\x0bseats_taken\x18\x02 \x01(\x05\x12@\n\x08sessions\x18\x03 \x03(\x0b\x32..questkeeper.v1.sessions.models.SessionSummaryb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'qk_api_contracts.grpc.events.models_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_EVENTINFO']._serialized_start=187
-  _globals['_EVENTINFO']._serialized_end=430
-  _globals['_EVENT']._serialized_start=433
-  _globals['_EVENT']._serialized_end=618
-  _globals['_EVENTSUMMARY']._serialized_start=621
-  _globals['_EVENTSUMMARY']._serialized_end=910
-  _globals['_EVENTVIEW']._serialized_start=913
-  _globals['_EVENTVIEW']._serialized_end=1057
+  _globals['_EVENTINFO']._serialized_start=190
+  _globals['_EVENTINFO']._serialized_end=433
+  _globals['_EVENT']._serialized_start=436
+  _globals['_EVENT']._serialized_end=627
+  _globals['_EVENTSUMMARY']._serialized_start=630
+  _globals['_EVENTSUMMARY']._serialized_end=922
+  _globals['_EVENTVIEW']._serialized_start=925
+  _globals['_EVENTVIEW']._serialized_end=1075
 # @@protoc_insertion_point(module_scope)

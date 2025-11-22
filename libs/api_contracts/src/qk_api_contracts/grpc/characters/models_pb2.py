@@ -26,17 +26,17 @@ from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__
 from qk_api_contracts.grpc import common_pb2 as qk__api__contracts_dot_grpc_dot_common__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n-qk_api_contracts/grpc/characters/models.proto\x12\x1dquestkeeper.characters.models\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\"qk_api_contracts/grpc/common.proto\"\x95\x01\n\rCharacterInfo\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x0e\n\x06system\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x12\n\nclass_name\x18\x04 \x01(\t\x12\x15\n\rsubclass_name\x18\x05 \x01(\t\x12\r\n\x05level\x18\x06 \x01(\x05\x12\x0c\n\x04race\x18\x07 \x01(\t\x12\r\n\x05notes\x18\x08 \x01(\t\"\x91\x01\n\tCharacter\x12\x14\n\x0c\x63haracter_id\x18\x01 \x01(\t\x12:\n\x04info\x18\x02 \x01(\x0b\x32,.questkeeper.characters.models.CharacterInfo\x12\x32\n\x07version\x18\x06 \x01(\x0b\x32!.questkeeper.common.VersionHeader\"\xd0\x01\n\nPlayRecord\x12\x15\n\rsession_title\x18\x01 \x01(\t\x12\x12\n\ngm_user_id\x18\x02 \x01(\x03\x12(\n\x04time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tserver_id\x18\x04 \x01(\x03\x12\x12\n\nchannel_id\x18\x05 \x01(\x03\x12\x12\n\nmessage_id\x18\x06 \x01(\x03\x12\x32\n\x07version\x18\x07 \x01(\x0b\x32!.questkeeper.common.VersionHeaderb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n-qk_api_contracts/grpc/characters/models.proto\x12 questkeeper.v1.characters.models\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\"qk_api_contracts/grpc/common.proto\"\x95\x01\n\rCharacterInfo\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x0e\n\x06system\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x12\n\nclass_name\x18\x04 \x01(\t\x12\x15\n\rsubclass_name\x18\x05 \x01(\t\x12\r\n\x05level\x18\x06 \x01(\x05\x12\x0c\n\x04race\x18\x07 \x01(\t\x12\r\n\x05notes\x18\x08 \x01(\t\"\x97\x01\n\tCharacter\x12\x14\n\x0c\x63haracter_id\x18\x01 \x01(\t\x12=\n\x04info\x18\x02 \x01(\x0b\x32/.questkeeper.v1.characters.models.CharacterInfo\x12\x35\n\x07version\x18\x06 \x01(\x0b\x32$.questkeeper.v1.common.VersionHeader\"\xd3\x01\n\nPlayRecord\x12\x15\n\rsession_title\x18\x01 \x01(\t\x12\x12\n\ngm_user_id\x18\x02 \x01(\x03\x12(\n\x04time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tserver_id\x18\x04 \x01(\x03\x12\x12\n\nchannel_id\x18\x05 \x01(\x03\x12\x12\n\nmessage_id\x18\x06 \x01(\x03\x12\x35\n\x07version\x18\x07 \x01(\x0b\x32$.questkeeper.v1.common.VersionHeaderb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'qk_api_contracts.grpc.characters.models_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CHARACTERINFO']._serialized_start=150
-  _globals['_CHARACTERINFO']._serialized_end=299
-  _globals['_CHARACTER']._serialized_start=302
-  _globals['_CHARACTER']._serialized_end=447
-  _globals['_PLAYRECORD']._serialized_start=450
-  _globals['_PLAYRECORD']._serialized_end=658
+  _globals['_CHARACTERINFO']._serialized_start=153
+  _globals['_CHARACTERINFO']._serialized_end=302
+  _globals['_CHARACTER']._serialized_start=305
+  _globals['_CHARACTER']._serialized_end=456
+  _globals['_PLAYRECORD']._serialized_start=459
+  _globals['_PLAYRECORD']._serialized_end=670
 # @@protoc_insertion_point(module_scope)

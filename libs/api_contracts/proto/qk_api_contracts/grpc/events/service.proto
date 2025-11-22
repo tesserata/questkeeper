@@ -1,22 +1,28 @@
 syntax = "proto3";
 
-package questkeeper.events;
+package questkeeper.v1.events;
 
 import "google/protobuf/timestamp.proto";
+import "qk_api_contracts/grpc/common.proto";
 import "qk_api_contracts/grpc/events/models.proto";
 
-// --- domain commands service (write) ---
-service EventsCommands {
-  // event lifecycle
+service Events {
+  // commands
   rpc CreateEvent(models.EventInfo) returns (models.Event);
   rpc EditBasics(EditBasicsRequest) returns (models.Event);
   rpc EditSchedule(EditScheduleRequest) returns (models.Event);
   rpc EditOrganization(EditOrganizationRequest) returns (models.Event);
-  rpc PublishEvent(PublishEventRequest) returns (models.Event);
-  rpc CancelEvent(CancelEventRequest) returns (models.Event);
+  rpc PublishEvent(EventOperationRequest) returns (models.Event);
+  rpc CancelEvent(EventOperationRequest) returns (models.Event);
+
+  // queries
+  rpc GetEvent(GetEventRequest) returns (models.Event);
+  rpc GetEventView(GetEventRequest) returns (models.EventView);
+  rpc GetEventSummary(GetEventRequest) returns (models.EventSummary);
+  rpc ListEvents(ListEventsRequest) returns (ListEventsResponse);
 }
 
-// --- event commands ---
+// --- commands ---
 
 // edit
 
@@ -44,19 +50,30 @@ message EditOrganizationRequest {
   uint64 expected_version = 3;
 }
 
-
-// publish session
-
-message PublishEventRequest {
+message EventOperationRequest {
   string event_id = 1;
 
   uint64 expected_version = 2;
 }
 
-// cancel session
 
-message CancelEventRequest {
+// --- queries ---
+
+message GetEventRequest {
   string event_id = 1;
+}
 
-  uint64 expected_version = 2;
+message ListEventsRequest {
+  string server_id = 1;
+  string system = 2;
+  string status = 3;
+  google.protobuf.Timestamp start = 4;
+  google.protobuf.Timestamp end = 5;
+
+  common.PageRequest page = 6;
+}
+
+message ListEventsResponse {
+  repeated models.EventSummary items = 1;
+  common.Page page = 2;
 }

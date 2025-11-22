@@ -4,8 +4,8 @@ import grpc
 import warnings
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from qk_api_contracts.grpc.characters import commands_service_pb2 as qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2
 from qk_api_contracts.grpc.characters import models_pb2 as qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2
+from qk_api_contracts.grpc.characters import service_pb2 as qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -20,16 +20,15 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in qk_api_contracts/grpc/characters/commands_service_pb2_grpc.py depends on'
+        + ' but the generated code in qk_api_contracts/grpc/characters/service_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class CharactersCommandsStub(object):
-    """--- domain commands service (write) ---
-    """
+class CharactersStub(object):
+    """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
         """Constructor.
@@ -38,53 +37,68 @@ class CharactersCommandsStub(object):
             channel: A grpc.Channel.
         """
         self.CreateCharacter = channel.unary_unary(
-                '/questkeeper.characters.CharactersCommands/CreateCharacter',
+                '/questkeeper.v1.characters.Characters/CreateCharacter',
                 request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.CharacterInfo.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditName = channel.unary_unary(
-                '/questkeeper.characters.CharactersCommands/EditName',
-                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditNameRequest.SerializeToString,
+                '/questkeeper.v1.characters.Characters/EditName',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditNameRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditSystem = channel.unary_unary(
-                '/questkeeper.characters.CharactersCommands/EditSystem',
-                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditSystemRequest.SerializeToString,
+                '/questkeeper.v1.characters.Characters/EditSystem',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditSystemRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditClass = channel.unary_unary(
-                '/questkeeper.characters.CharactersCommands/EditClass',
-                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditClassRequest.SerializeToString,
+                '/questkeeper.v1.characters.Characters/EditClass',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditClassRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditRace = channel.unary_unary(
-                '/questkeeper.characters.CharactersCommands/EditRace',
-                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditRaceRequest.SerializeToString,
+                '/questkeeper.v1.characters.Characters/EditRace',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditRaceRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditLevel = channel.unary_unary(
-                '/questkeeper.characters.CharactersCommands/EditLevel',
-                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditLevelRequest.SerializeToString,
+                '/questkeeper.v1.characters.Characters/EditLevel',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditLevelRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.EditNotes = channel.unary_unary(
-                '/questkeeper.characters.CharactersCommands/EditNotes',
-                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditNotesRequest.SerializeToString,
+                '/questkeeper.v1.characters.Characters/EditNotes',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditNotesRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
                 _registered_method=True)
         self.DeleteCharacter = channel.unary_unary(
-                '/questkeeper.characters.CharactersCommands/DeleteCharacter',
-                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.DeleteCharacterRequest.SerializeToString,
+                '/questkeeper.v1.characters.Characters/DeleteCharacter',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.DeleteCharacterRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.GetCharacter = channel.unary_unary(
+                '/questkeeper.v1.characters.Characters/GetCharacter',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.CharacterIdRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
+                _registered_method=True)
+        self.ListCharacters = channel.unary_unary(
+                '/questkeeper.v1.characters.Characters/ListCharacters',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.ListCharactersRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.ListCharactersResponse.FromString,
+                _registered_method=True)
+        self.GetCharacterPlayHistory = channel.unary_unary(
+                '/questkeeper.v1.characters.Characters/GetCharacterPlayHistory',
+                request_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.CharacterIdRequest.SerializeToString,
+                response_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.PlayHistoryResponse.FromString,
                 _registered_method=True)
 
 
-class CharactersCommandsServicer(object):
-    """--- domain commands service (write) ---
-    """
+class CharactersServicer(object):
+    """Missing associated documentation comment in .proto file."""
 
     def CreateCharacter(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """commands
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -131,8 +145,27 @@ class CharactersCommandsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetCharacter(self, request, context):
+        """queries
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-def add_CharactersCommandsServicer_to_server(servicer, server):
+    def ListCharacters(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetCharacterPlayHistory(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_CharactersServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateCharacter': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateCharacter,
@@ -141,50 +174,64 @@ def add_CharactersCommandsServicer_to_server(servicer, server):
             ),
             'EditName': grpc.unary_unary_rpc_method_handler(
                     servicer.EditName,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditNameRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditNameRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.SerializeToString,
             ),
             'EditSystem': grpc.unary_unary_rpc_method_handler(
                     servicer.EditSystem,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditSystemRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditSystemRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.SerializeToString,
             ),
             'EditClass': grpc.unary_unary_rpc_method_handler(
                     servicer.EditClass,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditClassRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditClassRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.SerializeToString,
             ),
             'EditRace': grpc.unary_unary_rpc_method_handler(
                     servicer.EditRace,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditRaceRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditRaceRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.SerializeToString,
             ),
             'EditLevel': grpc.unary_unary_rpc_method_handler(
                     servicer.EditLevel,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditLevelRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditLevelRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.SerializeToString,
             ),
             'EditNotes': grpc.unary_unary_rpc_method_handler(
                     servicer.EditNotes,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditNotesRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditNotesRequest.FromString,
                     response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.SerializeToString,
             ),
             'DeleteCharacter': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteCharacter,
-                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.DeleteCharacterRequest.FromString,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.DeleteCharacterRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'GetCharacter': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCharacter,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.CharacterIdRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.SerializeToString,
+            ),
+            'ListCharacters': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListCharacters,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.ListCharactersRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.ListCharactersResponse.SerializeToString,
+            ),
+            'GetCharacterPlayHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCharacterPlayHistory,
+                    request_deserializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.CharacterIdRequest.FromString,
+                    response_serializer=qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.PlayHistoryResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.characters.CharactersCommands', rpc_method_handlers)
+            'questkeeper.v1.characters.Characters', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.characters.CharactersCommands', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.v1.characters.Characters', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class CharactersCommands(object):
-    """--- domain commands service (write) ---
-    """
+class Characters(object):
+    """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def CreateCharacter(request,
@@ -200,7 +247,7 @@ class CharactersCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.CharactersCommands/CreateCharacter',
+            '/questkeeper.v1.characters.Characters/CreateCharacter',
             qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.CharacterInfo.SerializeToString,
             qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
             options,
@@ -227,8 +274,8 @@ class CharactersCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.CharactersCommands/EditName',
-            qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditNameRequest.SerializeToString,
+            '/questkeeper.v1.characters.Characters/EditName',
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditNameRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
             options,
             channel_credentials,
@@ -254,8 +301,8 @@ class CharactersCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.CharactersCommands/EditSystem',
-            qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditSystemRequest.SerializeToString,
+            '/questkeeper.v1.characters.Characters/EditSystem',
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditSystemRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
             options,
             channel_credentials,
@@ -281,8 +328,8 @@ class CharactersCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.CharactersCommands/EditClass',
-            qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditClassRequest.SerializeToString,
+            '/questkeeper.v1.characters.Characters/EditClass',
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditClassRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
             options,
             channel_credentials,
@@ -308,8 +355,8 @@ class CharactersCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.CharactersCommands/EditRace',
-            qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditRaceRequest.SerializeToString,
+            '/questkeeper.v1.characters.Characters/EditRace',
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditRaceRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
             options,
             channel_credentials,
@@ -335,8 +382,8 @@ class CharactersCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.CharactersCommands/EditLevel',
-            qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditLevelRequest.SerializeToString,
+            '/questkeeper.v1.characters.Characters/EditLevel',
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditLevelRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
             options,
             channel_credentials,
@@ -362,8 +409,8 @@ class CharactersCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.CharactersCommands/EditNotes',
-            qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.EditNotesRequest.SerializeToString,
+            '/questkeeper.v1.characters.Characters/EditNotes',
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.EditNotesRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
             options,
             channel_credentials,
@@ -389,9 +436,90 @@ class CharactersCommands(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.characters.CharactersCommands/DeleteCharacter',
-            qk__api__contracts_dot_grpc_dot_characters_dot_commands__service__pb2.DeleteCharacterRequest.SerializeToString,
+            '/questkeeper.v1.characters.Characters/DeleteCharacter',
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.DeleteCharacterRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCharacter(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/questkeeper.v1.characters.Characters/GetCharacter',
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.CharacterIdRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2.Character.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListCharacters(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/questkeeper.v1.characters.Characters/ListCharacters',
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.ListCharactersRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.ListCharactersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetCharacterPlayHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/questkeeper.v1.characters.Characters/GetCharacterPlayHistory',
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.CharacterIdRequest.SerializeToString,
+            qk__api__contracts_dot_grpc_dot_characters_dot_service__pb2.PlayHistoryResponse.FromString,
             options,
             channel_credentials,
             insecure,

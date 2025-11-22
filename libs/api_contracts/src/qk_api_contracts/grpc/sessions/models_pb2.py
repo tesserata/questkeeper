@@ -27,25 +27,25 @@ from qk_api_contracts.grpc import common_pb2 as qk__api__contracts_dot_grpc_dot_
 from qk_api_contracts.grpc.characters import models_pb2 as qk__api__contracts_dot_grpc_dot_characters_dot_models__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n+qk_api_contracts/grpc/sessions/models.proto\x12\x1bquestkeeper.sessions.models\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\"qk_api_contracts/grpc/common.proto\x1a-qk_api_contracts/grpc/characters/models.proto\"\xa5\x02\n\x0bSessionInfo\x12\x11\n\tserver_id\x18\x01 \x01(\x03\x12\x10\n\x08\x65vent_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x0e\n\x06system\x18\x05 \x01(\t\x12\x12\n\ngm_user_id\x18\x06 \x01(\x03\x12\x10\n\x08vtt_link\x18\x07 \x01(\t\x12\x10\n\x08location\x18\x08 \x01(\t\x12\x18\n\x10\x61\x64\x64itional_links\x18\t \x03(\t\x12(\n\x04time\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x18\n\x10\x64uration_minutes\x18\x0b \x01(\x05\x12\x10\n\x08\x63\x61pacity\x18\x0c \x01(\x05\x12\x15\n\rrole_mentions\x18\r \x03(\t\"U\n\nSignupInfo\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\x03\x12\x14\n\x0c\x63haracter_id\x18\x03 \x01(\t\x12\x0c\n\x04role\x18\x04 \x01(\t\"\xc1\x01\n\x07Session\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x36\n\x04info\x18\x02 \x01(\x0b\x32(.questkeeper.sessions.models.SessionInfo\x12\x12\n\nchannel_id\x18\x03 \x01(\x03\x12\x12\n\nmessage_id\x18\x04 \x01(\x03\x12\x0e\n\x06status\x18\x05 \x01(\t\x12\x32\n\x07version\x18\x06 \x01(\x0b\x32!.questkeeper.common.VersionHeader\"s\n\x06Signup\x12\x35\n\x04info\x18\x01 \x01(\x0b\x32\'.questkeeper.sessions.models.SignupInfo\x12\x32\n\x07version\x18\x02 \x01(\x0b\x32!.questkeeper.common.VersionHeader\"\xac\x02\n\x0eSessionSummary\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0bgame_system\x18\x02 \x01(\t\x12\x12\n\ngm_user_id\x18\x03 \x01(\x03\x12\x0e\n\x06status\x18\x04 \x01(\t\x12(\n\x04time\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x10\n\x08\x63\x61pacity\x18\x06 \x01(\x05\x12\x13\n\x0bseats_taken\x18\x07 \x01(\x05\x12\x11\n\tserver_id\x18\x08 \x01(\x03\x12\x12\n\nchannel_id\x18\t \x01(\x03\x12\x12\n\nmessage_id\x18\n \x01(\x03\x12\x12\n\nsession_id\x18\x0b \x01(\t\x12\x32\n\x07version\x18\x0c \x01(\x0b\x32!.questkeeper.common.VersionHeader\"\xa7\x02\n\x0bSessionView\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x36\n\x04info\x18\x02 \x01(\x0b\x32(.questkeeper.sessions.models.SessionInfo\x12\x12\n\nchannel_id\x18\x03 \x01(\x03\x12\x12\n\nmessage_id\x18\x04 \x01(\x03\x12\x0e\n\x06status\x18\x05 \x01(\t\x12\x13\n\x0bseats_taken\x18\x06 \x01(\x05\x12=\n\x0cmain_signups\x18\x07 \x03(\x0b\x32\'.questkeeper.sessions.models.SignupView\x12@\n\x0freserve_signups\x18\x08 \x03(\x0b\x32\'.questkeeper.sessions.models.SignupView\"|\n\nSignupView\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x12\n\nsession_id\x18\x02 \x01(\t\x12\x0c\n\x04role\x18\x03 \x01(\t\x12;\n\tcharacter\x18\x04 \x01(\x0b\x32(.questkeeper.characters.models.Characterb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n+qk_api_contracts/grpc/sessions/models.proto\x12\x1equestkeeper.v1.sessions.models\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\"qk_api_contracts/grpc/common.proto\x1a-qk_api_contracts/grpc/characters/models.proto\"\xa5\x02\n\x0bSessionInfo\x12\x11\n\tserver_id\x18\x01 \x01(\x03\x12\x10\n\x08\x65vent_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x0e\n\x06system\x18\x05 \x01(\t\x12\x12\n\ngm_user_id\x18\x06 \x01(\x03\x12\x10\n\x08vtt_link\x18\x07 \x01(\t\x12\x10\n\x08location\x18\x08 \x01(\t\x12\x18\n\x10\x61\x64\x64itional_links\x18\t \x03(\t\x12(\n\x04time\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x18\n\x10\x64uration_minutes\x18\x0b \x01(\x05\x12\x10\n\x08\x63\x61pacity\x18\x0c \x01(\x05\x12\x15\n\rrole_mentions\x18\r \x03(\t\"U\n\nSignupInfo\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\x03\x12\x14\n\x0c\x63haracter_id\x18\x03 \x01(\t\x12\x0c\n\x04role\x18\x04 \x01(\t\"\xc7\x01\n\x07Session\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x39\n\x04info\x18\x02 \x01(\x0b\x32+.questkeeper.v1.sessions.models.SessionInfo\x12\x12\n\nchannel_id\x18\x03 \x01(\x03\x12\x12\n\nmessage_id\x18\x04 \x01(\x03\x12\x0e\n\x06status\x18\x05 \x01(\t\x12\x35\n\x07version\x18\x06 \x01(\x0b\x32$.questkeeper.v1.common.VersionHeader\"y\n\x06Signup\x12\x38\n\x04info\x18\x01 \x01(\x0b\x32*.questkeeper.v1.sessions.models.SignupInfo\x12\x35\n\x07version\x18\x02 \x01(\x0b\x32$.questkeeper.v1.common.VersionHeader\"\xaf\x02\n\x0eSessionSummary\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0bgame_system\x18\x02 \x01(\t\x12\x12\n\ngm_user_id\x18\x03 \x01(\x03\x12\x0e\n\x06status\x18\x04 \x01(\t\x12(\n\x04time\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x10\n\x08\x63\x61pacity\x18\x06 \x01(\x05\x12\x13\n\x0bseats_taken\x18\x07 \x01(\x05\x12\x11\n\tserver_id\x18\x08 \x01(\x03\x12\x12\n\nchannel_id\x18\t \x01(\x03\x12\x12\n\nmessage_id\x18\n \x01(\x03\x12\x12\n\nsession_id\x18\x0b \x01(\t\x12\x35\n\x07version\x18\x0c \x01(\x0b\x32$.questkeeper.v1.common.VersionHeader\"\xb0\x02\n\x0bSessionView\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x39\n\x04info\x18\x02 \x01(\x0b\x32+.questkeeper.v1.sessions.models.SessionInfo\x12\x12\n\nchannel_id\x18\x03 \x01(\x03\x12\x12\n\nmessage_id\x18\x04 \x01(\x03\x12\x0e\n\x06status\x18\x05 \x01(\t\x12\x13\n\x0bseats_taken\x18\x06 \x01(\x05\x12@\n\x0cmain_signups\x18\x07 \x03(\x0b\x32*.questkeeper.v1.sessions.models.SignupView\x12\x43\n\x0freserve_signups\x18\x08 \x03(\x0b\x32*.questkeeper.v1.sessions.models.SignupView\"\x7f\n\nSignupView\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x12\n\nsession_id\x18\x02 \x01(\t\x12\x0c\n\x04role\x18\x03 \x01(\t\x12>\n\tcharacter\x18\x04 \x01(\x0b\x32+.questkeeper.v1.characters.models.Characterb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'qk_api_contracts.grpc.sessions.models_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_SESSIONINFO']._serialized_start=193
-  _globals['_SESSIONINFO']._serialized_end=486
-  _globals['_SIGNUPINFO']._serialized_start=488
-  _globals['_SIGNUPINFO']._serialized_end=573
-  _globals['_SESSION']._serialized_start=576
-  _globals['_SESSION']._serialized_end=769
-  _globals['_SIGNUP']._serialized_start=771
-  _globals['_SIGNUP']._serialized_end=886
-  _globals['_SESSIONSUMMARY']._serialized_start=889
-  _globals['_SESSIONSUMMARY']._serialized_end=1189
-  _globals['_SESSIONVIEW']._serialized_start=1192
-  _globals['_SESSIONVIEW']._serialized_end=1487
-  _globals['_SIGNUPVIEW']._serialized_start=1489
-  _globals['_SIGNUPVIEW']._serialized_end=1613
+  _globals['_SESSIONINFO']._serialized_start=196
+  _globals['_SESSIONINFO']._serialized_end=489
+  _globals['_SIGNUPINFO']._serialized_start=491
+  _globals['_SIGNUPINFO']._serialized_end=576
+  _globals['_SESSION']._serialized_start=579
+  _globals['_SESSION']._serialized_end=778
+  _globals['_SIGNUP']._serialized_start=780
+  _globals['_SIGNUP']._serialized_end=901
+  _globals['_SESSIONSUMMARY']._serialized_start=904
+  _globals['_SESSIONSUMMARY']._serialized_end=1207
+  _globals['_SESSIONVIEW']._serialized_start=1210
+  _globals['_SESSIONVIEW']._serialized_end=1514
+  _globals['_SIGNUPVIEW']._serialized_start=1516
+  _globals['_SIGNUPVIEW']._serialized_end=1643
 # @@protoc_insertion_point(module_scope)

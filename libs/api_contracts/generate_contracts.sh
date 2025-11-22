@@ -17,14 +17,11 @@ python -m grpc_tools.protoc \
   qk_api_contracts/grpc/servers.proto \
   qk_api_contracts/grpc/worker_service.proto \
   qk_api_contracts/grpc/characters/models.proto \
-  qk_api_contracts/grpc/characters/commands_service.proto \
-  qk_api_contracts/grpc/characters/query_service.proto \
+  qk_api_contracts/grpc/characters/service.proto \
   qk_api_contracts/grpc/events/models.proto \
-  qk_api_contracts/grpc/events/commands_service.proto \
-  qk_api_contracts/grpc/events/query_service.proto \
+  qk_api_contracts/grpc/events/service.proto \
   qk_api_contracts/grpc/sessions/models.proto \
-  qk_api_contracts/grpc/sessions/commands_service.proto \
-  qk_api_contracts/grpc/sessions/query_service.proto
+  qk_api_contracts/grpc/sessions/service.proto \
 
 mv "$P2P_OUT/qk_api_contracts/grpc"/* "$P2P_OUT"
 rmdir "$P2P_OUT/qk_api_contracts/grpc"

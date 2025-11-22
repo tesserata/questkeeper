@@ -1,8 +1,9 @@
 from uuid import UUID
 
 import grpc
-from loguru import logger
-from qk_api_contracts.grpc.characters.commands_service_pb2 import (
+from qk_api_contracts.grpc.characters.models_pb2 import Character, CharacterInfo
+from qk_api_contracts.grpc.characters.service_pb2 import (
+    CharacterIdRequest,
     DeleteCharacterRequest,
     EditClassRequest,
     EditLevelRequest,
@@ -10,22 +11,17 @@ from qk_api_contracts.grpc.characters.commands_service_pb2 import (
     EditNotesRequest,
     EditRaceRequest,
     EditSystemRequest,
-)
-from qk_api_contracts.grpc.characters.commands_service_pb2_grpc import CharactersCommandsServicer
-from qk_api_contracts.grpc.characters.models_pb2 import Character, CharacterInfo
-from qk_api_contracts.grpc.characters.query_service_pb2 import (
-    CharacterIdRequest,
     ListCharactersRequest,
     ListCharactersResponse,
     PlayHistoryResponse,
 )
-from qk_api_contracts.grpc.characters.query_service_pb2_grpc import CharactersQueryServicer
+from qk_api_contracts.grpc.characters.service_pb2_grpc import CharactersServicer
 
 from app.application.characters import create_character, delete_character, get_character_by_id
 from app.grpc.mappers.character import character_domain_to_pb, character_info_pb_to_domain
 
 
-class CharactersCommandsService(CharactersCommandsServicer):
+class CharactersServiceImpl(CharactersServicer):
     async def CreateCharacter(
         self, request: CharacterInfo, context: grpc.aio.ServicerContext
     ) -> Character | None:
@@ -68,16 +64,11 @@ class CharactersCommandsService(CharactersCommandsServicer):
     ) -> None:
         await delete_character(character_id=UUID(request.character_id))
 
-class CharactersQueryService(CharactersQueryServicer):
     async def GetCharacter(
         self, request: CharacterIdRequest, context: grpc.aio.ServicerContext
     ) -> Character | None:
         character = await get_character_by_id(character_id=UUID(request.character_id))
-        logger.info("Domain:")
-        logger.info(character)
         pb = character_domain_to_pb(character)
-        logger.info("Protobuf:")
-        logger.info(pb)
         return pb
 
     async def ListCharacters(

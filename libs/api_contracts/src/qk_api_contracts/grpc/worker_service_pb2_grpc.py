@@ -38,12 +38,12 @@ class WorkerStub(object):
             channel: A grpc.Channel.
         """
         self.SetSessionMessageId = channel.unary_unary(
-                '/questkeeper.worker.Worker/SetSessionMessageId',
+                '/questkeeper.v1.worker.Worker/SetSessionMessageId',
                 request_serializer=qk__api__contracts_dot_grpc_dot_worker__service__pb2.SetMessageIdRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
                 _registered_method=True)
         self.SetEventMessageId = channel.unary_unary(
-                '/questkeeper.worker.Worker/SetEventMessageId',
+                '/questkeeper.v1.worker.Worker/SetEventMessageId',
                 request_serializer=qk__api__contracts_dot_grpc_dot_worker__service__pb2.SetMessageIdRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
                 _registered_method=True)
@@ -80,9 +80,9 @@ def add_WorkerServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.worker.Worker', rpc_method_handlers)
+            'questkeeper.v1.worker.Worker', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.worker.Worker', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.v1.worker.Worker', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -104,7 +104,7 @@ class Worker(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.worker.Worker/SetSessionMessageId',
+            '/questkeeper.v1.worker.Worker/SetSessionMessageId',
             qk__api__contracts_dot_grpc_dot_worker__service__pb2.SetMessageIdRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_sessions_dot_models__pb2.Session.FromString,
             options,
@@ -131,7 +131,7 @@ class Worker(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.worker.Worker/SetEventMessageId',
+            '/questkeeper.v1.worker.Worker/SetEventMessageId',
             qk__api__contracts_dot_grpc_dot_worker__service__pb2.SetMessageIdRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_events_dot_models__pb2.Event.FromString,
             options,

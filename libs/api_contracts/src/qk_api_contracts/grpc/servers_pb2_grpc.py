@@ -36,22 +36,22 @@ class ServersStub(object):
             channel: A grpc.Channel.
         """
         self.GetServerSettings = channel.unary_unary(
-                '/questkeeper.servers.Servers/GetServerSettings',
+                '/questkeeper.v1.servers.Servers/GetServerSettings',
                 request_serializer=qk__api__contracts_dot_grpc_dot_servers__pb2.GetServerSettingsRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_servers__pb2.ServerSettings.FromString,
                 _registered_method=True)
         self.EditServerSettings = channel.unary_unary(
-                '/questkeeper.servers.Servers/EditServerSettings',
+                '/questkeeper.v1.servers.Servers/EditServerSettings',
                 request_serializer=qk__api__contracts_dot_grpc_dot_servers__pb2.ServerSettings.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_servers__pb2.ServerSettings.FromString,
                 _registered_method=True)
         self.GetRoleMapping = channel.unary_unary(
-                '/questkeeper.servers.Servers/GetRoleMapping',
+                '/questkeeper.v1.servers.Servers/GetRoleMapping',
                 request_serializer=qk__api__contracts_dot_grpc_dot_servers__pb2.GetRoleMappingRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_servers__pb2.RoleMapping.FromString,
                 _registered_method=True)
         self.UpdateRoleMapping = channel.unary_unary(
-                '/questkeeper.servers.Servers/UpdateRoleMapping',
+                '/questkeeper.v1.servers.Servers/UpdateRoleMapping',
                 request_serializer=qk__api__contracts_dot_grpc_dot_servers__pb2.RoleMapping.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_servers__pb2.RoleMapping.FromString,
                 _registered_method=True)
@@ -110,9 +110,9 @@ def add_ServersServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.servers.Servers', rpc_method_handlers)
+            'questkeeper.v1.servers.Servers', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.servers.Servers', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.v1.servers.Servers', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -134,7 +134,7 @@ class Servers(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.servers.Servers/GetServerSettings',
+            '/questkeeper.v1.servers.Servers/GetServerSettings',
             qk__api__contracts_dot_grpc_dot_servers__pb2.GetServerSettingsRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_servers__pb2.ServerSettings.FromString,
             options,
@@ -161,7 +161,7 @@ class Servers(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.servers.Servers/EditServerSettings',
+            '/questkeeper.v1.servers.Servers/EditServerSettings',
             qk__api__contracts_dot_grpc_dot_servers__pb2.ServerSettings.SerializeToString,
             qk__api__contracts_dot_grpc_dot_servers__pb2.ServerSettings.FromString,
             options,
@@ -188,7 +188,7 @@ class Servers(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.servers.Servers/GetRoleMapping',
+            '/questkeeper.v1.servers.Servers/GetRoleMapping',
             qk__api__contracts_dot_grpc_dot_servers__pb2.GetRoleMappingRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_servers__pb2.RoleMapping.FromString,
             options,
@@ -215,7 +215,7 @@ class Servers(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.servers.Servers/UpdateRoleMapping',
+            '/questkeeper.v1.servers.Servers/UpdateRoleMapping',
             qk__api__contracts_dot_grpc_dot_servers__pb2.RoleMapping.SerializeToString,
             qk__api__contracts_dot_grpc_dot_servers__pb2.RoleMapping.FromString,
             options,

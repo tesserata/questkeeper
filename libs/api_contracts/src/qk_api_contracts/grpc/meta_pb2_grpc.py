@@ -35,12 +35,12 @@ class MetaStub(object):
             channel: A grpc.Channel.
         """
         self.Health = channel.unary_unary(
-                '/questkeeper.meta.Meta/Health',
+                '/questkeeper.v1.meta.Meta/Health',
                 request_serializer=qk__api__contracts_dot_grpc_dot_meta__pb2.HealthRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_meta__pb2.HealthResponse.FromString,
                 _registered_method=True)
         self.Versions = channel.unary_unary(
-                '/questkeeper.meta.Meta/Versions',
+                '/questkeeper.v1.meta.Meta/Versions',
                 request_serializer=qk__api__contracts_dot_grpc_dot_meta__pb2.VersionsRequest.SerializeToString,
                 response_deserializer=qk__api__contracts_dot_grpc_dot_meta__pb2.VersionsResponse.FromString,
                 _registered_method=True)
@@ -76,9 +76,9 @@ def add_MetaServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'questkeeper.meta.Meta', rpc_method_handlers)
+            'questkeeper.v1.meta.Meta', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('questkeeper.meta.Meta', rpc_method_handlers)
+    server.add_registered_method_handlers('questkeeper.v1.meta.Meta', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -99,7 +99,7 @@ class Meta(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.meta.Meta/Health',
+            '/questkeeper.v1.meta.Meta/Health',
             qk__api__contracts_dot_grpc_dot_meta__pb2.HealthRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_meta__pb2.HealthResponse.FromString,
             options,
@@ -126,7 +126,7 @@ class Meta(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/questkeeper.meta.Meta/Versions',
+            '/questkeeper.v1.meta.Meta/Versions',
             qk__api__contracts_dot_grpc_dot_meta__pb2.VersionsRequest.SerializeToString,
             qk__api__contracts_dot_grpc_dot_meta__pb2.VersionsResponse.FromString,
             options,

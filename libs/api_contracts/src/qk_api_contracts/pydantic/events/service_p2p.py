@@ -12,6 +12,28 @@ from pydantic import Field
 import typing
 
 
+class EditBasicsRequest(BaseModel):
+    event_id: str = Field(default="")
+    title: str = Field(default="")
+    summary: str = Field(default="")
+    system: str = Field(default="")
+    expected_version: int = Field(default=0)
+
+class EditScheduleRequest(BaseModel):
+    session_id: str = Field(default="")
+    time_start: datetime = Field(default_factory=datetime.now)
+    time_end: datetime = Field(default_factory=datetime.now)
+    expected_version: int = Field(default=0)
+
+class EditOrganizationRequest(BaseModel):
+    location: str = Field(default="")
+    additional_links: typing.List[str] = Field(default_factory=list)
+    expected_version: int = Field(default=0)
+
+class EventOperationRequest(BaseModel):
+    event_id: str = Field(default="")
+    expected_version: int = Field(default=0)
+
 class GetEventRequest(BaseModel):
     event_id: str = Field(default="")
 

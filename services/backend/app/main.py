@@ -3,36 +3,25 @@ import signal
 
 import grpc
 from loguru import logger
-from qk_api_contracts.grpc.characters.commands_service_pb2_grpc import (
-    add_CharactersCommandsServicer_to_server,
+from qk_api_contracts.grpc.characters.service_pb2_grpc import (
+    add_CharactersServicer_to_server,
 )
-from qk_api_contracts.grpc.characters.query_service_pb2_grpc import (
-    add_CharactersQueryServicer_to_server,
+from qk_api_contracts.grpc.events.service_pb2_grpc import (
+    add_EventsServicer_to_server,
 )
-from qk_api_contracts.grpc.events.commands_service_pb2_grpc import (
-    add_EventsCommandsServicer_to_server,
-)
-from qk_api_contracts.grpc.events.query_service_pb2_grpc import add_EventsQueryServicer_to_server
 from qk_api_contracts.grpc.servers_pb2_grpc import add_ServersServicer_to_server
-from qk_api_contracts.grpc.sessions.commands_service_pb2_grpc import (
-    add_SessionCommandsServicer_to_server,
-    add_SignupCommandsServicer_to_server,
-)
-from qk_api_contracts.grpc.sessions.query_service_pb2_grpc import (
-    add_SessionsQueryServicer_to_server,
+from qk_api_contracts.grpc.sessions.service_pb2_grpc import (
+    add_SessionsServicer_to_server,
+    add_SignupsServicer_to_server,
 )
 from qk_api_contracts.grpc.worker_service_pb2_grpc import add_WorkerServicer_to_server
 
 from app.config import CONFIG
-from app.grpc.characters_service import CharactersCommandsService, CharactersQueryService
-from app.grpc.events_service import EventsCommandsService, EventsQueryService
-from app.grpc.servers_service import ServersService
-from app.grpc.sessions_service import (
-    SessionsCommandsService,
-    SessionsQueryService,
-    SignupsCommandsService,
-)
-from app.grpc.workers_service import WorkersService
+from app.grpc.characters_service import CharactersServiceImpl
+from app.grpc.events_service import EventsServiceImpl
+from app.grpc.servers_service import ServersServiceImpl
+from app.grpc.sessions_service import SessionsServiceImpl, SignupsServiceImpl
+from app.grpc.workers_service import WorkersServiceImpl
 
 # Constants
 MAX_MESSAGE_SIZE = 20 * 1024 * 1024
@@ -52,18 +41,13 @@ def _create_grpc_server() -> grpc.aio.Server:
 
 def _register_services(server: grpc.aio.Server) -> None:
     """Register all gRPC services with the server."""
-    add_CharactersCommandsServicer_to_server(CharactersCommandsService(), server)
-    add_CharactersQueryServicer_to_server(CharactersQueryService(), server)
+    add_CharactersServicer_to_server(CharactersServiceImpl(), server)
+    add_EventsServicer_to_server(EventsServiceImpl(), server)
+    add_SessionsServicer_to_server(SessionsServiceImpl(), server)
+    add_SignupsServicer_to_server(SignupsServiceImpl(), server)
 
-    add_EventsCommandsServicer_to_server(EventsCommandsService(), server)
-    add_EventsQueryServicer_to_server(EventsQueryService(), server)
-
-    add_SessionCommandsServicer_to_server(SessionsCommandsService(), server)
-    add_SessionsQueryServicer_to_server(SessionsQueryService(), server)
-    add_SignupCommandsServicer_to_server(SignupsCommandsService(), server)
-
-    add_ServersServicer_to_server(ServersService(), server)
-    add_WorkerServicer_to_server(WorkersService(), server)
+    add_ServersServicer_to_server(ServersServiceImpl(), server)
+    add_WorkerServicer_to_server(WorkersServiceImpl(), server)
 
 
 def _load_ssl_credentials() -> grpc.ServerCredentials:

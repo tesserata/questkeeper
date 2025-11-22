@@ -1,12 +1,14 @@
 syntax = "proto3";
 
-package questkeeper.characters;
+package questkeeper.v1.characters;
 
 import "google/protobuf/empty.proto";
+import "qk_api_contracts/grpc/common.proto";
 import "qk_api_contracts/grpc/characters/models.proto";
 
-// --- domain commands service (write) ---
-service CharactersCommands {
+
+service Characters {
+  // commands
   rpc CreateCharacter(models.CharacterInfo) returns (models.Character);
   rpc EditName(EditNameRequest) returns (models.Character);
   rpc EditSystem(EditSystemRequest) returns (models.Character);
@@ -15,9 +17,15 @@ service CharactersCommands {
   rpc EditLevel(EditLevelRequest) returns (models.Character);
   rpc EditNotes(EditNotesRequest) returns (models.Character);
   rpc DeleteCharacter(DeleteCharacterRequest) returns (google.protobuf.Empty);
+
+  // queries
+  rpc GetCharacter(CharacterIdRequest) returns (models.Character);
+  rpc ListCharacters(ListCharactersRequest) returns (ListCharactersResponse);
+  rpc GetCharacterPlayHistory(CharacterIdRequest) returns (PlayHistoryResponse);
+
 }
 
-// --- event commands ---
+// --- commands ---
 
 // edit
 
@@ -68,4 +76,30 @@ message DeleteCharacterRequest {
   string character_id = 1;
 
   uint64 expected_version = 2;
+}
+
+
+// --- queries ---
+
+message CharacterIdRequest {
+  string character_id = 1;
+}
+
+message ListCharactersRequest {
+  int64 user_id = 1;
+  string system = 2;
+
+  common.PageRequest page = 6;
+}
+
+message ListCharactersResponse {
+  repeated models.Character items = 1;
+  common.Page page = 2;
+}
+
+message PlayHistoryResponse {
+  repeated models.PlayRecord records = 1;
+  string character_id = 2;
+
+  common.Page page = 3;
 }

@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#qk_api_contracts/grpc/servers.proto\x12\x13questkeeper.servers\"-\n\x18GetServerSettingsRequest\x12\x11\n\tserver_id\x18\x01 \x01(\t\"\xa1\x02\n\x0eServerSettings\x12\x11\n\tserver_id\x18\x01 \x01(\t\x12\'\n\x1f\x64\x65\x66\x61ult_announcement_channel_id\x18\x02 \x01(\t\x12\x16\n\x0e\x64\x65\x66\x61ult_system\x18\x03 \x01(\t\x12 \n\x18\x64m_notifications_enabled\x18\x04 \x01(\x08\x12J\n\x0crole_mapping\x18\x05 \x03(\x0b\x32\x34.questkeeper.servers.ServerSettings.RoleMappingEntry\x12\x19\n\x11mentionable_roles\x18\x06 \x03(\t\x1a\x32\n\x10RoleMappingEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"*\n\x15GetRoleMappingRequest\x12\x11\n\tserver_id\x18\x01 \x01(\t\"\x90\x01\n\x0bRoleMapping\x12\x11\n\tserver_id\x18\x01 \x01(\t\x12>\n\x07mapping\x18\x02 \x03(\x0b\x32-.questkeeper.servers.RoleMapping.MappingEntry\x1a.\n\x0cMappingEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x32\x8b\x03\n\x07Servers\x12g\n\x11GetServerSettings\x12-.questkeeper.servers.GetServerSettingsRequest\x1a#.questkeeper.servers.ServerSettings\x12^\n\x12\x45\x64itServerSettings\x12#.questkeeper.servers.ServerSettings\x1a#.questkeeper.servers.ServerSettings\x12^\n\x0eGetRoleMapping\x12*.questkeeper.servers.GetRoleMappingRequest\x1a .questkeeper.servers.RoleMapping\x12W\n\x11UpdateRoleMapping\x12 .questkeeper.servers.RoleMapping\x1a .questkeeper.servers.RoleMappingb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#qk_api_contracts/grpc/servers.proto\x12\x16questkeeper.v1.servers\"-\n\x18GetServerSettingsRequest\x12\x11\n\tserver_id\x18\x01 \x01(\t\"\xa4\x02\n\x0eServerSettings\x12\x11\n\tserver_id\x18\x01 \x01(\t\x12\'\n\x1f\x64\x65\x66\x61ult_announcement_channel_id\x18\x02 \x01(\t\x12\x16\n\x0e\x64\x65\x66\x61ult_system\x18\x03 \x01(\t\x12 \n\x18\x64m_notifications_enabled\x18\x04 \x01(\x08\x12M\n\x0crole_mapping\x18\x05 \x03(\x0b\x32\x37.questkeeper.v1.servers.ServerSettings.RoleMappingEntry\x12\x19\n\x11mentionable_roles\x18\x06 \x03(\t\x1a\x32\n\x10RoleMappingEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"*\n\x15GetRoleMappingRequest\x12\x11\n\tserver_id\x18\x01 \x01(\t\"\x93\x01\n\x0bRoleMapping\x12\x11\n\tserver_id\x18\x01 \x01(\t\x12\x41\n\x07mapping\x18\x02 \x03(\x0b\x32\x30.questkeeper.v1.servers.RoleMapping.MappingEntry\x1a.\n\x0cMappingEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x32\xa3\x03\n\x07Servers\x12m\n\x11GetServerSettings\x12\x30.questkeeper.v1.servers.GetServerSettingsRequest\x1a&.questkeeper.v1.servers.ServerSettings\x12\x64\n\x12\x45\x64itServerSettings\x12&.questkeeper.v1.servers.ServerSettings\x1a&.questkeeper.v1.servers.ServerSettings\x12\x64\n\x0eGetRoleMapping\x12-.questkeeper.v1.servers.GetRoleMappingRequest\x1a#.questkeeper.v1.servers.RoleMapping\x12]\n\x11UpdateRoleMapping\x12#.questkeeper.v1.servers.RoleMapping\x1a#.questkeeper.v1.servers.RoleMappingb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -35,18 +35,18 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_SERVERSETTINGS_ROLEMAPPINGENTRY']._serialized_options = b'8\001'
   _globals['_ROLEMAPPING_MAPPINGENTRY']._loaded_options = None
   _globals['_ROLEMAPPING_MAPPINGENTRY']._serialized_options = b'8\001'
-  _globals['_GETSERVERSETTINGSREQUEST']._serialized_start=60
-  _globals['_GETSERVERSETTINGSREQUEST']._serialized_end=105
-  _globals['_SERVERSETTINGS']._serialized_start=108
-  _globals['_SERVERSETTINGS']._serialized_end=397
-  _globals['_SERVERSETTINGS_ROLEMAPPINGENTRY']._serialized_start=347
-  _globals['_SERVERSETTINGS_ROLEMAPPINGENTRY']._serialized_end=397
-  _globals['_GETROLEMAPPINGREQUEST']._serialized_start=399
-  _globals['_GETROLEMAPPINGREQUEST']._serialized_end=441
-  _globals['_ROLEMAPPING']._serialized_start=444
-  _globals['_ROLEMAPPING']._serialized_end=588
-  _globals['_ROLEMAPPING_MAPPINGENTRY']._serialized_start=542
-  _globals['_ROLEMAPPING_MAPPINGENTRY']._serialized_end=588
-  _globals['_SERVERS']._serialized_start=591
-  _globals['_SERVERS']._serialized_end=986
+  _globals['_GETSERVERSETTINGSREQUEST']._serialized_start=63
+  _globals['_GETSERVERSETTINGSREQUEST']._serialized_end=108
+  _globals['_SERVERSETTINGS']._serialized_start=111
+  _globals['_SERVERSETTINGS']._serialized_end=403
+  _globals['_SERVERSETTINGS_ROLEMAPPINGENTRY']._serialized_start=353
+  _globals['_SERVERSETTINGS_ROLEMAPPINGENTRY']._serialized_end=403
+  _globals['_GETROLEMAPPINGREQUEST']._serialized_start=405
+  _globals['_GETROLEMAPPINGREQUEST']._serialized_end=447
+  _globals['_ROLEMAPPING']._serialized_start=450
+  _globals['_ROLEMAPPING']._serialized_end=597
+  _globals['_ROLEMAPPING_MAPPINGENTRY']._serialized_start=551
+  _globals['_ROLEMAPPING_MAPPINGENTRY']._serialized_end=597
+  _globals['_SERVERS']._serialized_start=600
+  _globals['_SERVERS']._serialized_end=1019
 # @@protoc_insertion_point(module_scope)

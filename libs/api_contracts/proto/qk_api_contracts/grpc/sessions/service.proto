@@ -1,35 +1,39 @@
 syntax = "proto3";
 
-package questkeeper.sessions;
+package questkeeper.v1.sessions;
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
+import "qk_api_contracts/grpc/common.proto";
 import "qk_api_contracts/grpc/sessions/models.proto";
 
-// --- domain commands service (write) ---
-service SessionCommands {
-  // session lifecycle
+service Sessions {
+  // commands
   rpc CreateSession(models.SessionInfo) returns (models.Session);
   rpc EditBasics(EditBasicsRequest) returns (models.Session);
   rpc EditSchedule(EditScheduleRequest) returns (models.Session);
   rpc EditCapacity(EditCapacityRequest) returns (models.Session);
   rpc EditOrganization(EditOrganizationRequest) returns (models.Session);
   rpc EditGM(EditGMRequest) returns (models.Session);
-  rpc PublishSession(PublishSessionRequest) returns (models.Session);
-  rpc CancelSession(CancelSessionRequest) returns (models.Session);
+  rpc PublishSession(SessionOperationRequest) returns (models.Session);
+  rpc CancelSession(SessionOperationRequest) returns (models.Session);
+
+  // queries
+  rpc GetSession(GetSessionRequest) returns (models.Session);
+  rpc GetSessionView(GetSessionRequest) returns (models.SessionView);
+  rpc GetSessionSummary(GetSessionRequest) returns (models.SessionSummary);
+  rpc ListSessions(ListSessionsRequest) returns (ListSessionsResponse);
 }
 
-service SignupCommands {
+service Signups {
   rpc SignupToSession(models.SignupInfo) returns (models.Signup);
-  rpc SwitchReserve(SwitchReserveRequest) returns (models.Signup);
-  rpc SwitchMain(SwitchMainRequest) returns (models.Signup);
-  rpc LeaveSession(SignOutRequest) returns (google.protobuf.Empty);
+  rpc SwitchReserve(SignupOperationRequest) returns (models.Signup);
+  rpc SwitchMain(SignupOperationRequest) returns (models.Signup);
+  rpc SignOut(SignupOperationRequest) returns (google.protobuf.Empty);
   rpc SetCharacter(SetCharacterRequest) returns (models.Signup);
 }
 
 // --- session commands ---
-
-// edit
 
 message EditBasicsRequest {
   string session_id = 1;
@@ -70,35 +74,14 @@ message EditGMRequest {
   uint64 expected_version = 3;
 }
 
-// publish session
-
-message PublishSessionRequest {
-  string session_id = 1;
-
-  uint64 expected_version = 2;
-}
-
-// cancel session
-
-message CancelSessionRequest {
+message SessionOperationRequest {
   string session_id = 1;
 
   uint64 expected_version = 2;
 }
 
 // --- signup commands ---
-
-message SwitchReserveRequest {
-  string session_id = 1;
-  string user_id = 2;
-}
-
-message SwitchMainRequest {
-  string session_id = 1;
-  string user_id = 2;
-}
-
-message SignOutRequest {
+message SignupOperationRequest {
   string session_id = 1;
   string user_id = 2;
 }
@@ -107,4 +90,28 @@ message SetCharacterRequest {
   string session_id = 1;
   string user_id = 2;
   string character_id = 3;
+}
+
+// --- session queries ---
+
+message GetSessionRequest {
+  string session_id = 1;
+}
+
+message ListSessionsRequest {
+  string server_id = 1;
+  int64 gm_user_id = 2;
+  int64 user_id = 3;
+  string system = 4;
+  string event_id = 5;
+  string status = 6;
+  google.protobuf.Timestamp start = 7;
+  google.protobuf.Timestamp end = 8;
+
+  common.PageRequest page = 9;
+}
+
+message ListSessionsResponse {
+  repeated models.SessionSummary items = 1;
+  common.Page page = 2;
 }

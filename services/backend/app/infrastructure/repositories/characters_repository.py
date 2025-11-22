@@ -20,6 +20,7 @@ class CharactersRepository:
         self._db = session
 
     async def create_character(self, entity: Character) -> None:
+        logger.info(character_domain_to_orm(entity))
         self._db.add(character_domain_to_orm(entity))
 
     async def get_character_by_id(self, character_id: UUID) -> Character:

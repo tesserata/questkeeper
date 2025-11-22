@@ -11,4 +11,4 @@ dependencies = []
 
 
 [tool.hatch.build.targets.wheel]
-packages = ["client"]
+packages = ["client/src/qk_backend_client"]

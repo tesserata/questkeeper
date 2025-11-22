@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package questkeeper.events.models;
+package questkeeper.v1.events.models;
 
 import "google/protobuf/timestamp.proto";
 import "qk_api_contracts/grpc/common.proto";

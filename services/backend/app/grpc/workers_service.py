@@ -5,7 +5,7 @@ from qk_api_contracts.grpc.worker_service_pb2 import SetMessageIdRequest
 from qk_api_contracts.grpc.worker_service_pb2_grpc import WorkerServicer
 
 
-class WorkersService(WorkerServicer):
+class WorkersServiceImpl(WorkerServicer):
     async def SetSessionMessageId(
         self, request: SetMessageIdRequest, context: grpc.aio.ServicerContext
     ) -> Session:

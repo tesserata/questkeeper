@@ -2,6 +2,7 @@ import datetime
 
 from google.protobuf import timestamp_pb2 as _timestamp_pb2
 from google.protobuf import empty_pb2 as _empty_pb2
+from qk_api_contracts.grpc import common_pb2 as _common_pb2
 from qk_api_contracts.grpc.sessions import models_pb2 as _models_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
@@ -69,7 +70,7 @@ class EditGMRequest(_message.Message):
     expected_version: int
     def __init__(self, session_id: _Optional[str] = ..., gm_user_id: _Optional[int] = ..., expected_version: _Optional[int] = ...) -> None: ...
 
-class PublishSessionRequest(_message.Message):
+class SessionOperationRequest(_message.Message):
     __slots__ = ("session_id", "expected_version")
     SESSION_ID_FIELD_NUMBER: _ClassVar[int]
     EXPECTED_VERSION_FIELD_NUMBER: _ClassVar[int]
@@ -77,31 +78,7 @@ class PublishSessionRequest(_message.Message):
     expected_version: int
     def __init__(self, session_id: _Optional[str] = ..., expected_version: _Optional[int] = ...) -> None: ...
 
-class CancelSessionRequest(_message.Message):
-    __slots__ = ("session_id", "expected_version")
-    SESSION_ID_FIELD_NUMBER: _ClassVar[int]
-    EXPECTED_VERSION_FIELD_NUMBER: _ClassVar[int]
-    session_id: str
-    expected_version: int
-    def __init__(self, session_id: _Optional[str] = ..., expected_version: _Optional[int] = ...) -> None: ...
-
-class SwitchReserveRequest(_message.Message):
-    __slots__ = ("session_id", "user_id")
-    SESSION_ID_FIELD_NUMBER: _ClassVar[int]
-    USER_ID_FIELD_NUMBER: _ClassVar[int]
-    session_id: str
-    user_id: str
-    def __init__(self, session_id: _Optional[str] = ..., user_id: _Optional[str] = ...) -> None: ...
-
-class SwitchMainRequest(_message.Message):
-    __slots__ = ("session_id", "user_id")
-    SESSION_ID_FIELD_NUMBER: _ClassVar[int]
-    USER_ID_FIELD_NUMBER: _ClassVar[int]
-    session_id: str
-    user_id: str
-    def __init__(self, session_id: _Optional[str] = ..., user_id: _Optional[str] = ...) -> None: ...
-
-class SignOutRequest(_message.Message):
+class SignupOperationRequest(_message.Message):
     __slots__ = ("session_id", "user_id")
     SESSION_ID_FIELD_NUMBER: _ClassVar[int]
     USER_ID_FIELD_NUMBER: _ClassVar[int]
@@ -118,3 +95,39 @@ class SetCharacterRequest(_message.Message):
     user_id: str
     character_id: str
     def __init__(self, session_id: _Optional[str] = ..., user_id: _Optional[str] = ..., character_id: _Optional[str] = ...) -> None: ...
+
+class GetSessionRequest(_message.Message):
+    __slots__ = ("session_id",)
+    SESSION_ID_FIELD_NUMBER: _ClassVar[int]
+    session_id: str
+    def __init__(self, session_id: _Optional[str] = ...) -> None: ...
+
+class ListSessionsRequest(_message.Message):
+    __slots__ = ("server_id", "gm_user_id", "user_id", "system", "event_id", "status", "start", "end", "page")
+    SERVER_ID_FIELD_NUMBER: _ClassVar[int]
+    GM_USER_ID_FIELD_NUMBER: _ClassVar[int]
+    USER_ID_FIELD_NUMBER: _ClassVar[int]
+    SYSTEM_FIELD_NUMBER: _ClassVar[int]
+    EVENT_ID_FIELD_NUMBER: _ClassVar[int]
+    STATUS_FIELD_NUMBER: _ClassVar[int]
+    START_FIELD_NUMBER: _ClassVar[int]
+    END_FIELD_NUMBER: _ClassVar[int]
+    PAGE_FIELD_NUMBER: _ClassVar[int]
+    server_id: str
+    gm_user_id: int
+    user_id: int
+    system: str
+    event_id: str
+    status: str
+    start: _timestamp_pb2.Timestamp
+    end: _timestamp_pb2.Timestamp
+    page: _common_pb2.PageRequest
+    def __init__(self, server_id: _Optional[str] = ..., gm_user_id: _Optional[int] = ..., user_id: _Optional[int] = ..., system: _Optional[str] = ..., event_id: _Optional[str] = ..., status: _Optional[str] = ..., start: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., end: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., page: _Optional[_Union[_common_pb2.PageRequest, _Mapping]] = ...) -> None: ...
+
+class ListSessionsResponse(_message.Message):
+    __slots__ = ("items", "page")
+    ITEMS_FIELD_NUMBER: _ClassVar[int]
+    PAGE_FIELD_NUMBER: _ClassVar[int]
+    items: _containers.RepeatedCompositeFieldContainer[_models_pb2.SessionSummary]
+    page: _common_pb2.Page
+    def __init__(self, items: _Optional[_Iterable[_Union[_models_pb2.SessionSummary, _Mapping]]] = ..., page: _Optional[_Union[_common_pb2.Page, _Mapping]] = ...) -> None: ...

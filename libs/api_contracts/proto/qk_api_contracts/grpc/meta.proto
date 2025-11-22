@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package questkeeper.meta;
+package questkeeper.v1.meta;
 
 service Meta {
   rpc Health(HealthRequest) returns (HealthResponse);

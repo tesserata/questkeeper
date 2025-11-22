@@ -11,7 +11,7 @@ StrEnum = TypeVar("StrEnum")
 
 
 def _version_from_pb(pb: PbVersionHeader | None) -> DomainVersionHeader:
-    if not pb:
+    if not pb   :
         return DomainVersionHeader()
     return DomainVersionHeader(
         version=pb.version,
