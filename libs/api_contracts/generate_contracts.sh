@@ -2,7 +2,7 @@
 
 PROTO_ROOT="libs/api_contracts/proto"
 OUT_ROOT="libs/api_contracts/src"
-P2P_OUT="libs/api_contracts/src/qk_api_contracts/pydantic"
+P2P_OUT="libs/api_contracts/src/qk_api_contracts/_pydantic_generated"
 
 rm -rf "$P2P_OUT/"*
 

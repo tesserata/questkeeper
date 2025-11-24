@@ -17,7 +17,12 @@ from qk_api_contracts.grpc.characters.service_pb2 import (
 )
 from qk_api_contracts.grpc.characters.service_pb2_grpc import CharactersServicer
 
-from app.application.characters import create_character, delete_character, get_character_by_id
+from app.application.characters import (
+    create_character,
+    delete_character,
+    get_character_by_id,
+)
+from app.domain.exceptions import ConcurrencyError
 from app.grpc.mappers.character import character_domain_to_pb, character_info_pb_to_domain
 
 
@@ -62,7 +67,9 @@ class CharactersServiceImpl(CharactersServicer):
     async def DeleteCharacter(
         self, request: DeleteCharacterRequest, context: grpc.aio.ServicerContext
     ) -> None:
-        await delete_character(character_id=UUID(request.character_id))
+        await delete_character(
+            character_id=UUID(request.character_id), expected_version=request.expected_version
+        )
 
     async def GetCharacter(
         self, request: CharacterIdRequest, context: grpc.aio.ServicerContext

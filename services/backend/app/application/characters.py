@@ -1,6 +1,7 @@
 from uuid import UUID
 
 from app.domain.character import Character, PlayRecord
+from app.domain.exceptions import ConcurrencyError
 from app.infrastructure.db.uow import UnitOfWork
 
 
@@ -18,7 +19,7 @@ async def create_character(
     return payload
 
 
-async def delete_character(character_id: UUID) -> None:
+async def delete_character(character_id: UUID, expected_version: int) -> None:
     async with UnitOfWork() as uow:
         await uow.characters.delete_character(character_id)
 
@@ -27,6 +28,9 @@ async def delete_character(character_id: UUID) -> None:
 async def get_character_by_id(character_id: UUID) -> Character:
     async with UnitOfWork() as uow:
         return await uow.characters.get_character_by_id(character_id)
+
+
+async def get_characters() -> list[Character]: ...
 
 
 async def get_character_play_history(character_id: UUID) -> list[PlayRecord]:
