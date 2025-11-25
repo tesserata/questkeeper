@@ -13,6 +13,7 @@ RUN uv sync --no-dev
 ENV PATH="/app/.venv/bin:$PATH"
 
 COPY services/backend/app ./app
+COPY services/migrations ./migrations
 COPY services/backend/alembic.ini ./alembic.ini
 
-EXPOSE 50051
+EXPOSE 8000

@@ -16,6 +16,7 @@ class TimestampMixin:
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )
 
+
 class VersionMixin(TimestampMixin):
     """Mixin for optimistic locking"""
 

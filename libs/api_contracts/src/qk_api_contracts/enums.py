@@ -4,7 +4,7 @@ from enum import StrEnum
 class AppRole(StrEnum):
     ADMIN = "Server administrator"
     GM = "Game master"
-    Player = "Player"
+    PLAYER = "Player"
 
 
 class GameSystem(StrEnum):

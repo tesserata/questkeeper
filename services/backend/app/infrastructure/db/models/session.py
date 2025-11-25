@@ -33,7 +33,9 @@ class SessionORM(Base, VersionMixin):
     )
 
     session_id: Mapped[UUID] = mapped_column(
-        PG_UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()")
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("gen_random_uuid()"),
     )
     server_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
     event_id: Mapped[UUID | None] = mapped_column(
@@ -80,7 +82,9 @@ class SignupORM(Base, VersionMixin):
     )
     user_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
     character_id: Mapped[UUID] = mapped_column(
-        PG_UUID(as_uuid=True), ForeignKey("service.characters.character_id"), nullable=False
+        PG_UUID(as_uuid=True),
+        ForeignKey("service.characters.character_id"),
+        nullable=False,
     )
     role: Mapped[str] = mapped_column(Text, nullable=False)
 

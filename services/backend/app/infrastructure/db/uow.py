@@ -4,12 +4,17 @@ from contextlib import AbstractAsyncContextManager
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from app.config import CONFIG
-from app.infrastructure.outbox.writer import OutboxWriter
-from app.infrastructure.repositories.characters_repository import CharactersRepository
-from app.infrastructure.repositories.sessions_repository import SessionsRepository
+from app.config import get_config
+from app.infrastructure.db.repositories.characters_repo import CharactersRepository
+from app.infrastructure.db.repositories.server_settings_repo import (
+    ServerSettingsRepository,
+)
+from app.infrastructure.db.repositories.sessions_repo import SessionsRepository
+from app.infrastructure.outbox import OutboxWriter
 
-engine = create_async_engine(CONFIG.db_dsn, pool_size=10, max_overflow=20)
+engine = create_async_engine(
+    get_config().SQLALCHEMY_DATABASE_URI.unicode_string(), pool_size=10, max_overflow=20
+)
 SessionLocal = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 
 
@@ -17,12 +22,14 @@ class UnitOfWork(AbstractAsyncContextManager):
     session: AsyncSession | None = None
     _sessions_repo: SessionsRepository | None = None
     _characters_repo: CharactersRepository | None = None
+    _server_settings_repo: ServerSettingsRepository | None = None
     _outbox: OutboxWriter | None = None
 
     def __init__(self) -> None:
         self._session_factory = SessionLocal
         self._sessions_repo_factory = SessionsRepository
         self._characters_repo_factory = CharactersRepository
+        self._server_settings_repo_factory = ServerSettingsRepository
         self._outbox_factory = OutboxWriter
 
     @property
@@ -38,6 +45,13 @@ class UnitOfWork(AbstractAsyncContextManager):
         if self._characters_repo is None:
             self._characters_repo = self._characters_repo_factory(self.session)
         return self._characters_repo
+
+    @property
+    def server_settings(self) -> ServerSettingsRepository:
+        assert self.session is not None, "UoW not entered"
+        if self._server_settings_repo is None:
+            self._server_settings_repo = self._server_settings_repo_factory(self.session)
+        return self._server_settings_repo
 
     @property
     def outbox(self) -> OutboxWriter:

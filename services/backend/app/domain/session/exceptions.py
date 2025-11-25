@@ -1,0 +1,16 @@
+from app.domain.exceptions import DomainError
+
+
+class AlreadySignedUp(DomainError): ...
+
+
+class NotSignedUp(DomainError): ...
+
+
+class SeatUnavailable(DomainError): ...
+
+
+class InvalidTransition(DomainError): ...
+
+
+class InvariantViolation(DomainError): ...

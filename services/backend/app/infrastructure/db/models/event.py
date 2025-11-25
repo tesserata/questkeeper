@@ -27,7 +27,9 @@ class EventORM(Base, VersionMixin):
     )
 
     event_id: Mapped[UUID] = mapped_column(
-        PG_UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()")
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("gen_random_uuid()"),
     )
     server_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
     role_mentions: Mapped[list[str]] = mapped_column(

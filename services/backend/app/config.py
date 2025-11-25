@@ -1,22 +1,48 @@
-from pydantic_settings import BaseSettings
+import secrets
+from typing import Literal
+
+from pydantic import HttpUrl, PostgresDsn, computed_field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Config(BaseSettings):
-    db_dsn: str = "postgresql+asyncpg://qk_admin:password@db:5432/questkeeper"
+    PROJECT_NAME: str = "QuestKeeper backend"
+    DEBUG = False
 
     # Redis
-    redis_url: str = "redis://redis:6379/0"
+    redis_url: str
 
-    # gRPC bind
-    uds_path: str = "/tmp/qk_domain.sock"
-    grpc_addr: str = "[::]:50051"
-    use_tls: bool = True
-    secure: bool = False
-    ca_path: str | None = None
-    cert_path: str | None = None
-    key_path: str | None = None
+    model_config = SettingsConfigDict(
+        env_file="../../.env",
+        env_ignore_empty=True,
+        extra="ignore",
+    )
+    API_V1_STR: str = "/api/v1"
+    SECRET_KEY: str = secrets.token_urlsafe(32)
+    # 60 minutes * 24 hours * 8 days = 8 days
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
+    FRONTEND_HOST: str = "http://localhost:5173"
+    ENVIRONMENT: Literal["local", "staging", "production"] = "local"
 
-    otlp_endpoint: str | None = None
+    SENTRY_DSN: HttpUrl | None = None
+    POSTGRES_SERVER: str
+    POSTGRES_PORT: int = 5432
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str = ""
+    POSTGRES_DB: str = ""
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:
+        return PostgresDsn.build(
+            scheme="postgresql+asyncpg",
+            username=self.POSTGRES_USER,
+            password=self.POSTGRES_PASSWORD,
+            host=self.POSTGRES_SERVER,
+            port=self.POSTGRES_PORT,
+            path=self.POSTGRES_DB,
+        )
 
 
-CONFIG = Config()
+def get_config() -> Config:
+    return Config()

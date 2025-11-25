@@ -22,8 +22,13 @@ services:
     depends_on:
       migrations:
         condition: service_completed_successfully
-    ports: ["50051:50051"]
-    command: ["python", "-m", "app.main"]
+    ports: ["8080:8080"]
+    command: >
+      uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8080
+      --proxy-headers
+      --forwarded-allow-ips="*"
     restart: unless-stopped
 
   migrations:

@@ -28,7 +28,9 @@ class CharacterORM(Base, VersionMixin):
     )
 
     character_id: Mapped[UUID] = mapped_column(
-        PG_UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()")
+        PG_UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("gen_random_uuid()"),
     )
     user_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
     system: Mapped[str] = mapped_column(Text, nullable=False)
@@ -56,7 +58,9 @@ class CharacterPlayHistoryORM(Base):
     )
 
     character_id: Mapped[UUID] = mapped_column(
-        PG_UUID(as_uuid=True), ForeignKey("service.characters.character_id"), nullable=False
+        PG_UUID(as_uuid=True),
+        ForeignKey("service.characters.character_id"),
+        nullable=False,
     )
     session_id: Mapped[UUID] = mapped_column(
         PG_UUID(as_uuid=True), ForeignKey("service.sessions.session_id"), nullable=False
