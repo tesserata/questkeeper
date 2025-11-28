@@ -1,25 +1,26 @@
+# ruff: noqa: F401
 import os
 from logging.config import fileConfig
 
 from alembic import context
 from sqlalchemy import engine_from_config, pool
-from app.infrastructure.db.models import (
+from app.infrastructure.db.models.base import (
     Base,
     TimestampMixin,
     VersionMixin,
-)  # noqa: F401
-from app.infrastructure.db.models.event import EventORM  # noqa: F401
-from app.infrastructure.db.models.session import SessionORM, SignupORM  # noqa: F401
+)
+from app.infrastructure.db.models.event import EventORM
+from app.infrastructure.db.models.session import SessionORM, SignupORM
 from app.infrastructure.db.models.character import (
     CharacterORM,
     CharacterPlayHistoryORM,
-)  # noqa: F401
-from app.infrastructure.db.models import IdempotencyKeyORM  # noqa: F401
-from app.infrastructure.db.models.outbox import OutboxORM, OutboxDLQORM  # noqa: F401
-from app.infrastructure.db.models import (
+)
+from app.infrastructure.db.models.idempotency import IdempotencyKeyORM
+from app.infrastructure.db.models.outbox import OutboxORM, OutboxDLQORM
+from app.infrastructure.db.models.server_settings import (
     ServerSettingsORM,
     ServerRoleMappingORM,
-)  # noqa: F401
+)
 
 
 config = context.config

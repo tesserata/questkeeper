@@ -25,13 +25,12 @@ class Character:
 
     name: str
     level: int = 1
-    notes: str = ""
+    class_name: str | None = None
+    subclass_name: str | None = None
+    race: str | None = None
+    notes: str | None = None
 
     character_id: UUID = field(default_factory=uuid4)
-
-    race: str = ""
-    class_name: str = ""
-    subclass_name: str = ""
 
     version_header: VersionHeader = field(default_factory=VersionHeader)
 

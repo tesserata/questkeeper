@@ -1,53 +1,117 @@
 from collections.abc import Iterable
 from uuid import UUID
 
-from loguru import logger
 from qk_api_contracts.enums import GameSystem
-from sqlalchemy import Row, delete, select
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import Row, delete, select, tuple_, update
 
-from app.domain.character.models import Character, PlayRecord
+from app.domain.characters import Character, PlayRecord
+from app.infrastructure.db.helpers import Cursor, get_version_header
 from app.infrastructure.db.models.character import CharacterORM, CharacterPlayHistoryORM
 from app.infrastructure.db.models.session import SessionORM
-from app.infrastructure.db.repositories._utility import get_version_header
+from app.infrastructure.db.repositories._base import BaseRepository
 
 
-class CharactersRepository:
-    def __init__(self, session: AsyncSession):
-        self._db = session
-
+class CharactersRepository(BaseRepository):
     async def create_character(self, entity: Character) -> None:
-        logger.info(_character_domain_to_orm(entity))
-        self._db.add(_character_domain_to_orm(entity))
+        value = _character_domain_to_orm(entity)
+        self._session.add(value)
+
+    async def delete_character(self, character_id: UUID, expected_version: int) -> bool:
+        stmt = delete(CharacterORM).where(
+            CharacterORM.character_id == character_id,
+            CharacterORM.version == expected_version,
+        )
+        result = await self._session.execute(stmt)
+        return result.rowcount == 1
+
+    async def update_character(self, entity: Character, expected_version: int) -> bool:
+        value_mapping = {
+            "user_id": entity.user_id,
+            "system": entity.system,
+            "name": entity.name,
+            "level": entity.level,
+            "race": entity.race,
+            "class_name": entity.class_name,
+            "subclass_name": entity.subclass_name,
+            "notes": entity.notes,
+        }
+        stmt = (
+            update(CharacterORM)
+            .where(
+                CharacterORM.character_id == entity.character_id,
+                CharacterORM.version == expected_version,
+            )
+            .values(**value_mapping)
+        )
+        result = await self._session.execute(stmt)
+        return result.rowcount == 1
 
     async def get_character_by_id(self, character_id: UUID) -> Character:
-        character_row = (
-            await self._db.execute(
-                select(CharacterORM).where(CharacterORM.character_id == character_id)
-            )
-        ).scalar_one()
+        stmt = select(CharacterORM).where(CharacterORM.character_id == character_id)
+
+        character_row = (await self._session.execute(stmt)).scalar_one()
         return _character_orm_to_domain(character_row)
 
     async def get_many_by_ids(self, character_ids: Iterable[UUID]) -> dict[UUID, Character]:
-        character_rows = (
-            (
-                await self._db.execute(
-                    select(CharacterORM).where(CharacterORM.character_id.in_(character_ids))
-                )
-            )
-            .scalars()
-            .all()
-        )
+        stmt = select(CharacterORM).where(CharacterORM.character_id.in_(character_ids))
+
+        character_rows = (await self._session.execute(stmt)).scalars().all()
         return {row.character_id: _character_orm_to_domain(row) for row in character_rows}
 
-    async def delete_character(self, character_id: UUID) -> None:
-        await self._db.execute(
-            delete(CharacterORM).where(CharacterORM.character_id == character_id)
+    async def list_characters(
+        self,
+        page_size: int,
+        user_ids: list[int] | None = None,
+        system: str | None = None,
+        level_min: int | None = None,
+        level_max: int | None = None,
+        cursor: Cursor | None = None,
+    ) -> tuple[list[Character], Cursor | None]:
+        stmt = (
+            select(CharacterORM)
+            .order_by(CharacterORM.created_at, CharacterORM.character_id)
+            .limit(page_size + 1)
         )
+
+        if user_ids:
+            stmt = stmt.where(CharacterORM.user_id.in_(user_ids))
+        if system:
+            stmt = stmt.where(CharacterORM.system == system)
+
+        if level_min is not None:  # to avoid skipping 0
+            stmt = stmt.where(CharacterORM.level >= level_min)
+
+        if level_max is not None:
+            stmt = stmt.where(CharacterORM.level <= level_max)
+
+        if cursor:
+            # WHERE (created_at, character_id) > (:created_at, :character_id)
+            stmt = stmt.where(
+                tuple_(CharacterORM.created_at, CharacterORM.character_id)
+                > tuple_(cursor.created_at, cursor.last_id)
+            )
+
+        result = await self._session.scalars(stmt)
+        rows = list(result)
+
+        has_next = len(rows) > page_size
+        next_cursor: Cursor | None = None
+
+        if has_next:
+            rows = rows[:page_size]
+            last = rows[-1]
+            next_cursor = Cursor(
+                created_at=last.created_at,
+                last_id=last.character_id,
+            )
+
+        rows = [_character_orm_to_domain(row) for row in rows]
+
+        return rows, next_cursor
 
     async def get_character_play_history(self, character_id: UUID) -> list[PlayRecord]:
         record_rows = (
-            await self._db.execute(
+            await self._session.execute(
                 select(
                     SessionORM.title.label("session_title"),
                     SessionORM.gm_user_id,
@@ -69,6 +133,7 @@ class CharactersRepository:
         return [_play_history_orm_to_domain(row) for row in record_rows]
 
 
+# Mappings
 def _character_orm_to_domain(row: CharacterORM) -> Character:
     return Character(
         user_id=row.user_id,

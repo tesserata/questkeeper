@@ -3,7 +3,8 @@ from typing import Annotated
 
 from pydantic import BaseModel, ConfigDict, Field
 
-NonEmptyStr = Annotated[str, Field(min_length=1, max_length=100)]
+NonEmptyLimitedStr = Annotated[str, Field(min_length=1, max_length=100)]
+LimitedStr = Annotated[str, Field(min_length=0, max_length=100)]
 
 
 class QkSchema(BaseModel):
@@ -14,3 +15,7 @@ class VersionHeader(QkSchema):
     version: int
     created_at: datetime
     updated_at: datetime
+
+class Page(BaseModel):
+    next_token: str | None = None
+    size: int = 20

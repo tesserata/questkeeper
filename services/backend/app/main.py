@@ -10,6 +10,7 @@ def create_app() -> FastAPI:
     app_ = FastAPI(
         title=settings.PROJECT_NAME,
         debug=settings.DEBUG,
+        root_path=settings.API_PREFIX,
     )
 
     app_.include_router(characters.router)

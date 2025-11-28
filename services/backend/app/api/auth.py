@@ -1,3 +1,4 @@
+import asyncio
 from dataclasses import dataclass
 
 from fastapi import Depends, Header, HTTPException, status
@@ -43,9 +44,10 @@ def require_permission(required: AppRole):
         auth: AuthContext = Depends(get_auth_context),
     ) -> None:
         if auth.server_id:
-            app_roles = set(await get_app_role(auth.server_id, role) for role in auth.roles)
+            coros = [get_app_role(auth.server_id, role) for role in auth.roles]
+            app_roles = await asyncio.gather(*coros)
 
-            if required not in app_roles:
+            if required not in set(app_roles):
                 # TODO add reverse mapping to actual required role id
                 raise HTTPException(
                     status_code=status.HTTP_403_FORBIDDEN,

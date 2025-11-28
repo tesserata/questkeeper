@@ -2,8 +2,8 @@ from uuid import UUID
 
 from qk_api_contracts.enums import SignupRole
 
-from app.domain.character import Character
-from app.domain.session import Session
+from app.domain.characters import Character
+from app.domain.sessions import Session
 from app.infrastructure.db.uow import UnitOfWork
 
 

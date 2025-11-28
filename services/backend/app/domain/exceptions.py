@@ -5,10 +5,9 @@ class DomainError(Exception):
 
 
 class ConcurrencyError(DomainError):
-    def __init__(self, resource: str, id_: str, expected: int, actual: int | None = None):
+    def __init__(self, resource: str, id_: str, expected: int):
         self.resource = resource
         self.id_ = id_
         self.expected = expected
-        self.actual = actual
-        msg = f"Concurrency conflict on {resource} {id_} (expected={expected}, actual={actual})"
+        msg = f"Concurrency conflict on {resource} {id_} (version {expected} is not the latest version)"
         super().__init__(msg)

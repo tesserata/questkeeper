@@ -3,32 +3,20 @@ from uuid import UUID
 from pydantic import Field
 
 from qk_api_contracts.enums import GameSystem
-from qk_api_contracts.schema._base import NonEmptyStr, QkSchema
+from qk_api_contracts.schema._base import LimitedStr, NonEmptyLimitedStr, Page, QkSchema
 
 
-class CharacterBase(QkSchema):
+class Character(QkSchema):
+    name: NonEmptyLimitedStr
     system: GameSystem
-    name: NonEmptyStr
-    class_name: NonEmptyStr | None = None
-    subclass_name: NonEmptyStr | None = None
     level: int = Field(ge=1, le=20)
-    race: NonEmptyStr | None = None
+    class_name: LimitedStr | None = None
+    subclass_name: LimitedStr | None = None
+    race: LimitedStr | None = None
     notes: str | None = None
 
 
-class CharacterCreate(CharacterBase):
-    """POST; Client → server representation"""
-
-    pass
-
-
-class CharacterUpdate(CharacterBase):
-    """PATCH; everything optional"""
-
-    pass
-
-
-class CharacterRead(CharacterBase):
+class CharacterRead(Character):
     """GET; Server → client representation"""
 
     character_id: UUID
@@ -40,4 +28,13 @@ class CharacterList(QkSchema):
 
     items: list[CharacterRead]
     next_page_token: str | None = None
-    total_size: int | None = None
+
+
+class CharacterListQuery(QkSchema):
+    # filters
+    user_ids: list[int] | None = None
+    system: GameSystem | None = None
+    level_min: int | None
+    level_max: int | None
+
+    pagination: Page = Field(default_factory=Page)

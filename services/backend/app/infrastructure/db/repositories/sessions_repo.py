@@ -2,28 +2,25 @@ from uuid import UUID
 
 from qk_api_contracts.enums import GameSystem, ScheduleStatus, SignupRole
 from sqlalchemy import select, text, update
-from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.domain.session.models import Session, Signup
+from app.domain.sessions import Session, Signup
+from app.infrastructure.db.helpers import get_version_header
 from app.infrastructure.db.models.session import SessionORM, SignupORM
-from app.infrastructure.db.repositories._utility import get_version_header
+from app.infrastructure.db.repositories._base import BaseRepository
 
 
-class SessionsRepository:
-    def __init__(self, session: AsyncSession):
-        self._db = session
-
+class SessionsRepository(BaseRepository):
     async def create_session(self, entity: Session) -> None:
-        self._db.add(_session_domain_to_orm(entity))
+        self._session.add(_session_domain_to_orm(entity))
 
     async def get_session(self, session_id: UUID, with_signups: bool = False) -> Session:
         session_row = (
-            await self._db.execute(select(SessionORM).where(SessionORM.session_id == session_id))
+            await self._session.execute(select(SessionORM).where(SessionORM.session_id == session_id))
         ).scalar_one()
         session = _session_orm_to_domain(session_row)
 
         if with_signups:
-            signup_rows = await self._db.execute(
+            signup_rows = await self._session.execute(
                 select(SignupORM).where(SignupORM.session_id == session_id)
             )
             signups = [_signup_orm_to_domain(s) for s in signup_rows.scalars()]
@@ -35,7 +32,7 @@ class SessionsRepository:
 
     async def update(self, entity: Session) -> None:
         # Upsert session
-        await self._db.execute(
+        await self._session.execute(
             update(SessionORM)
             .where(SessionORM.session_id == entity.session_id)
             .values(
@@ -46,11 +43,11 @@ class SessionsRepository:
             )
         )
         # Replace signup rows for simplicity (small cardinality). For high write rate, do diffing.
-        await self._db.execute(
+        await self._session.execute(
             text("DELETE FROM session_signups WHERE session_id = :sid"),
             {"sid": entity.session_id},
         )
-        self._db.add_all(
+        self._session.add_all(
             SignupORM(
                 session_id=entity.session_id,
                 user_id=s.user_id,

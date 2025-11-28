@@ -5,13 +5,7 @@ from uuid import UUID, uuid4
 
 from qk_api_contracts.enums import GameSystem, ScheduleStatus, SignupRole
 
-from app.domain.session.exceptions import (
-    AlreadySignedUp,
-    InvalidTransition,
-    InvariantViolation,
-    NotSignedUp,
-    SeatUnavailable,
-)
+from app.domain.exceptions import DomainError
 from app.domain.version import VersionHeader
 
 
@@ -187,3 +181,18 @@ class Session:
         # Validate against current state
         self._assert_invariants()
         self._bump_version()
+
+
+class AlreadySignedUp(DomainError): ...
+
+
+class NotSignedUp(DomainError): ...
+
+
+class SeatUnavailable(DomainError): ...
+
+
+class InvalidTransition(DomainError): ...
+
+
+class InvariantViolation(DomainError): ...

@@ -25,5 +25,5 @@ class VersionMixin(TimestampMixin):
         TIMESTAMP(timezone=True),
         nullable=False,
         server_default=text("now()"),
-        onupdate=datetime.utcnow,
+        onupdate=datetime.now,
     )
