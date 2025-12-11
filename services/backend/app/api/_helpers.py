@@ -10,3 +10,4 @@ def get_etag_header(model: Character | Session | ServerSettings, response: Respo
         version = model.version_header.version
         response.headers["ETag"] = f'W/"{version}"'
     return response
+

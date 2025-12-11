@@ -131,7 +131,7 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.Column(
-            "version", sa.BigInteger(), server_default=sa.text("0"), nullable=False
+            "version", sa.BigInteger(), server_default=sa.text("1"), nullable=False
         ),
         sa.Column(
             "updated_at",
@@ -187,7 +187,7 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.Column(
-            "version", sa.BigInteger(), server_default=sa.text("0"), nullable=False
+            "version", sa.BigInteger(), server_default=sa.text("1"), nullable=False
         ),
         sa.Column(
             "updated_at",
@@ -280,7 +280,7 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.Column(
-            "version", sa.BigInteger(), server_default=sa.text("0"), nullable=False
+            "version", sa.BigInteger(), server_default=sa.text("1"), nullable=False
         ),
         sa.Column(
             "updated_at",
@@ -310,7 +310,7 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.Column(
-            "version", sa.BigInteger(), server_default=sa.text("0"), nullable=False
+            "version", sa.BigInteger(), server_default=sa.text("1"), nullable=False
         ),
         sa.Column(
             "updated_at",
@@ -377,7 +377,7 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.Column(
-            "version", sa.BigInteger(), server_default=sa.text("0"), nullable=False
+            "version", sa.BigInteger(), server_default=sa.text("1"), nullable=False
         ),
         sa.Column(
             "updated_at",
@@ -472,7 +472,7 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.Column(
-            "version", sa.BigInteger(), server_default=sa.text("0"), nullable=False
+            "version", sa.BigInteger(), server_default=sa.text("1"), nullable=False
         ),
         sa.Column(
             "updated_at",

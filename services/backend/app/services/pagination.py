@@ -1,6 +1,6 @@
 import base64
 import json
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import datetime
 from uuid import UUID
 
@@ -18,6 +18,7 @@ def encode_page_token(cursor: Cursor) -> str:
     }
     raw = json.dumps(payload, separators=(",", ":")).encode("utf-8")
     return base64.urlsafe_b64encode(raw).decode("ascii")
+
 
 def decode_page_token(token: str) -> Cursor:
     try:

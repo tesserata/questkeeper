@@ -1,36 +1,39 @@
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Body, Depends, Response, status
+from fastapi import APIRouter, Body, Depends, Query, Response, status
 from qk_api_contracts.schema.characters import (
     Character,
+    CharacterBase,
     CharacterList,
     CharacterListQuery,
-    CharacterRead,
 )
 
-from app.api.http_exceptions import ExpectedVersionMissing
 from app.api.request_meta import RequestMeta, get_request_meta
 from app.services import characters_service
+from app.services.exceptions import (
+    ConcurrencyConflictException,
+    PermissionDeniedException,
+)
 from app.services.pagination import PaginationParams
 
-from ._mappers import character_base_to_domain, character_domain_to_read
+from ._mappers import character_base_dto_to_domain, character_domain_to_dto
 
 router = APIRouter(prefix="/v1/characters", tags=["characters"])
 
 
 @router.post(
     "",
-    response_model=CharacterRead,
+    response_model=Character,
     status_code=status.HTTP_201_CREATED,
     # dependencies=[Depends(require_permission(AppRole.PLAYER))],
 )
 async def create_character(
-    payload: Annotated[Character, Body()],
+    payload: Annotated[CharacterBase, Body()],
     meta: RequestMeta = Depends(get_request_meta),
-    response: Response | None = None,
-) -> CharacterRead:
-    character_create = character_base_to_domain(payload)
+    response: Response = None,
+) -> Character:
+    character_create = character_base_dto_to_domain(payload)
     character_create.user_id = meta.user_id
     character = await characters_service.create_character(character_create)
 
@@ -38,7 +41,7 @@ async def create_character(
         version = character.version_header.version
         response.headers["ETag"] = f'W/"{version}"'
 
-    return character_domain_to_read(character)
+    return character_domain_to_dto(character)
 
 
 @router.delete(
@@ -52,7 +55,11 @@ async def delete_character(
 ) -> None:
     expected_version = meta.expected_version
     if not expected_version:
-        raise ExpectedVersionMissing()
+        raise ConcurrencyConflictException("character", str(character_id), expected_version)
+
+    owner_id = await characters_service.get_owner(character_id)
+    if owner_id != meta.user_id:
+        raise PermissionDeniedException("character", str(character_id))
 
     await characters_service.delete_character(character_id, expected_version=expected_version)
 
@@ -60,21 +67,26 @@ async def delete_character(
 @router.patch(
     "/{character_id}",
     status_code=status.HTTP_200_OK,
-    response_model=CharacterRead,
+    response_model=Character,
     # dependencies=[Depends(require_permission(AppRole.PLAYER))],
 )
 async def update_character(
     character_id: UUID,
-    payload: Annotated[Character, Body()],
+    payload: Annotated[CharacterBase, Body()],
     meta: RequestMeta = Depends(get_request_meta),
-    response: Response | None = None,
-) -> CharacterRead:
+    response: Response = None,
+) -> Character:
     expected_version = meta.expected_version
     if not expected_version:
-        raise ExpectedVersionMissing()
+        raise ConcurrencyConflictException("character", str(character_id), expected_version)
 
-    character_update = character_base_to_domain(payload)
+    owner_id = await characters_service.get_owner(character_id)
+    if owner_id != meta.user_id:
+        raise PermissionDeniedException("character", str(character_id))
+
+    character_update = character_base_dto_to_domain(payload)
     character_update.user_id = meta.user_id
+    character_update.character_id = character_id
 
     character = await characters_service.update_character(
         character_update,
@@ -85,25 +97,28 @@ async def update_character(
         version = character.version_header.version
         response.headers["ETag"] = f'W/"{version}"'
 
-    return character_domain_to_read(character)
+    return character_domain_to_dto(character)
 
 
 @router.get(
     "/{character_id}",
-    response_model=CharacterRead,
+    response_model=Character,
     status_code=status.HTTP_200_OK,
     # dependencies=[Depends(require_permission(AppRole.PLAYER))],
 )
 async def get_character(
-    character_id: UUID,
-    response: Response | None = None,
-) -> CharacterRead:
+    character_id: UUID, response: Response = None, meta: RequestMeta = Depends(get_request_meta)
+) -> Character:
+    owner_id = await characters_service.get_owner(character_id)
+    if owner_id != meta.user_id:
+        raise PermissionDeniedException("character", str(character_id))
+
     character = await characters_service.get_character_by_id(character_id)
     if response is not None:
         version = character.version_header.version
         response.headers["ETag"] = f'W/"{version}"'
 
-    return character_domain_to_read(character)
+    return character_domain_to_dto(character)
 
 
 @router.get(
@@ -113,12 +128,10 @@ async def get_character(
     # dependencies=[Depends(require_permission(AppRole.PLAYER))],
 )
 async def list_characters(
-    query: Annotated[CharacterListQuery, Depends()],
-    meta: RequestMeta = Depends(get_request_meta),
-    response: Response | None = None,
+    query: Annotated[CharacterListQuery, Query()], meta: RequestMeta = Depends(get_request_meta)
 ) -> CharacterList:
     characters, next_token = await characters_service.list_characters(
-        pagination=PaginationParams(**query.pagination.model_dump()),
+        pagination=PaginationParams(size=query.page_size, next_token=query.next_page_token),
         user_ids=query.user_ids,
         system=query.system,
         level_min=query.level_min,
@@ -126,6 +139,6 @@ async def list_characters(
     )
 
     return CharacterList(
-        items=[character_domain_to_read(c) for c in characters],
+        items=[character_domain_to_dto(c) for c in characters],
         next_page_token=next_token,
     )

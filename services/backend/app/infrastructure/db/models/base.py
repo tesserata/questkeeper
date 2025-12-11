@@ -20,7 +20,7 @@ class TimestampMixin:
 class VersionMixin(TimestampMixin):
     """Mixin for optimistic locking"""
 
-    version: Mapped[int] = mapped_column(BigInteger, nullable=False, server_default=text("0"))
+    version: Mapped[int] = mapped_column(BigInteger, nullable=False, server_default=text("1"))
     updated_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True),
         nullable=False,

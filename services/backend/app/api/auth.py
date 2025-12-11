@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from fastapi import Depends, Header, HTTPException, status
 from qk_api_contracts.enums import AppRole
 
+from app.services.exceptions import RequiredRoleMissingException
 from app.services.server_settings_service import get_app_role
 
 
@@ -39,7 +40,7 @@ async def get_auth_context(
     )
 
 
-def require_permission(required: AppRole):
+def require_permission(required_role: AppRole):
     async def _dependency(
         auth: AuthContext = Depends(get_auth_context),
     ) -> None:
@@ -47,11 +48,8 @@ def require_permission(required: AppRole):
             coros = [get_app_role(auth.server_id, role) for role in auth.roles]
             app_roles = await asyncio.gather(*coros)
 
-            if required not in set(app_roles):
+            if required_role not in set(app_roles):
                 # TODO add reverse mapping to actual required role id
-                raise HTTPException(
-                    status_code=status.HTTP_403_FORBIDDEN,
-                    detail="Required role missing",
-                )
+                raise RequiredRoleMissingException(required_role)
 
     return _dependency

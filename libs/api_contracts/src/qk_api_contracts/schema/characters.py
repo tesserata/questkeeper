@@ -6,7 +6,7 @@ from qk_api_contracts.enums import GameSystem
 from qk_api_contracts.schema._base import LimitedStr, NonEmptyLimitedStr, Page, QkSchema
 
 
-class Character(QkSchema):
+class CharacterBase(QkSchema):
     name: NonEmptyLimitedStr
     system: GameSystem
     level: int = Field(ge=1, le=20)
@@ -16,7 +16,7 @@ class Character(QkSchema):
     notes: str | None = None
 
 
-class CharacterRead(Character):
+class Character(CharacterBase):
     """GET; Server → client representation"""
 
     character_id: UUID
@@ -26,7 +26,7 @@ class CharacterRead(Character):
 class CharacterList(QkSchema):
     """GET; Server -> client representation with pagination"""
 
-    items: list[CharacterRead]
+    items: list[Character]
     next_page_token: str | None = None
 
 
@@ -34,7 +34,8 @@ class CharacterListQuery(QkSchema):
     # filters
     user_ids: list[int] | None = None
     system: GameSystem | None = None
-    level_min: int | None
-    level_max: int | None
+    level_min: int | None = None
+    level_max: int | None = None
 
-    pagination: Page = Field(default_factory=Page)
+    next_page_token: str | None = None
+    page_size: int = 20

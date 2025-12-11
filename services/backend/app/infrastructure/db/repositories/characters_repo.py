@@ -3,15 +3,18 @@ from uuid import UUID
 
 from qk_api_contracts.enums import GameSystem
 from sqlalchemy import Row, delete, select, tuple_, update
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.domain.characters import Character, PlayRecord
 from app.infrastructure.db.helpers import Cursor, get_version_header
 from app.infrastructure.db.models.character import CharacterORM, CharacterPlayHistoryORM
 from app.infrastructure.db.models.session import SessionORM
-from app.infrastructure.db.repositories._base import BaseRepository
 
 
-class CharactersRepository(BaseRepository):
+class CharactersRepository:
+    def __init__(self, session: AsyncSession | None = None):
+        self._session = session
+
     async def create_character(self, entity: Character) -> None:
         value = _character_domain_to_orm(entity)
         self._session.add(value)
@@ -25,23 +28,14 @@ class CharactersRepository(BaseRepository):
         return result.rowcount == 1
 
     async def update_character(self, entity: Character, expected_version: int) -> bool:
-        value_mapping = {
-            "user_id": entity.user_id,
-            "system": entity.system,
-            "name": entity.name,
-            "level": entity.level,
-            "race": entity.race,
-            "class_name": entity.class_name,
-            "subclass_name": entity.subclass_name,
-            "notes": entity.notes,
-        }
+        values = _character_domain_to_values_dict(entity)
         stmt = (
             update(CharacterORM)
             .where(
                 CharacterORM.character_id == entity.character_id,
                 CharacterORM.version == expected_version,
             )
-            .values(**value_mapping)
+            .values(**values)
         )
         result = await self._session.execute(stmt)
         return result.rowcount == 1
@@ -73,8 +67,9 @@ class CharactersRepository(BaseRepository):
             .limit(page_size + 1)
         )
 
-        if user_ids:
-            stmt = stmt.where(CharacterORM.user_id.in_(user_ids))
+        if user_ids is not None:
+            stmt = stmt.where(CharacterORM.user_id.in_(tuple(user_ids)))
+
         if system:
             stmt = stmt.where(CharacterORM.system == system)
 
@@ -132,6 +127,12 @@ class CharactersRepository(BaseRepository):
 
         return [_play_history_orm_to_domain(row) for row in record_rows]
 
+    async def get_owner_by_character_id(self, character_id: UUID) -> int:
+        stmt = select(CharacterORM.user_id).where(CharacterORM.character_id == character_id)
+
+        user_id = (await self._session.execute(stmt)).scalar_one()
+        return user_id
+
 
 # Mappings
 def _character_orm_to_domain(row: CharacterORM) -> Character:
@@ -162,6 +163,10 @@ def _character_domain_to_orm(entity: Character, row: CharacterORM | None = None)
     row.subclass_name = entity.subclass_name
     row.notes = entity.notes
 
+    row.version = entity.version_header.version
+    row.created_at = entity.version_header.created_at
+    row.updated_at = entity.version_header.updated_at
+
     return row
 
 
@@ -174,3 +179,19 @@ def _play_history_orm_to_domain(row: Row) -> PlayRecord:
         channel_id=row.channel_id,
         message_id=row.message_id,
     )
+
+
+def _character_domain_to_values_dict(entity: Character) -> dict:
+    return {
+        "user_id": entity.user_id,
+        "system": entity.system,
+        "name": entity.name,
+        "level": entity.level,
+        "race": entity.race,
+        "class_name": entity.class_name,
+        "subclass_name": entity.subclass_name,
+        "notes": entity.notes,
+        "version": entity.version_header.version,
+        "created_at": entity.version_header.created_at,
+        "updated_at": entity.version_header.updated_at,
+    }

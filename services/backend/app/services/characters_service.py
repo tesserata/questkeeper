@@ -1,9 +1,10 @@
 from uuid import UUID
 
+from sqlalchemy.exc import NoResultFound
+
 from app.domain.characters import Character, PlayRecord
-from app.domain.exceptions import ConcurrencyError
-from app.infrastructure.db.repositories.characters_repo import CharactersRepository
 from app.infrastructure.db.uow import UnitOfWork
+from app.services.exceptions import AggregateNotFoundException, ConcurrencyConflictException
 from app.services.pagination import PaginationParams, decode_page_token, encode_page_token
 
 
@@ -23,22 +24,33 @@ async def create_character(
 
 
 async def delete_character(character_id: UUID, expected_version: int) -> None:
-    async with CharactersRepository() as repo:
-        deleted = await repo.delete_character(character_id, expected_version)
+    async with UnitOfWork() as uow:
+        deleted = await uow.characters.delete_character(character_id, expected_version)
     if not deleted:
-        raise ConcurrencyError("character", str(character_id), expected_version)
+        raise ConcurrencyConflictException("character", str(character_id), expected_version)
 
 
 async def update_character(payload: Character, expected_version: int) -> Character:
-    async with UnitOfWork() as uow:
-        await uow.characters.update_character(payload, expected_version)
-        return await uow.characters.get_character_by_id(payload.character_id)
+    payload.bump()
+    try:
+        async with UnitOfWork() as uow:
+            updated = await uow.characters.update_character(payload, expected_version)
+            if not updated:
+                raise ConcurrencyConflictException(
+                    "character", str(payload.character_id), expected_version
+                )
+            return await uow.characters.get_character_by_id(payload.character_id)
+    except NoResultFound:
+        raise AggregateNotFoundException("character", str(payload.character_id))
 
 
 # Character queries
 async def get_character_by_id(character_id: UUID) -> Character:
-    async with CharactersRepository() as repo:
-        return await repo.get_character_by_id(character_id)
+    try:
+        async with UnitOfWork() as uow:
+            return await uow.characters.get_character_by_id(character_id)
+    except NoResultFound:
+        raise AggregateNotFoundException("character", str(character_id))
 
 
 async def list_characters(
@@ -50,8 +62,8 @@ async def list_characters(
 ) -> tuple[list[Character], str | None]:
     cursor = decode_page_token(pagination.next_token) if pagination.next_token else None
 
-    async with CharactersRepository() as repo:
-        rows, next_cursor = await repo.list_characters(
+    async with UnitOfWork() as uow:
+        rows, next_cursor = await uow.characters.list_characters(
             user_ids=user_ids,
             system=system,
             level_min=level_min,
@@ -65,5 +77,13 @@ async def list_characters(
 
 
 async def get_character_play_history(character_id: UUID) -> list[PlayRecord]:
-    async with CharactersRepository() as repo:
-        return await repo.get_character_play_history(character_id)
+    async with UnitOfWork() as uow:
+        return await uow.characters.get_character_play_history(character_id)
+
+
+async def get_owner(character_id: UUID) -> int:
+    try:
+        async with UnitOfWork() as uow:
+            return await uow.characters.get_owner_by_character_id(character_id)
+    except NoResultFound:
+        raise AggregateNotFoundException("character", str(character_id))

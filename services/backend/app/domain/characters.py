@@ -34,5 +34,5 @@ class Character:
 
     version_header: VersionHeader = field(default_factory=VersionHeader)
 
-    def _bump(self):
+    def bump(self):
         self.version_header.bump()

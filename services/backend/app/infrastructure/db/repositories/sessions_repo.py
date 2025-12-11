@@ -2,20 +2,25 @@ from uuid import UUID
 
 from qk_api_contracts.enums import GameSystem, ScheduleStatus, SignupRole
 from sqlalchemy import select, text, update
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.domain.sessions import Session, Signup
 from app.infrastructure.db.helpers import get_version_header
 from app.infrastructure.db.models.session import SessionORM, SignupORM
-from app.infrastructure.db.repositories._base import BaseRepository
 
 
-class SessionsRepository(BaseRepository):
+class SessionsRepository:
+    def __init__(self, session: AsyncSession | None = None):
+        self._session = session
+
     async def create_session(self, entity: Session) -> None:
         self._session.add(_session_domain_to_orm(entity))
 
     async def get_session(self, session_id: UUID, with_signups: bool = False) -> Session:
         session_row = (
-            await self._session.execute(select(SessionORM).where(SessionORM.session_id == session_id))
+            await self._session.execute(
+                select(SessionORM).where(SessionORM.session_id == session_id)
+            )
         ).scalar_one()
         session = _session_orm_to_domain(session_row)
 
